@@ -595,7 +595,7 @@ nav {
 .ig-mosaic {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: repeat(2, 200px);
+  grid-template-rows: 200px 200px;
   gap: 0.75rem;
 }
 .ig-tile {
@@ -603,6 +603,8 @@ nav {
   overflow: hidden; position: relative;
   background: var(--border);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
+  text-decoration: none;
+  display: block;
 }
 .ig-tile:hover { transform: scale(1.03); box-shadow: 0 12px 40px rgba(0,0,0,0.15); z-index: 2; }
 .ig-tile-large { grid-column: 1 / 3; grid-row: 1 / 3; border-radius: 20px; }
@@ -1144,73 +1146,71 @@ footer {
         </svg>
         @onomatopriya
       </a>
-      <div class="ig-note" style="margin-top:1.5rem;">
-        <strong>Note for site builders:</strong> To embed live Instagram posts on Squarespace or WordPress, use the built-in Instagram feed block (Squarespace) or a plugin like "Smash Balloon Social Photo Feed" (WordPress). These panels below show the visual concept — replace with the live widget when building.
-      </div>
     </div>
 
     <div class="reveal reveal-delay-2">
       <div class="ig-mosaic">
-        <!-- Large tile -->
-        <div class="ig-tile ig-tile-large">
+
+        <!-- Large tile — photo1 -->
+        <a href="https://www.instagram.com/onomatopriya/" target="_blank" class="ig-tile ig-tile-large">
           <div class="ig-tile-inner">
-            <div class="ig-bg pat-1">
-              <!-- leaf pattern SVG overlay -->
-              <svg width="100%" height="100%" viewBox="0 0 300 400" preserveAspectRatio="xMidYMid slice" style="position:absolute;inset:0;opacity:0.25">
-                <ellipse cx="80" cy="120" rx="60" ry="30" fill="none" stroke="white" stroke-width="1" transform="rotate(-30 80 120)"/>
-                <ellipse cx="200" cy="80" rx="50" ry="25" fill="none" stroke="white" stroke-width="1" transform="rotate(20 200 80)"/>
-                <ellipse cx="150" cy="250" rx="70" ry="35" fill="none" stroke="white" stroke-width="1" transform="rotate(-10 150 250)"/>
-                <ellipse cx="50" cy="320" rx="55" ry="28" fill="none" stroke="white" stroke-width="1" transform="rotate(40 50 320)"/>
-                <ellipse cx="250" cy="300" rx="45" ry="22" fill="none" stroke="white" stroke-width="1" transform="rotate(-20 250 300)"/>
-                <line x1="80" y1="120" x2="80" y2="180" stroke="white" stroke-width="0.8" opacity="0.5"/>
-                <line x1="200" y1="80" x2="200" y2="140" stroke="white" stroke-width="0.8" opacity="0.5"/>
-                <line x1="150" y1="250" x2="150" y2="330" stroke="white" stroke-width="0.8" opacity="0.5"/>
-              </svg>
-            </div>
+            <img src="photo1.jpg" alt="The city is alive and aglow" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
             <div class="ig-overlay"></div>
-            <div class="ig-label">Brooklyn Botanic Garden</div>
-            <div class="ig-caption ig-caption-large">Cherry blossoms and the particular quality of March light through the Japanese Hill-and-Pond Garden</div>
+            <div class="ig-label">NYC</div>
+            <div class="ig-caption ig-caption-large">THE CITY IS ALIVE AND AGLOW!! ✨</div>
           </div>
-        </div>
-        <!-- Small tile 1 -->
-        <div class="ig-tile">
+        </a>
+
+        <!-- Small tile — photo2 -->
+        <a href="https://www.instagram.com/onomatopriya/" target="_blank" class="ig-tile">
           <div class="ig-tile-inner">
-            <div class="ig-bg pat-2"></div>
+            <img src="photo2.jpg" alt="Everything is coming up roses" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
             <div class="ig-overlay"></div>
-            <div class="ig-label">Poetry</div>
-            <div class="ig-caption">A poem about the patience of rose hips past October</div>
+            <div class="ig-label">Garden</div>
+            <div class="ig-caption">everything is coming up… ROSES!</div>
           </div>
-        </div>
-        <!-- Small tile 2 -->
-        <div class="ig-tile">
-          <div class="ig-tile-inner" style="align-items:center;justify-content:center;padding:1rem;">
-            <div class="ig-bg pat-3"></div>
-            <div class="ig-label">Museum</div>
-            <div style="position:relative;z-index:2;text-align:center;">
-              <div style="font-family:var(--serif);font-style:italic;font-size:1.4rem;color:#fff;line-height:1.2;">Brooklyn<br>Museum</div>
-              <div style="font-size:0.7rem;color:rgba(255,255,255,0.65);margin-top:0.4rem;">Docent dispatch</div>
-            </div>
-          </div>
-        </div>
-        <!-- Small tile 3 -->
-        <div class="ig-tile">
+        </a>
+
+        <!-- Small tile — photo3 -->
+        <a href="https://www.instagram.com/onomatopriya/" target="_blank" class="ig-tile">
           <div class="ig-tile-inner">
-            <div class="ig-bg pat-4"></div>
+            <img src="photo3.jpg" alt="Elmo, these streets ain't Sesame" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
             <div class="ig-overlay"></div>
-            <div class="ig-label">Jane's Walk</div>
-            <div class="ig-caption">Eastern Parkway at golden hour — 1,000 steps, infinite details</div>
+            <div class="ig-label">Brooklyn</div>
+            <div class="ig-caption">elmo, "these streets ain't sesame!" 💙🧡</div>
           </div>
-        </div>
-        <!-- Small tile 4 -->
-        <div class="ig-tile">
-          <div class="ig-tile-inner" style="align-items:center;justify-content:center;">
-            <div class="ig-bg pat-5"></div>
-            <div style="position:relative;z-index:2;text-align:center;padding:1rem;">
-              <div style="font-size:2rem;margin-bottom:0.5rem;">🐀</div>
-              <div style="font-family:var(--serif);font-style:italic;font-size:0.9rem;color:rgba(255,255,255,0.8);">Just got my Rat Academy certificate</div>
-            </div>
+        </a>
+
+        <!-- Small tile — photo4 -->
+        <a href="https://www.instagram.com/onomatopriya/" target="_blank" class="ig-tile">
+          <div class="ig-tile-inner">
+            <img src="photo4.jpg" alt="Nuyorican Poets Cafe in Brooklyn" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
+            <div class="ig-overlay"></div>
+            <div class="ig-label">Culture</div>
+            <div class="ig-caption">NYC's hottest club: the unofficial Nuyorican Poets Cafe in Brooklyn</div>
           </div>
-        </div>
+        </a>
+
+        <!-- Small tile — photo5 -->
+        <a href="https://www.instagram.com/onomatopriya/" target="_blank" class="ig-tile">
+          <div class="ig-tile-inner">
+            <img src="photo5.jpg" alt="Spurs and Knicks NBA Finals" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
+            <div class="ig-overlay"></div>
+            <div class="ig-label">Basketball</div>
+            <div class="ig-caption">two decades of Spurs love meets a dozen years of NYC 🖤🩶💙🧡</div>
+          </div>
+        </a>
+
+        <!-- Small tile — photo6 -->
+        <a href="https://www.instagram.com/onomatopriya/" target="_blank" class="ig-tile">
+          <div class="ig-tile-inner">
+            <img src="photo6.jpg" alt="A bouquet in mint condition" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
+            <div class="ig-overlay"></div>
+            <div class="ig-label">Nature</div>
+            <div class="ig-caption">a bouquet in MINT condition 🍃</div>
+          </div>
+        </a>
+
       </div>
     </div>
   </div>
