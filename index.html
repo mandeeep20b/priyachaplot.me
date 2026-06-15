@@ -1,0 +1,1729 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Priyadarshini Chaplot — Researcher · Guide · Poetry Curator</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=Cabinet+Grotesk:wght@300;400;500;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<style>
+:root {
+  --ink: #1a1a1a;
+  --cream: #faf8f3;
+  --warm-white: #fffef9;
+
+  --terracotta: #c4603a;
+  --terracotta-mid: #e8845e;
+  --terracotta-pale: #fdeee7;
+
+  --sage: #4a7c59;
+  --sage-mid: #7aaa8a;
+  --sage-pale: #e8f2eb;
+
+  --gold: #c9922a;
+  --gold-pale: #fdf3e0;
+
+  --plum: #6b3f6b;
+  --plum-pale: #f2e8f2;
+
+  --sky: #2e7ab0;
+  --sky-pale: #e5f1fa;
+
+  --muted: #6b6560;
+  --border: rgba(26,26,26,0.1);
+
+  --serif: 'Playfair Display', Georgia, serif;
+  --display: 'Instrument Serif', Georgia, serif;
+  --sans: 'Cabinet Grotesk', system-ui, sans-serif;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--sans);
+  background: var(--cream);
+  color: var(--ink);
+  font-size: 16px;
+  line-height: 1.65;
+  overflow-x: hidden;
+  cursor: none;
+}
+
+/* CUSTOM CURSOR */
+.cursor {
+  width: 12px; height: 12px;
+  background: var(--terracotta);
+  border-radius: 50%;
+  position: fixed; top: 0; left: 0;
+  pointer-events: none; z-index: 9999;
+  transform: translate(-50%, -50%);
+  transition: transform 0.1s, background 0.3s, width 0.2s, height 0.2s;
+  mix-blend-mode: multiply;
+}
+.cursor-ring {
+  width: 40px; height: 40px;
+  border: 1px solid var(--terracotta);
+  border-radius: 50%;
+  position: fixed; top: 0; left: 0;
+  pointer-events: none; z-index: 9998;
+  transform: translate(-50%, -50%);
+  transition: transform 0.25s ease, border-color 0.3s, width 0.2s, height 0.2s;
+  opacity: 0.5;
+}
+body:has(a:hover) .cursor { background: var(--sage); width: 16px; height: 16px; }
+body:has(a:hover) .cursor-ring { border-color: var(--sage); width: 50px; height: 50px; }
+
+/* SCROLL REVEAL */
+.reveal {
+  opacity: 0;
+  transform: translateY(36px);
+  transition: opacity 0.75s ease, transform 0.75s ease;
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.reveal-delay-1 { transition-delay: 0.1s; }
+.reveal-delay-2 { transition-delay: 0.2s; }
+.reveal-delay-3 { transition-delay: 0.35s; }
+.reveal-delay-4 { transition-delay: 0.5s; }
+
+/* NAV */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 1.1rem 3rem;
+  background: rgba(250,248,243,0.88);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border);
+  transition: padding 0.3s;
+}
+.nav-logo {
+  font-family: var(--serif);
+  font-size: 1.05rem;
+  font-weight: 400;
+  color: var(--ink);
+  text-decoration: none;
+  letter-spacing: 0.01em;
+}
+.nav-logo .accent { color: var(--terracotta); font-style: italic; }
+.nav-links { display: flex; gap: 2rem; list-style: none; align-items: center; }
+.nav-links a {
+  font-size: 0.76rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--muted);
+  text-decoration: none;
+  position: relative;
+  padding-bottom: 2px;
+  transition: color 0.2s;
+}
+.nav-links a::after {
+  content: '';
+  position: absolute; bottom: 0; left: 0; right: 100%;
+  height: 1px;
+  background: var(--terracotta);
+  transition: right 0.25s ease;
+}
+.nav-links a:hover { color: var(--ink); }
+.nav-links a:hover::after { right: 0; }
+.nav-cta {
+  padding: 0.5rem 1.25rem;
+  background: var(--terracotta);
+  color: #fff !important;
+  border-radius: 100px;
+  font-size: 0.74rem !important;
+  font-weight: 500 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.08em !important;
+  transition: background 0.2s !important;
+}
+.nav-cta:hover { background: #a84e2e !important; }
+.nav-cta::after { display: none !important; }
+
+/* ── HERO ── */
+.hero {
+  min-height: 100vh;
+  padding: 8rem 3rem 4rem;
+  display: grid;
+  grid-template-columns: 1fr 480px;
+  gap: 3rem;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Floating blob backgrounds */
+.blob {
+  position: absolute;
+  border-radius: 60% 40% 70% 30% / 50% 60% 40% 70%;
+  filter: blur(60px);
+  opacity: 0.35;
+  pointer-events: none;
+  animation: blobFloat 12s ease-in-out infinite alternate;
+}
+.blob-1 { width: 500px; height: 400px; background: var(--terracotta-pale); top: -80px; right: -100px; animation-duration: 14s; }
+.blob-2 { width: 350px; height: 300px; background: var(--sage-pale); bottom: 0; left: -80px; animation-duration: 10s; animation-delay: -5s; }
+.blob-3 { width: 250px; height: 250px; background: var(--gold-pale); top: 40%; left: 40%; animation-duration: 18s; animation-delay: -3s; }
+
+@keyframes blobFloat {
+  0% { transform: translate(0,0) scale(1); }
+  100% { transform: translate(30px, 20px) scale(1.08); }
+}
+
+.hero-eyebrow {
+  display: inline-flex; align-items: center; gap: 0.6rem;
+  font-size: 0.72rem; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--sage); margin-bottom: 1.5rem;
+  background: var(--sage-pale);
+  padding: 0.35rem 0.9rem; border-radius: 100px;
+}
+.hero-eyebrow-dot { width: 6px; height: 6px; background: var(--sage); border-radius: 50%; animation: pulse 2s ease-in-out infinite; }
+@keyframes pulse { 0%, 100% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.4); opacity: 0.6; } }
+
+.hero h1 {
+  font-family: var(--serif);
+  font-size: clamp(3.2rem, 5.5vw, 6rem);
+  font-weight: 700;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  margin-bottom: 1.75rem;
+  color: var(--ink);
+}
+.hero h1 .line-italic { display: block; font-style: italic; font-weight: 400; color: var(--terracotta); }
+.hero h1 .line-outline {
+  display: block;
+  -webkit-text-stroke: 2px var(--ink);
+  color: transparent;
+  font-weight: 700;
+}
+.hero-tagline {
+  font-size: 1.05rem; color: var(--muted); line-height: 1.8; max-width: 500px; margin-bottom: 2.5rem;
+}
+.hero-tagline strong { color: var(--ink); font-weight: 500; }
+
+.hero-pills { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-bottom: 2.5rem; }
+.pill {
+  display: inline-flex; align-items: center; gap: 0.4rem;
+  padding: 0.4rem 0.9rem; border-radius: 100px;
+  font-size: 0.78rem; font-weight: 500; letter-spacing: 0.02em;
+  border: 1.5px solid currentColor;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.pill:hover { transform: translateY(-2px); box-shadow: 0 4px 16px rgba(0,0,0,0.1); }
+.pill-terra { color: var(--terracotta); background: var(--terracotta-pale); border-color: var(--terracotta); }
+.pill-sage  { color: var(--sage); background: var(--sage-pale); border-color: var(--sage); }
+.pill-gold  { color: var(--gold); background: var(--gold-pale); border-color: var(--gold); }
+.pill-plum  { color: var(--plum); background: var(--plum-pale); border-color: var(--plum); }
+.pill-sky   { color: var(--sky); background: var(--sky-pale); border-color: var(--sky); }
+
+.hero-ctas { display: flex; gap: 1rem; flex-wrap: wrap; }
+.btn-fill {
+  display: inline-block;
+  padding: 0.85rem 2rem; border-radius: 100px;
+  background: var(--ink); color: var(--cream);
+  font-size: 0.82rem; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase;
+  text-decoration: none; transition: background 0.2s, transform 0.2s;
+}
+.btn-fill:hover { background: var(--terracotta); transform: translateY(-2px); }
+.btn-outline {
+  display: inline-block;
+  padding: 0.85rem 2rem; border-radius: 100px;
+  border: 1.5px solid var(--ink); color: var(--ink);
+  font-size: 0.82rem; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase;
+  text-decoration: none; transition: border-color 0.2s, color 0.2s, transform 0.2s;
+}
+.btn-outline:hover { border-color: var(--sage); color: var(--sage); transform: translateY(-2px); }
+
+/* HERO RIGHT — Kinetic card */
+.hero-right { position: relative; display: flex; align-items: center; justify-content: center; }
+
+.persona-card {
+  width: 100%; max-width: 420px;
+  background: var(--warm-white);
+  border: 1.5px solid rgba(26,26,26,0.12);
+  border-radius: 24px;
+  padding: 2rem;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.08);
+  position: relative;
+  z-index: 2;
+  animation: cardFloat 6s ease-in-out infinite;
+}
+@keyframes cardFloat {
+  0%, 100% { transform: translateY(0) rotate(-0.5deg); }
+  50% { transform: translateY(-10px) rotate(0.5deg); }
+}
+.persona-card-back {
+  position: absolute; inset: 0;
+  border-radius: 24px;
+  z-index: 1;
+}
+.pcb-1 { background: var(--terracotta-pale); transform: rotate(3deg) translate(10px, 10px); border: 1.5px solid var(--terracotta); opacity: 0.5; }
+.pcb-2 { background: var(--sage-pale); transform: rotate(-2.5deg) translate(-8px, 14px); border: 1.5px solid var(--sage); opacity: 0.4; }
+
+.persona-initials {
+  width: 64px; height: 64px; border-radius: 50%;
+  background: linear-gradient(135deg, var(--terracotta), var(--plum));
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--serif); font-size: 1.4rem; color: #fff; font-weight: 700;
+  margin-bottom: 1.25rem;
+}
+.persona-name {
+  font-family: var(--serif); font-size: 1.35rem; font-weight: 700; margin-bottom: 0.2rem;
+}
+.persona-title { font-size: 0.8rem; color: var(--muted); margin-bottom: 1.5rem; }
+.persona-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 1.5rem; }
+.persona-tag {
+  font-size: 0.68rem; font-weight: 500; padding: 0.3rem 0.7rem; border-radius: 100px;
+}
+.persona-divider { height: 1px; background: var(--border); margin: 1.25rem 0; }
+.persona-stat-row { display: flex; gap: 1.25rem; }
+.persona-stat { text-align: center; }
+.persona-stat-n { font-family: var(--serif); font-size: 1.6rem; font-weight: 700; color: var(--terracotta); line-height: 1; }
+.persona-stat-l { font-size: 0.68rem; color: var(--muted); margin-top: 0.2rem; }
+
+/* ── MARQUEE STRIP ── */
+.marquee-strip {
+  background: var(--ink);
+  padding: 0.85rem 0;
+  overflow: hidden;
+  white-space: nowrap;
+}
+.marquee-track {
+  display: inline-block;
+  animation: marquee 28s linear infinite;
+}
+.marquee-track span {
+  font-size: 0.78rem; font-weight: 500; letter-spacing: 0.15em; text-transform: uppercase;
+  color: var(--cream); opacity: 0.7; margin: 0 2rem;
+}
+.marquee-track .dot {
+  display: inline-block; width: 5px; height: 5px;
+  background: var(--terracotta); border-radius: 50; margin: 0 1rem; vertical-align: middle; opacity: 1;
+}
+@keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+
+/* ── ABOUT ── */
+#about {
+  padding: 7rem 3rem;
+  background: var(--warm-white);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 6rem;
+  align-items: start;
+}
+.about-left {}
+.eyebrow {
+  display: inline-block;
+  font-size: 0.72rem; font-weight: 500; letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--terracotta); margin-bottom: 1rem;
+}
+.section-title {
+  font-family: var(--serif);
+  font-size: clamp(2rem, 3.5vw, 3.25rem);
+  font-weight: 700; line-height: 1.15; margin-bottom: 2rem;
+}
+.pullquote {
+  font-family: var(--display);
+  font-size: 1.35rem; font-style: italic; line-height: 1.65;
+  color: var(--ink);
+  padding: 1.75rem 2rem;
+  background: var(--terracotta-pale);
+  border-radius: 16px;
+  border-left: 4px solid var(--terracotta);
+  margin-bottom: 2rem;
+  position: relative;
+}
+.pullquote::before {
+  content: '\201C';
+  font-size: 5rem; line-height: 1; font-family: var(--serif);
+  color: var(--terracotta); opacity: 0.2;
+  position: absolute; top: -0.5rem; left: 1rem;
+}
+.about-body { font-size: 0.95rem; color: var(--muted); line-height: 1.9; margin-bottom: 1.25rem; }
+
+.stat-strip {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 1px; background: var(--border);
+  border: 1px solid var(--border); border-radius: 16px; overflow: hidden; margin-top: 2.5rem;
+}
+.stat-cell {
+  background: var(--cream); padding: 1.5rem 1.25rem; text-align: center;
+  transition: background 0.2s;
+}
+.stat-cell:hover { background: var(--terracotta-pale); }
+.stat-n {
+  font-family: var(--serif); font-size: 2.25rem; font-weight: 700;
+  color: var(--terracotta); line-height: 1; display: block;
+}
+.stat-l { font-size: 0.72rem; color: var(--muted); margin-top: 0.4rem; line-height: 1.4; }
+
+.about-right {}
+.cred-card {
+  background: var(--cream); border: 1.5px solid var(--border); border-radius: 20px;
+  overflow: hidden; position: sticky; top: 7rem;
+}
+.cred-header {
+  background: linear-gradient(135deg, var(--sage) 0%, var(--plum) 100%);
+  padding: 2rem; color: #fff;
+}
+.cred-header-name { font-family: var(--serif); font-size: 1.3rem; font-weight: 700; margin-bottom: 0.25rem; }
+.cred-header-role { font-size: 0.82rem; opacity: 0.85; }
+.cred-body { padding: 1.75rem; }
+.cred-section { margin-bottom: 1.5rem; }
+.cred-section:last-child { margin-bottom: 0; }
+.cred-label {
+  font-size: 0.65rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--muted); margin-bottom: 0.75rem;
+  display: flex; align-items: center; gap: 0.5rem;
+}
+.cred-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+.cred-item {
+  display: flex; gap: 0.65rem; align-items: flex-start;
+  font-size: 0.83rem; color: var(--ink); line-height: 1.55; padding: 0.4rem 0;
+}
+.cred-dot {
+  width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; margin-top: 0.45rem;
+}
+.dot-terra { background: var(--terracotta); }
+.dot-sage { background: var(--sage); }
+.dot-plum { background: var(--plum); }
+
+/* ── PROFESSIONAL ── */
+#professional {
+  padding: 7rem 3rem;
+  background: var(--cream);
+}
+.section-intro { max-width: 640px; margin-bottom: 4rem; }
+.section-intro p { font-size: 1rem; color: var(--muted); line-height: 1.85; margin-top: 1rem; }
+
+.services-bento {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  grid-template-rows: auto auto;
+  gap: 1rem;
+  margin-bottom: 5rem;
+}
+.bento-card {
+  padding: 2rem;
+  border-radius: 20px;
+  border: 1.5px solid var(--border);
+  background: var(--warm-white);
+  position: relative; overflow: hidden;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+.bento-card:hover { transform: translateY(-4px); box-shadow: 0 16px 48px rgba(0,0,0,0.09); }
+.bc-1 { grid-column: 1 / 4; grid-row: 1; background: var(--terracotta); color: #fff; border-color: transparent; }
+.bc-2 { grid-column: 4 / 7; grid-row: 1; }
+.bc-3 { grid-column: 1 / 3; grid-row: 2; background: var(--sage-pale); border-color: var(--sage-mid); }
+.bc-4 { grid-column: 3 / 5; grid-row: 2; background: var(--gold-pale); border-color: var(--gold); }
+.bc-5 { grid-column: 5 / 7; grid-row: 2; background: var(--plum-pale); border-color: var(--plum); }
+
+.bento-num {
+  font-size: 0.68rem; font-weight: 700; letter-spacing: 0.15em;
+  text-transform: uppercase; opacity: 0.5; margin-bottom: 1.25rem;
+  display: block;
+}
+.bento-title {
+  font-family: var(--serif); font-size: 1.35rem; font-weight: 700;
+  line-height: 1.25; margin-bottom: 0.75rem;
+}
+.bc-1 .bento-title { font-size: 1.7rem; }
+.bento-body { font-size: 0.84rem; line-height: 1.75; opacity: 0.8; }
+.bc-1 .bento-body { opacity: 0.9; }
+
+.bento-bg-circle {
+  position: absolute; width: 180px; height: 180px;
+  border-radius: 50%; opacity: 0.15;
+  bottom: -40px; right: -40px;
+}
+.bc-1 .bento-bg-circle { background: #fff; }
+
+/* Timeline */
+.timeline-header { margin-bottom: 2.5rem; }
+.timeline { display: flex; flex-direction: column; gap: 0; max-width: 820px; }
+.timeline-item {
+  display: grid; grid-template-columns: 90px 32px 1fr;
+  gap: 0 1.5rem; position: relative; padding-bottom: 2.5rem;
+}
+.timeline-item:last-child { padding-bottom: 0; }
+.t-date { font-size: 0.75rem; color: var(--muted); padding-top: 0.2rem; text-align: right; line-height: 1.5; }
+.t-line-col { display: flex; flex-direction: column; align-items: center; }
+.t-dot {
+  width: 14px; height: 14px; border-radius: 50%; flex-shrink: 0;
+  border: 2.5px solid #fff;
+  box-shadow: 0 0 0 2.5px var(--terracotta);
+  background: var(--terracotta);
+  margin-top: 0.2rem;
+}
+.t-line {
+  width: 2px; flex: 1; background: var(--border); margin-top: 6px;
+}
+.timeline-item:last-child .t-line { display: none; }
+.t-content { padding-bottom: 0.5rem; }
+.t-role { font-family: var(--serif); font-size: 1.1rem; font-weight: 700; margin-bottom: 0.2rem; }
+.t-org {
+  display: inline-block; font-size: 0.75rem; font-weight: 500;
+  padding: 0.2rem 0.65rem; border-radius: 100px;
+  background: var(--terracotta-pale); color: var(--terracotta);
+  margin-bottom: 0.75rem;
+}
+.t-desc { font-size: 0.84rem; color: var(--muted); line-height: 1.8; }
+
+/* ── PERSONAL / BROOKLYN ── */
+#personal {
+  padding: 7rem 3rem;
+  background: var(--ink);
+  color: var(--cream);
+  position: relative; overflow: hidden;
+}
+.personal-deco {
+  position: absolute; font-family: var(--serif); font-size: 20rem;
+  font-weight: 700; color: rgba(255,255,255,0.025);
+  right: -2rem; top: 0; line-height: 1; pointer-events: none;
+  font-style: italic;
+}
+#personal .eyebrow { color: var(--sage-mid); }
+#personal .section-title { color: var(--cream); }
+.personal-grid {
+  display: grid; grid-template-columns: 1fr 1.1fr; gap: 4rem; align-items: start;
+}
+.interest-list { display: flex; flex-direction: column; gap: 1px; }
+.interest-row {
+  display: flex; align-items: flex-start; gap: 1.5rem;
+  padding: 1.5rem;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+  transition: background 0.2s, border-color 0.2s;
+  cursor: default;
+}
+.interest-row:first-child { border-radius: 16px 16px 0 0; }
+.interest-row:last-child { border-radius: 0 0 16px 16px; }
+.interest-row:hover { background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.18); }
+.interest-icon {
+  width: 44px; height: 44px; border-radius: 12px; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 0.65rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
+}
+.ic-terra { background: var(--terracotta); color: #fff; }
+.ic-sage  { background: var(--sage); color: #fff; }
+.ic-gold  { background: var(--gold); color: #fff; }
+.ic-plum  { background: var(--plum); color: #fff; }
+.interest-title { font-family: var(--serif); font-size: 1.05rem; font-weight: 700; margin-bottom: 0.35rem; color: var(--cream); }
+.interest-body { font-size: 0.83rem; color: rgba(255,255,255,0.55); line-height: 1.75; }
+
+.nyc-programs-panel {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 20px; padding: 2rem; margin-top: 2rem;
+}
+.nyc-panel-title {
+  font-family: var(--serif); font-size: 1.1rem; color: var(--cream);
+  margin-bottom: 1.25rem; font-weight: 700;
+}
+.nyc-tag-cloud { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+.nyc-tag {
+  font-size: 0.78rem; padding: 0.4rem 0.85rem; border-radius: 100px;
+  border: 1px solid rgba(255,255,255,0.2);
+  color: rgba(255,255,255,0.7);
+  text-decoration: none;
+  transition: background 0.2s, color 0.2s, border-color 0.2s;
+  cursor: pointer;
+}
+.nyc-tag:hover { background: var(--sage); border-color: var(--sage); color: #fff; }
+
+/* Personal right column — quotes + tours */
+.personal-right-stack { display: flex; flex-direction: column; gap: 1.5rem; }
+.tour-feature-card {
+  border-radius: 20px; padding: 2rem;
+  border: 1.5px solid rgba(255,255,255,0.12);
+  background: rgba(255,255,255,0.05);
+  transition: background 0.2s;
+}
+.tour-feature-card:hover { background: rgba(255,255,255,0.09); }
+.tfc-eyebrow {
+  font-size: 0.65rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--sage-mid); margin-bottom: 0.75rem;
+}
+.tfc-title { font-family: var(--serif); font-size: 1.15rem; font-weight: 700; color: var(--cream); margin-bottom: 0.6rem; line-height: 1.3; }
+.tfc-body { font-size: 0.82rem; color: rgba(255,255,255,0.5); line-height: 1.75; margin-bottom: 1.25rem; }
+.tfc-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+.tfc-tag {
+  font-size: 0.68rem; padding: 0.25rem 0.65rem; border-radius: 100px;
+  background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.6);
+}
+.upcoming-block {
+  border-radius: 20px; overflow: hidden;
+  border: 1.5px solid rgba(255,255,255,0.1);
+}
+.ub-header {
+  padding: 1.25rem 1.75rem;
+  background: var(--terracotta);
+  font-size: 0.7rem; font-weight: 700; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(255,255,255,0.85);
+}
+.ub-row {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 1rem 1.75rem;
+  border-bottom: 1px solid rgba(255,255,255,0.07);
+  background: rgba(255,255,255,0.04);
+}
+.ub-row:last-child { border-bottom: none; }
+.ub-name { font-size: 0.85rem; font-weight: 500; color: var(--cream); }
+.ub-venue { font-size: 0.73rem; color: rgba(255,255,255,0.45); margin-top: 0.15rem; }
+.ub-date { font-size: 0.73rem; font-weight: 700; color: var(--terracotta-mid); white-space: nowrap; text-align: right; }
+
+/* ── INSTAGRAM ── */
+#instagram {
+  padding: 7rem 3rem;
+  background: var(--warm-white);
+}
+.ig-layout { display: grid; grid-template-columns: 340px 1fr; gap: 4rem; align-items: start; }
+.ig-intro {}
+.ig-handle {
+  display: inline-flex; align-items: center; gap: 0.6rem;
+  font-size: 0.9rem; font-weight: 500; color: var(--plum);
+  text-decoration: none; margin-top: 1.25rem;
+  padding: 0.6rem 1.25rem; border-radius: 100px;
+  border: 1.5px solid var(--plum); background: var(--plum-pale);
+  transition: background 0.2s, transform 0.2s;
+}
+.ig-handle:hover { background: var(--plum); color: #fff; transform: translateY(-2px); }
+.ig-handle-icon { width: 18px; height: 18px; }
+
+.ig-mosaic {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(2, 200px);
+  gap: 0.75rem;
+}
+.ig-tile {
+  border-radius: 16px;
+  overflow: hidden; position: relative;
+  background: var(--border);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.ig-tile:hover { transform: scale(1.03); box-shadow: 0 12px 40px rgba(0,0,0,0.15); z-index: 2; }
+.ig-tile-large { grid-column: 1 / 3; grid-row: 1 / 3; border-radius: 20px; }
+
+/* Illustrated placeholder tiles with color + text */
+.ig-tile-inner {
+  width: 100%; height: 100%;
+  display: flex; align-items: flex-end;
+  position: relative; overflow: hidden;
+  padding: 1.25rem;
+}
+.ig-bg { position: absolute; inset: 0; }
+.ig-caption {
+  position: relative; z-index: 2;
+  font-family: var(--display); font-style: italic;
+  color: rgba(255,255,255,0.92); font-size: 0.88rem;
+  line-height: 1.4; text-shadow: 0 1px 8px rgba(0,0,0,0.4);
+}
+.ig-caption-large { font-size: 1.15rem; }
+.ig-label {
+  position: absolute; top: 1rem; right: 1rem; z-index: 3;
+  font-size: 0.62rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
+  background: rgba(255,255,255,0.22); color: #fff; backdrop-filter: blur(4px);
+  padding: 0.25rem 0.6rem; border-radius: 100px;
+}
+.ig-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.55) 0%, transparent 60%); }
+
+/* pattern backgrounds for tiles */
+.pat-1 { background: linear-gradient(135deg, var(--sage) 0%, #2e5e40 100%); }
+.pat-2 { background: linear-gradient(135deg, var(--terracotta) 0%, var(--plum) 100%); }
+.pat-3 { background: linear-gradient(135deg, var(--gold) 0%, #e8845e 100%); }
+.pat-4 { background: linear-gradient(135deg, var(--sky) 0%, var(--plum) 100%); }
+.pat-5 { background: linear-gradient(135deg, #3d3d3d 0%, #1a1a1a 100%); }
+
+.ig-note {
+  margin-top: 1.5rem; font-size: 0.8rem; color: var(--muted); line-height: 1.7;
+  font-style: italic;
+  padding: 1rem 1.25rem; background: var(--sky-pale);
+  border-radius: 12px; border-left: 3px solid var(--sky);
+}
+
+/* ── POETRY CURATOR ── */
+#poetry {
+  padding: 7rem 3rem;
+  background: var(--cream);
+}
+.poetry-top {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; margin-bottom: 4rem;
+}
+.poetry-right {}
+#poetry .eyebrow { color: var(--plum); }
+.poetry-body { font-size: 0.95rem; color: var(--muted); line-height: 1.9; margin-bottom: 1.5rem; }
+.ig-follow-card {
+  background: linear-gradient(135deg, var(--plum) 0%, #3a1a4a 100%);
+  border-radius: 20px; padding: 2rem; color: #fff;
+  display: flex; align-items: center; gap: 1.5rem;
+}
+.ig-follow-avatar {
+  width: 56px; height: 56px; border-radius: 50%;
+  background: linear-gradient(135deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--serif); font-size: 1rem; color: #fff; font-weight: 700; flex-shrink: 0;
+}
+.ig-follow-handle { font-size: 1.05rem; font-weight: 700; }
+.ig-follow-sub { font-size: 0.78rem; opacity: 0.7; margin-top: 0.15rem; }
+.ig-follow-btn {
+  margin-left: auto; padding: 0.5rem 1.25rem; border-radius: 100px;
+  border: 1.5px solid rgba(255,255,255,0.5); color: #fff;
+  font-size: 0.75rem; font-weight: 500; letter-spacing: 0.06em; text-transform: uppercase;
+  text-decoration: none; flex-shrink: 0; white-space: nowrap;
+  transition: background 0.2s;
+}
+.ig-follow-btn:hover { background: rgba(255,255,255,0.15); }
+
+/* Poem of the Day widget */
+.potd-wrapper {
+  background: var(--ink);
+  border-radius: 28px;
+  overflow: hidden;
+  box-shadow: 0 32px 80px rgba(26,26,26,0.18);
+  position: relative;
+}
+.potd-header {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 1.25rem 2rem;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+.potd-badge {
+  display: flex; align-items: center; gap: 0.6rem;
+  font-size: 0.68rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--plum-pale);
+}
+.potd-badge-dot {
+  width: 8px; height: 8px; border-radius: 50%; background: var(--plum);
+  animation: pulse 2s ease-in-out infinite;
+}
+
+.potd-body {
+  padding: 2.5rem 2.5rem 2rem;
+  position: relative; overflow: hidden;
+  min-height: 280px;
+}
+.potd-body::before {
+  content: '\201C';
+  position: absolute; top: -1rem; left: 1.5rem;
+  font-size: 10rem; font-family: var(--serif); line-height: 1;
+  color: rgba(255,255,255,0.04); pointer-events: none;
+}
+.potd-poem-title {
+  font-family: var(--serif); font-size: 1.15rem; font-weight: 700;
+  color: #fff; margin-bottom: 0.3rem;
+  position: relative; z-index: 2;
+}
+.potd-poet-name {
+  font-size: 0.75rem; color: var(--plum-pale); margin-bottom: 1.5rem;
+  letter-spacing: 0.04em; position: relative; z-index: 2;
+}
+.potd-poem-text {
+  font-family: var(--display); font-style: italic;
+  font-size: 1.05rem; line-height: 2; color: rgba(255,255,255,0.82);
+  position: relative; z-index: 2;
+  transition: opacity 0.4s ease;
+}
+.potd-poem-text.fading { opacity: 0; }
+.potd-poem-note {
+  margin-top: 1.5rem; font-size: 0.75rem; color: rgba(255,255,255,0.3);
+  font-style: italic; position: relative; z-index: 2;
+  padding-top: 1rem; border-top: 1px solid rgba(255,255,255,0.07);
+}
+
+.potd-footer {
+  padding: 1rem 2rem;
+  border-top: 1px solid rgba(255,255,255,0.07);
+  display: flex; align-items: center; justify-content: space-between;
+  font-size: 0.72rem; color: rgba(255,255,255,0.3);
+}
+.potd-footer-note { font-style: italic; }
+.potd-shuffle-btn {
+  display: flex; align-items: center; gap: 0.5rem;
+  padding: 0.4rem 0.9rem; border-radius: 100px;
+  background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1);
+  color: rgba(255,255,255,0.5); font-family: var(--sans); font-size: 0.7rem;
+  font-weight: 500; cursor: pointer; transition: background 0.2s, color 0.2s;
+}
+.potd-shuffle-btn:hover { background: rgba(255,255,255,0.12); color: rgba(255,255,255,0.8); }
+.shuffle-icon { transition: transform 0.5s ease; }
+.potd-shuffle-btn:hover .shuffle-icon { transform: rotate(180deg); }
+
+/* ── CONTACT ── */
+#contact {
+  padding: 7rem 3rem;
+  background: var(--warm-white);
+}
+.contact-grid { display: grid; grid-template-columns: 1fr 1.1fr; gap: 5rem; align-items: start; }
+.contact-left {}
+.contact-blurb { font-size: 1rem; color: var(--muted); line-height: 1.85; margin-top: 1rem; margin-bottom: 2.5rem; }
+.contact-chips { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-bottom: 2.5rem; }
+.contact-chip {
+  display: flex; align-items: center; gap: 0.6rem;
+  padding: 0.65rem 1.25rem; border-radius: 12px;
+  font-size: 0.82rem; font-weight: 500;
+  border: 1.5px solid var(--border);
+  background: var(--cream);
+  text-decoration: none; color: var(--ink);
+  transition: transform 0.2s, border-color 0.2s, background 0.2s;
+}
+.contact-chip:hover { transform: translateY(-2px); border-color: var(--terracotta); background: var(--terracotta-pale); }
+.contact-chip-dot { width: 8px; height: 8px; border-radius: 50%; }
+
+.contact-form-card {
+  background: var(--cream); border: 1.5px solid var(--border);
+  border-radius: 24px; padding: 2.5rem;
+}
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+.form-field { display: flex; flex-direction: column; gap: 0.4rem; margin-bottom: 1.25rem; }
+.form-label { font-size: 0.7rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
+.form-input, .form-select, .form-textarea {
+  padding: 0.8rem 1rem;
+  border: 1.5px solid var(--border);
+  border-radius: 12px;
+  background: var(--warm-white);
+  font-family: var(--sans); font-size: 0.88rem; color: var(--ink);
+  outline: none; transition: border-color 0.2s, box-shadow 0.2s;
+}
+.form-input:focus, .form-select:focus, .form-textarea:focus {
+  border-color: var(--sage); box-shadow: 0 0 0 3px rgba(74,124,89,0.12);
+}
+.form-textarea { min-height: 120px; resize: vertical; }
+.form-select { cursor: pointer; appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23888' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 1rem center; }
+
+/* ── FOOTER ── */
+footer {
+  background: var(--ink); color: rgba(255,255,255,0.4);
+  padding: 2rem 3rem;
+  display: flex; justify-content: space-between; align-items: center;
+  font-size: 0.78rem; flex-wrap: wrap; gap: 0.75rem;
+}
+.footer-brand { font-family: var(--serif); font-style: italic; color: rgba(255,255,255,0.75); font-size: 1rem; }
+.footer-links { display: flex; gap: 1.5rem; }
+.footer-links a { color: rgba(255,255,255,0.4); text-decoration: none; transition: color 0.2s; }
+.footer-links a:hover { color: var(--terracotta-mid); }
+
+/* RESPONSIVE */
+@media (max-width: 960px) {
+  nav { padding: 1rem 1.5rem; }
+  .nav-links li:not(:last-child) { display: none; }
+  .hero, #about, .personal-grid, #poetry, .contact-grid, .ig-layout { grid-template-columns: 1fr; gap: 2.5rem; }
+  .hero { min-height: auto; padding: 6rem 1.5rem 3rem; }
+  .hero-right { display: none; }
+  #professional, #personal, #instagram, #poetry, #contact { padding: 4rem 1.5rem; }
+  #about { padding: 4rem 1.5rem; }
+  .services-bento { grid-template-columns: 1fr 1fr; }
+  .bc-1, .bc-2, .bc-3, .bc-4, .bc-5 { grid-column: auto; grid-row: auto; }
+  .ig-mosaic { grid-template-rows: repeat(2, 150px); }
+  .ig-tile-large { grid-column: 1 / 3; grid-row: 1; }
+}
+</style>
+</head>
+<body>
+
+<!-- Custom cursor -->
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="#home">Priya <span class="accent">Chaplot</span></a>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#professional">Work</a></li>
+    <li><a href="#personal">Brooklyn</a></li>
+    <li><a href="#instagram">Instagram</a></li>
+    <li><a href="#poetry">Poetry</a></li>
+    <li><a href="https://www.linkedin.com/in/onomatopriya" target="_blank" class="nav-cta">Let's Connect</a></li>
+  </ul>
+</nav>
+
+<!-- ── HERO ── -->
+<section class="hero" id="home">
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
+  <div class="blob blob-3"></div>
+
+  <div class="hero-text">
+    <div class="hero-eyebrow reveal">
+      <span class="hero-eyebrow-dot"></span>
+      Based in Brooklyn, NY
+    </div>
+    <h1 class="reveal reveal-delay-1">
+      <span>Education</span>
+      <span class="line-italic">reformer.</span>
+      <span class="line-outline">Curious</span>
+      <span>human.</span>
+    </h1>
+    <p class="hero-tagline reveal reveal-delay-2">
+      20 years helping colleges design for <strong>the whole student</strong>.
+      Weekends guiding walks through Brooklyn's most wondrous block,
+      writing poetry, and chasing the city's most <strong>delightfully niche programs</strong>.
+    </p>
+    <div class="hero-pills reveal reveal-delay-3">
+      <span class="pill pill-terra">VP of Strategy · NCII</span>
+      <span class="pill pill-sage">Brooklyn Museum Docent</span>
+      <span class="pill pill-gold">Botanic Garden Guide</span>
+      <span class="pill pill-plum">Poetry Curator</span>
+      <span class="pill pill-sky">Jane's Walk Leader</span>
+    </div>
+    <div class="hero-ctas reveal reveal-delay-4">
+      <a href="https://www.linkedin.com/in/onomatopriya" target="_blank" class="btn-fill">Professional Work</a>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <div class="persona-card-back pcb-1" style="position:absolute;width:380px;height:460px;top:30px;left:30px;border-radius:24px;background:var(--terracotta-pale);border:1.5px solid var(--terracotta);transform:rotate(3deg);opacity:.5;"></div>
+    <div class="persona-card-back pcb-2" style="position:absolute;width:380px;height:460px;top:14px;left:14px;border-radius:24px;background:var(--sage-pale);border:1.5px solid var(--sage);transform:rotate(-2deg);opacity:.4;"></div>
+    <div class="persona-card" style="position:relative;z-index:2;">
+      <div class="persona-initials">PC</div>
+      <div class="persona-name">Priyadarshini Chaplot</div>
+      <div class="persona-title">MBA · UC Berkeley · New York City</div>
+      <div class="persona-tags">
+        <span class="persona-tag" style="background:var(--terracotta-pale);color:var(--terracotta);">Higher Education</span>
+        <span class="persona-tag" style="background:var(--sage-pale);color:var(--sage);">Researcher</span>
+        <span class="persona-tag" style="background:var(--plum-pale);color:var(--plum);">Poetry Curator</span>
+        <span class="persona-tag" style="background:var(--gold-pale);color:var(--gold);">Guide</span>
+      </div>
+      <div class="persona-divider"></div>
+      <div class="persona-stat-row">
+        <div class="persona-stat"><div class="persona-stat-n">20+</div><div class="persona-stat-l">Years in Higher Ed</div></div>
+        <div class="persona-stat"><div class="persona-stat-n">500+</div><div class="persona-stat-l">Colleges Served</div></div>
+        <div class="persona-stat"><div class="persona-stat-n">45</div><div class="persona-stat-l">States Reached</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MARQUEE STRIP -->
+<div class="marquee-strip">
+  <div class="marquee-track">
+    <span>Higher Education Reform</span><span class="dot"></span>
+    <span>Brooklyn Museum</span><span class="dot"></span>
+    <span>Guided Pathways</span><span class="dot"></span>
+    <span>Brooklyn Botanic Garden</span><span class="dot"></span>
+    <span>Student Financial Stability</span><span class="dot"></span>
+    <span>Jane's Walk NYC</span><span class="dot"></span>
+    <span>Poetry & Nature</span><span class="dot"></span>
+    <span>Trash Academy</span><span class="dot"></span>
+    <span>Rat Academy</span><span class="dot"></span>
+    <span>Citizen Pruners</span><span class="dot"></span>
+    <!-- repeat for seamless loop -->
+    <span>Higher Education Reform</span><span class="dot"></span>
+    <span>Brooklyn Museum</span><span class="dot"></span>
+    <span>Guided Pathways</span><span class="dot"></span>
+    <span>Brooklyn Botanic Garden</span><span class="dot"></span>
+    <span>Student Financial Stability</span><span class="dot"></span>
+    <span>Jane's Walk NYC</span><span class="dot"></span>
+    <span>Poetry & Nature</span><span class="dot"></span>
+    <span>Trash Academy</span><span class="dot"></span>
+    <span>Rat Academy</span><span class="dot"></span>
+    <span>Citizen Pruners</span><span class="dot"></span>
+  </div>
+</div>
+
+<!-- ── ABOUT ── -->
+<section id="about">
+  <div class="about-left reveal">
+    <span class="eyebrow">About Priya</span>
+    <h2 class="section-title">Whole student.<br>Whole city.<br>Whole self.</h2>
+    <div class="pullquote">
+      "I'm passionate about how institutions can support the whole student — by design, not just by chance."
+    </div>
+    <p class="about-body">Priya brings two decades of higher education expertise and a genuine love for New York's cultural fabric to everything she does. At NCII, she helps community colleges advance redesign efforts — from guided pathways to student financial stability — with a practitioner's lens and a researcher's rigor.</p>
+    <p class="about-body">In Brooklyn, she's equally at home leading a slow walk down Eastern Parkway, identifying cherry varieties at the Botanic Garden, or attending the Rat Academy "just to see what it's like." Born in California, trained at UC Berkeley and Cal Poly Pomona, now deeply rooted in Brooklyn.</p>
+    <div class="stat-strip">
+      <div class="stat-cell"><span class="stat-n">20+</span><div class="stat-l">Years in Higher Education</div></div>
+      <div class="stat-cell"><span class="stat-n">500+</span><div class="stat-l">Colleges Reached via NCII</div></div>
+      <div class="stat-cell"><span class="stat-n">45</span><div class="stat-l">States Served</div></div>
+    </div>
+  </div>
+  <div class="about-right reveal reveal-delay-2">
+    <div class="cred-card">
+      <div class="cred-header">
+        <div class="cred-header-name">Priyadarshini Chaplot, MBA</div>
+        <div class="cred-header-role">Vice President of Strategy · National Center for Inquiry & Improvement</div>
+      </div>
+      <div class="cred-body">
+        <div class="cred-section">
+          <div class="cred-label">Education</div>
+          <div class="cred-item"><span class="cred-dot dot-terra"></span>MBA — California Polytechnic University, Pomona</div>
+          <div class="cred-item"><span class="cred-dot dot-terra"></span>BA, Psychology — University of California, Berkeley</div>
+        </div>
+        <div class="cred-section">
+          <div class="cred-label">Professional Roles</div>
+          <div class="cred-item"><span class="cred-dot dot-sage"></span>VP of Strategy, NCII (2013–present)</div>
+          <div class="cred-item"><span class="cred-dot dot-sage"></span>Director of Professional Development, RP Group — CA Community Colleges</div>
+          <div class="cred-item"><span class="cred-dot dot-sage"></span>Institutional Researcher & Instructor, Mt. San Antonio College</div>
+        </div>
+        <div class="cred-section">
+          <div class="cred-label">Core Focus Areas</div>
+          <div class="cred-item"><span class="cred-dot dot-plum"></span>Guided Pathways Reform</div>
+          <div class="cred-item"><span class="cred-dot dot-plum"></span>Student Financial Stability & Basic Needs</div>
+          <div class="cred-item"><span class="cred-dot dot-plum"></span>Community College Transformation</div>
+          <div class="cred-item"><span class="cred-dot dot-plum"></span>Practitioner Resource Development</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── PROFESSIONAL ── -->
+<section id="professional">
+  <div class="section-intro reveal">
+    <span class="eyebrow">Professional</span>
+    <h2 class="section-title">How Priya can<br>support your institution</h2>
+    <p>With two decades of hands-on research, strategy, and practitioner development, Priya brings a distinctive blend of analytical rigor and human-centered thinking to every engagement.</p>
+  </div>
+
+  <div class="services-bento reveal reveal-delay-1">
+    <div class="bento-card bc-1">
+      <div class="bento-bg-circle"></div>
+      <span class="bento-num">01</span>
+      <h3 class="bento-title">Guided Pathways Consulting</h3>
+      <p class="bento-body">Partnering with faculty, staff, and administrators to advance institutional redesign. From diagnostic assessment to implementation support — helping colleges create structured, student-centered pathways.</p>
+    </div>
+    <div class="bento-card bc-2">
+      <span class="bento-num">02</span>
+      <h3 class="bento-title">Student Financial Stability</h3>
+      <p class="bento-body">Embedding basic needs support and affordability into institutional design. Author of NCII's Student Financial Stability Resource Series.</p>
+    </div>
+    <div class="bento-card bc-3">
+      <span class="bento-num">03</span>
+      <h3 class="bento-title">Research & Strategy</h3>
+      <p class="bento-body">Translating institutional data into actionable strategy, bridging evidence and real-world implementation.</p>
+    </div>
+    <div class="bento-card bc-4">
+      <span class="bento-num">04</span>
+      <h3 class="bento-title">Practitioner Resources</h3>
+      <p class="bento-body">Developing guides and frameworks that equip college teams to lead change from within.</p>
+    </div>
+    <div class="bento-card bc-5">
+      <span class="bento-num">05</span>
+      <h3 class="bento-title">Speaking & Keynotes</h3>
+      <p class="bento-body">Thoughtful, evidence-backed presentations on student success, equity, and institutional design.</p>
+    </div>
+  </div>
+
+  <div class="timeline-header reveal">
+    <span class="eyebrow">Career</span>
+    <h2 class="section-title">A path built on<br>student success</h2>
+  </div>
+  <div class="timeline reveal reveal-delay-1">
+    <div class="timeline-item">
+      <div class="t-date">2013 –<br>Present</div>
+      <div class="t-line-col"><div class="t-dot"></div><div class="t-line"></div></div>
+      <div class="t-content">
+        <div class="t-role">Vice President of Strategy</div>
+        <span class="t-org">National Center for Inquiry & Improvement (NCII)</span>
+        <p class="t-desc">Leading strategy for a national consultancy serving 500+ colleges in 45 states. Focuses on guided pathways, student financial stability, and practitioner-focused resource development. Develops and delivers direct-to-college customized support and multi-college initiatives. Co-author of the Student Financial Stability Resource Series.</p>
+      </div>
+    </div>
+    <div class="timeline-item">
+      <div class="t-date">Pre–2013</div>
+      <div class="t-line-col"><div class="t-dot" style="box-shadow: 0 0 0 2.5px var(--sage); background: var(--sage);"></div><div class="t-line"></div></div>
+      <div class="t-content">
+        <div class="t-role">Director of Professional Development & Senior Researcher</div>
+        <span class="t-org" style="background:var(--sage-pale);color:var(--sage);">RP Group for California Community Colleges</span>
+        <p class="t-desc">Led professional development programming and applied research to support institutional improvement across California's community college system.</p>
+      </div>
+    </div>
+    <div class="timeline-item">
+      <div class="t-date">Early<br>Career</div>
+      <div class="t-line-col"><div class="t-dot" style="box-shadow: 0 0 0 2.5px var(--plum); background: var(--plum);"></div><div class="t-line"></div></div>
+      <div class="t-content">
+        <div class="t-role">Institutional Researcher & Instructor</div>
+        <span class="t-org" style="background:var(--plum-pale);color:var(--plum);">Mt. San Antonio College, Walnut CA</span>
+        <p class="t-desc">Began her higher education journey at Mt. SAC — first as a proud student, then as an institutional researcher and instructor. This ground-level perspective continues to shape how she supports colleges and the students they serve.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── PERSONAL / BROOKLYN ── -->
+<section id="personal">
+  <div class="personal-deco">Brooklyn</div>
+  <div style="margin-bottom:3.5rem;" class="reveal">
+    <span class="eyebrow">Personal</span>
+    <h2 class="section-title">A curious life<br>in Brooklyn</h2>
+  </div>
+  <div class="personal-grid">
+    <div class="reveal">
+      <div class="interest-list">
+        <div class="interest-row">
+          <div class="interest-icon ic-terra">Art</div>
+          <div>
+            <div class="interest-title">Docent · Brooklyn Museum</div>
+            <p class="interest-body">Trained docent guiding visitors through one of the country's great art institutions, bringing the same attention to context and story that defines Priya's professional work.</p>
+          </div>
+        </div>
+        <div class="interest-row">
+          <div class="interest-icon ic-sage">Bot</div>
+          <div>
+            <div class="interest-title">Guide · Brooklyn Botanic Garden</div>
+            <p class="interest-body">A volunteer guide who knows the difference between cherry varieties and which magnolias bloom first. Leads visitors through the garden with naturalist wonder.</p>
+          </div>
+        </div>
+        <div class="interest-row">
+          <div class="interest-icon ic-gold">Walk</div>
+          <div>
+            <div class="interest-title">Jane's Walk Leader · MAS NYC</div>
+            <p class="interest-body">Leads public neighborhood walks for the Municipal Art Society. Her signature: a single block of Eastern Parkway that holds the Brooklyn Museum, Botanic Garden, Mount Prospect, and Public Library — explored slowly, together.</p>
+          </div>
+        </div>
+        <div class="interest-row">
+          <div class="interest-icon ic-plum">Poem</div>
+          <div>
+            <div class="interest-title">Poetry Curator · <a href="https://www.instagram.com/onomatopriya/" target="_blank" style="color:var(--plum);text-decoration:none;border-bottom:1px solid var(--plum);">@onomatopriya</a></div>
+            <p class="interest-body">A devoted reader and sharer of poems. Priya curates poetry that finds the lyrical in the everyday — nature, city life, and the overlooked. Her Instagram is a living anthology of the verses that move her.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="nyc-programs-panel" style="margin-top:1.5rem;">
+        <div class="nyc-panel-title">NYC Programs She Loves (That You've Never Heard Of)</div>
+        <div class="nyc-tag-cloud">
+          <a href="https://www.sanitationfoundation.org/trash-academy" target="_blank" class="nyc-tag">🗑 Trash Academy</a>
+          <a href="https://www.nyc.gov/site/doh/services/rats-control-training.page" target="_blank" class="nyc-tag">🐀 Rat Academy</a>
+          <a href="https://treesny.org/citizen-pruners-stewardship/" target="_blank" class="nyc-tag">✂️ Citizen Pruners</a>
+          <a href="https://www.nycgovparks.org/programs/rangers" target="_blank" class="nyc-tag">🌲 Urban Park Rangers</a>
+          <a href="https://nyccommunitycompostnetwork.org/" target="_blank" class="nyc-tag">♻️ Community Composting</a>
+          <a href="https://www.mas.org/" target="_blank" class="nyc-tag">🚶 Jane's Walk NYC</a>
+          <a href="https://gogreenbk.org/brooklyn-botanic-garden-greenbridge/" target="_blank" class="nyc-tag">🌸 GreenBridge Programs</a>
+          <a href="https://nycbeekeeper.com/" target="_blank" class="nyc-tag">🐝 NYC Beekeeper Collective</a>
+        </div>
+      </div>
+    </div>
+
+    <div class="personal-right-stack reveal reveal-delay-2">
+      <div class="upcoming-block" id="upcoming-events-block">
+        <div class="ub-header">
+          Upcoming Events
+          <span id="ub-loading" style="float:right;font-size:0.65rem;opacity:0.6;font-weight:400;letter-spacing:0.05em;">Loading...</span>
+        </div>
+        <div id="ub-rows">
+          <!-- Populated dynamically from Google Sheet -->
+        </div>
+        <div id="ub-empty" style="display:none;padding:1.25rem 1.75rem;font-size:0.82rem;color:rgba(255,255,255,0.4);font-style:italic;">
+          No upcoming events right now — check back soon.
+        </div>
+        <div id="ub-error" style="display:none;padding:1rem 1.75rem;font-size:0.75rem;color:rgba(255,255,255,0.3);font-style:italic;">
+          ⚠ Could not load events. Please set up the Google Sheet (see instructions below).
+        </div>
+      </div>
+      <div class="upcoming-block">
+        <div class="ub-header" style="background:var(--muted);">Past Events</div>
+        <div class="ub-row">
+          <div><div class="ub-name">The Longest Short Walk in Brooklyn</div><div class="ub-venue">Jane's Walk NYC · Annual · MAS · Eastern Parkway</div></div>
+          <div class="ub-date" style="color:rgba(255,255,255,0.35);">Annual</div>
+        </div>
+        <div class="ub-row">
+          <div><div class="ub-name">A Bountiful Block in Brooklyn!</div><div class="ub-venue">Jane's Walk NYC · MAS · with Mandeep Brahmbhatt</div></div>
+          <div class="ub-date" style="color:rgba(255,255,255,0.35);">Annual</div>
+        </div>
+        <div style="padding:0.85rem 1.75rem;font-size:0.75rem;color:rgba(255,255,255,0.4);font-style:italic;border-top:1px solid rgba(255,255,255,0.07);">Both walks are available for small groups on an ad-hoc basis — reach out to arrange.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── INSTAGRAM ── -->
+<section id="instagram">
+  <div class="ig-layout">
+    <div class="reveal">
+      <span class="eyebrow" style="color:var(--plum);">Instagram</span>
+      <h2 class="section-title">Follow the<br>journey</h2>
+      <p style="font-size:0.95rem;color:var(--muted);line-height:1.85;margin-top:1rem;margin-bottom:1.75rem;">Priya's Instagram, <em>@onomatopriya</em>, is where professional curiosity meets personal wonder — poems from the garden, observations from the museum floor, and the occasional Rat Academy dispatch.</p>
+      <a href="https://www.instagram.com/onomatopriya/" target="_blank" class="ig-handle">
+        <svg class="ig-handle-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75">
+          <rect x="2" y="2" width="20" height="20" rx="5"/>
+          <circle cx="12" cy="12" r="5"/>
+          <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/>
+        </svg>
+        @onomatopriya
+      </a>
+      <div class="ig-note" style="margin-top:1.5rem;">
+        <strong>Note for site builders:</strong> To embed live Instagram posts on Squarespace or WordPress, use the built-in Instagram feed block (Squarespace) or a plugin like "Smash Balloon Social Photo Feed" (WordPress). These panels below show the visual concept — replace with the live widget when building.
+      </div>
+    </div>
+
+    <div class="reveal reveal-delay-2">
+      <div class="ig-mosaic">
+        <!-- Large tile -->
+        <div class="ig-tile ig-tile-large">
+          <div class="ig-tile-inner">
+            <div class="ig-bg pat-1">
+              <!-- leaf pattern SVG overlay -->
+              <svg width="100%" height="100%" viewBox="0 0 300 400" preserveAspectRatio="xMidYMid slice" style="position:absolute;inset:0;opacity:0.25">
+                <ellipse cx="80" cy="120" rx="60" ry="30" fill="none" stroke="white" stroke-width="1" transform="rotate(-30 80 120)"/>
+                <ellipse cx="200" cy="80" rx="50" ry="25" fill="none" stroke="white" stroke-width="1" transform="rotate(20 200 80)"/>
+                <ellipse cx="150" cy="250" rx="70" ry="35" fill="none" stroke="white" stroke-width="1" transform="rotate(-10 150 250)"/>
+                <ellipse cx="50" cy="320" rx="55" ry="28" fill="none" stroke="white" stroke-width="1" transform="rotate(40 50 320)"/>
+                <ellipse cx="250" cy="300" rx="45" ry="22" fill="none" stroke="white" stroke-width="1" transform="rotate(-20 250 300)"/>
+                <line x1="80" y1="120" x2="80" y2="180" stroke="white" stroke-width="0.8" opacity="0.5"/>
+                <line x1="200" y1="80" x2="200" y2="140" stroke="white" stroke-width="0.8" opacity="0.5"/>
+                <line x1="150" y1="250" x2="150" y2="330" stroke="white" stroke-width="0.8" opacity="0.5"/>
+              </svg>
+            </div>
+            <div class="ig-overlay"></div>
+            <div class="ig-label">Brooklyn Botanic Garden</div>
+            <div class="ig-caption ig-caption-large">Cherry blossoms and the particular quality of March light through the Japanese Hill-and-Pond Garden</div>
+          </div>
+        </div>
+        <!-- Small tile 1 -->
+        <div class="ig-tile">
+          <div class="ig-tile-inner">
+            <div class="ig-bg pat-2"></div>
+            <div class="ig-overlay"></div>
+            <div class="ig-label">Poetry</div>
+            <div class="ig-caption">A poem about the patience of rose hips past October</div>
+          </div>
+        </div>
+        <!-- Small tile 2 -->
+        <div class="ig-tile">
+          <div class="ig-tile-inner" style="align-items:center;justify-content:center;padding:1rem;">
+            <div class="ig-bg pat-3"></div>
+            <div class="ig-label">Museum</div>
+            <div style="position:relative;z-index:2;text-align:center;">
+              <div style="font-family:var(--serif);font-style:italic;font-size:1.4rem;color:#fff;line-height:1.2;">Brooklyn<br>Museum</div>
+              <div style="font-size:0.7rem;color:rgba(255,255,255,0.65);margin-top:0.4rem;">Docent dispatch</div>
+            </div>
+          </div>
+        </div>
+        <!-- Small tile 3 -->
+        <div class="ig-tile">
+          <div class="ig-tile-inner">
+            <div class="ig-bg pat-4"></div>
+            <div class="ig-overlay"></div>
+            <div class="ig-label">Jane's Walk</div>
+            <div class="ig-caption">Eastern Parkway at golden hour — 1,000 steps, infinite details</div>
+          </div>
+        </div>
+        <!-- Small tile 4 -->
+        <div class="ig-tile">
+          <div class="ig-tile-inner" style="align-items:center;justify-content:center;">
+            <div class="ig-bg pat-5"></div>
+            <div style="position:relative;z-index:2;text-align:center;padding:1rem;">
+              <div style="font-size:2rem;margin-bottom:0.5rem;">🐀</div>
+              <div style="font-family:var(--serif);font-style:italic;font-size:0.9rem;color:rgba(255,255,255,0.8);">Just got my Rat Academy certificate</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── POETRY CURATOR ── -->
+<section id="poetry">
+
+  <!-- Top: framing text + IG follow -->
+  <div class="poetry-top">
+    <div class="reveal">
+      <span class="eyebrow">Poetry</span>
+      <h2 class="section-title">A curator of<br>poems that matter</h2>
+      <p class="poetry-body">Priya is not a poet — she's something rarer: a devoted reader who finds the exact poem for the exact moment. Her Instagram, <em>@onomatopriya</em>, is a living anthology: verses about nature, Brooklyn, slowness, and the overlooked corners of the world.</p>
+      <p class="poetry-body">Below, a poem Priya loves — drawn at random from her curated collection. Every poem here earned its place.</p>
+    </div>
+    <div class="reveal reveal-delay-2">
+      <div class="ig-follow-card" style="margin-bottom:1.5rem;">
+        <div class="ig-follow-avatar">PC</div>
+        <div>
+          <div class="ig-follow-handle">@onomatopriya</div>
+          <div class="ig-follow-sub">Poetry curation · Nature · Brooklyn Life</div>
+        </div>
+        <a href="https://www.instagram.com/onomatopriya/" target="_blank" class="ig-follow-btn">Follow</a>
+      </div>
+      <p style="font-size:0.8rem;color:var(--muted);line-height:1.7;font-style:italic;padding:1rem 1.25rem;background:var(--plum-pale);border-radius:12px;border-left:3px solid var(--plum);">The handle <em>onomatopriya</em> is itself a small poem — a word that sounds like what it is. Her name, made lyrical.</p>
+    </div>
+  </div>
+
+  <!-- Poem of the Day widget -->
+  <div class="potd-wrapper reveal">
+
+    <div class="potd-header">
+      <div class="potd-badge">
+        <span class="potd-badge-dot"></span>
+        Poem of the Day
+      </div>
+    </div>
+
+    <div class="potd-body">
+      <div class="potd-poem-title" id="potd-title">—</div>
+      <div class="potd-poet-name" id="potd-poet">—</div>
+      <div class="potd-poem-text" id="potd-text">—</div>
+      <div class="potd-poem-note" id="potd-note">—</div>
+    </div>
+
+    <div class="potd-footer">
+      <span class="potd-footer-note">Curated by Priya · Updated regularly</span>
+      <button class="potd-shuffle-btn" onclick="shufflePoem()">
+        <span class="shuffle-icon">↺</span> Surprise me
+      </button>
+    </div>
+
+  </div>
+
+  <!-- Site builder note -->
+  <p style="margin-top:1.5rem;font-size:0.78rem;color:var(--muted);font-style:italic;text-align:center;">
+    <strong>For Priya (site management):</strong> Poems are stored in the <code style="font-style:normal;background:rgba(0,0,0,0.06);padding:0.1rem 0.4rem;border-radius:4px;">POEMS</code> list in the page script — simply add, remove, or edit entries to update the collection. No coding skills required beyond copy-and-paste.
+  </p>
+
+</section>
+
+<!-- ── CONTACT ── -->
+<section id="contact">
+  <div class="contact-grid">
+    <div class="contact-left reveal">
+      <span class="eyebrow">Let's Connect</span>
+      <h2 class="section-title">Start a<br>conversation</h2>
+      <p class="contact-blurb">Whether you're exploring a consulting engagement, want to book a tour, know of a delightfully niche NYC program, or simply want to say hello — Priya would love to hear from you.</p>
+      <div class="contact-chips">
+        <a href="https://www.linkedin.com/in/onomatopriya/" target="_blank" class="contact-chip">
+          <span class="contact-chip-dot" style="background:var(--sky)"></span>LinkedIn
+        </a>
+        <a href="https://www.instagram.com/onomatopriya/" target="_blank" class="contact-chip">
+          <span class="contact-chip-dot" style="background:var(--plum)"></span>Instagram
+        </a>
+        <a href="https://ncii-improve.com/team/" target="_blank" class="contact-chip">
+          <span class="contact-chip-dot" style="background:var(--sage)"></span>NCII Profile
+        </a>
+      </div>
+      <div style="padding:1.75rem;background:var(--sage-pale);border-radius:20px;border:1.5px solid var(--sage-mid);">
+        <div style="font-size:0.7rem;font-weight:700;letter-spacing:0.15em;text-transform:uppercase;color:var(--sage);margin-bottom:0.75rem;">Fun fact</div>
+        <p style="font-size:0.88rem;color:var(--ink);line-height:1.8;font-style:italic;">Priya also loves hearing about unusual NYC programs, academies, and civic initiatives. If you know of a Trash Academy equivalent she hasn't attended yet, that's a great opener.</p>
+      </div>
+    </div>
+
+    <div class="contact-form-card reveal reveal-delay-2">
+      <h3 style="font-family:var(--serif);font-size:1.4rem;font-weight:700;margin-bottom:1.75rem;">Send a message</h3>
+      <div class="form-row">
+        <div class="form-field">
+          <label class="form-label">First name</label>
+          <input class="form-input" type="text" placeholder="Your first name">
+        </div>
+        <div class="form-field">
+          <label class="form-label">Last name</label>
+          <input class="form-input" type="text" placeholder="Your last name">
+        </div>
+      </div>
+      <div class="form-field">
+        <label class="form-label">Email address</label>
+        <input class="form-input" type="email" placeholder="you@example.com">
+      </div>
+      <div class="form-field">
+        <label class="form-label">I'm reaching out about</label>
+        <select class="form-select">
+          <option>Consulting or research engagement</option>
+          <option>Tour or walk inquiry</option>
+          <option>Speaking or keynote</option>
+          <option>A niche NYC program recommendation 🗑</option>
+          <option>Something else entirely</option>
+        </select>
+      </div>
+      <div class="form-field">
+        <label class="form-label">Message</label>
+        <textarea class="form-textarea" placeholder="Tell Priya a little about your inquiry…"></textarea>
+      </div>
+      <button class="btn-fill" style="width:100%;text-align:center;border:none;cursor:pointer;font-size:0.85rem;">Send Message →</button>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <span class="footer-brand">Priyadarshini Chaplot</span>
+  <div class="footer-links">
+    <a href="https://www.linkedin.com/in/onomatopriya/" target="_blank">LinkedIn</a>
+    <a href="https://www.instagram.com/onomatopriya/" target="_blank">@onomatopriya</a>
+    <a href="https://ncii-improve.com/team/" target="_blank">NCII</a>
+  </div>
+  <span>Brooklyn, New York · 2026</span>
+</footer>
+
+<script>
+// Custom cursor
+const cursor = document.getElementById('cursor');
+const ring = document.getElementById('cursorRing');
+let mx = 0, my = 0, rx = 0, ry = 0;
+document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
+function animateCursor() {
+  cursor.style.left = mx + 'px'; cursor.style.top = my + 'px';
+  rx += (mx - rx) * 0.12; ry += (my - ry) * 0.12;
+  ring.style.left = rx + 'px'; ring.style.top = ry + 'px';
+  requestAnimationFrame(animateCursor);
+}
+animateCursor();
+
+// Scroll reveal
+const reveals = document.querySelectorAll('.reveal');
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
+}, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+reveals.forEach(el => observer.observe(el));
+
+// Hero stagger on load
+window.addEventListener('load', () => {
+  document.querySelectorAll('.hero .reveal').forEach((el, i) => {
+    setTimeout(() => el.classList.add('visible'), 150 + i * 120);
+  });
+});
+
+// Pill hover color cycling
+const pills = document.querySelectorAll('.nyc-tag');
+pills.forEach(p => {
+  p.addEventListener('mouseenter', () => { p.style.transition = 'all 0.2s'; });
+});
+
+// ── UPCOMING EVENTS — Google Sheet loader ──
+//
+// SETUP INSTRUCTIONS FOR PRIYA:
+// 1. Create a new Google Sheet at sheets.google.com
+// 2. Name the columns in row 1 exactly as:
+//    Event Name | Venue | Date | Time | Link
+// 3. Fill in rows below — one event per row. Leave Link blank if no URL.
+// 4. Click File → Share → Publish to web
+//    → Choose "Entire Document" and "Comma-separated values (.csv)"
+//    → Click Publish and copy the URL
+// 5. Paste that URL below, replacing the placeholder text inside the quotes.
+//
+// To update events: just edit the sheet. The website refreshes automatically.
+// To remove an event: delete its row.
+// To hide an event temporarily: add a # at the start of the Event Name.
+
+const SHEET_CSV_URL = "YOUR_GOOGLE_SHEET_CSV_URL_HERE";
+// Example (replace with your own):
+// const SHEET_CSV_URL = "https://docs.google.com/spreadsheets/d/e/XXXX/pub?output=csv";
+
+async function loadUpcomingEvents() {
+  const rowsEl   = document.getElementById('ub-rows');
+  const emptyEl  = document.getElementById('ub-empty');
+  const errorEl  = document.getElementById('ub-error');
+  const loadEl   = document.getElementById('ub-loading');
+
+  // If sheet URL hasn't been configured yet, show fallback static events
+  if (!SHEET_CSV_URL || SHEET_CSV_URL.startsWith("YOUR_")) {
+    loadEl.style.display = 'none';
+    renderStaticFallback(rowsEl);
+    return;
+  }
+
+  try {
+    const res = await fetch(SHEET_CSV_URL);
+    if (!res.ok) throw new Error('fetch failed');
+    const text = await res.text();
+    const rows = parseCSV(text);
+
+    loadEl.style.display = 'none';
+
+    // Skip header row, filter out hidden rows (starting with #), filter blanks
+    const events = rows.slice(1).filter(r =>
+      r[0] && r[0].trim() && !r[0].trim().startsWith('#')
+    );
+
+    if (events.length === 0) {
+      emptyEl.style.display = 'block';
+      return;
+    }
+
+    events.forEach(r => {
+      const [name, venue, date, time, link] = r.map(c => (c || '').trim());
+      const row = document.createElement('div');
+      row.className = 'ub-row';
+      const dateDisplay = time ? `${date}<br><span style="font-weight:400;opacity:0.7">${time}</span>` : date;
+      const nameDisplay = link
+        ? `<a href="${link}" target="_blank" style="color:inherit;text-decoration:underline;text-decoration-color:rgba(255,255,255,0.3)">${name}</a>`
+        : name;
+      row.innerHTML = `
+        <div>
+          <div class="ub-name">${nameDisplay}</div>
+          ${venue ? `<div class="ub-venue">${venue}</div>` : ''}
+        </div>
+        <div class="ub-date">${dateDisplay}</div>`;
+      rowsEl.appendChild(row);
+    });
+
+  } catch(e) {
+    loadEl.style.display = 'none';
+    errorEl.style.display = 'block';
+    renderStaticFallback(rowsEl);
+  }
+}
+
+function renderStaticFallback(container) {
+  // Shown before the Sheet is connected — keeps the panel looking populated
+  const fallback = [
+    { name: "Brooklyn Museum Docent Tours", venue: "Brooklyn Museum · Various Galleries", date: "Ongoing" },
+    { name: "Brooklyn Botanic Garden Walks", venue: "Brooklyn Botanic Garden", date: "Seasonal" }
+  ];
+  fallback.forEach(e => {
+    const row = document.createElement('div');
+    row.className = 'ub-row';
+    row.innerHTML = `<div><div class="ub-name">${e.name}</div><div class="ub-venue">${e.venue}</div></div><div class="ub-date">${e.date}</div>`;
+    container.appendChild(row);
+  });
+}
+
+function parseCSV(text) {
+  // Handles quoted fields with commas inside them
+  const rows = [];
+  const lines = text.split(/\r?\n/);
+  lines.forEach(line => {
+    if (!line.trim()) return;
+    const cols = [];
+    let cur = '', inQ = false;
+    for (let i = 0; i < line.length; i++) {
+      const ch = line[i];
+      if (ch === '"') { inQ = !inQ; }
+      else if (ch === ',' && !inQ) { cols.push(cur); cur = ''; }
+      else { cur += ch; }
+    }
+    cols.push(cur);
+    rows.push(cols);
+  });
+  return rows;
+}
+
+loadUpcomingEvents();
+
+// ── POEM OF THE DAY ──
+// Priya: to add a poem, copy one entry block and paste it before the final ];
+// Each entry needs: title, poet, lines (\n = line break, \n\n = stanza break), and note.
+const POEMS = [
+  { title: "Aimless Love", poet: "Billy Collins", lines: "This morning as I walked along the lakeshore,\nI fell in love with a wren\nand later in the day with a mouse\nthe cat had dropped under the dining room table.\nIn the shadows of an autumn evening,\nI fell for a seamstress\nstill at her machine in the tailor's window,\nand later for a bowl of broth,\nsteam rising like smoke from a naval battle.\nThis is the best kind of love, I thought,\nwithout recompense, without gifts,\nor unkind words, without suspicion,\nor silence on the telephone.\nThe love of the chestnut,\nthe jazz cap and one hand on the wheel.\nNo lust, no slam of the door —\nthe love of the miniature orange tree,\nthe clean white shirt, the hot evening shower,\nthe highway that cuts across Florida.\nNo waiting, no huffiness, or rancor —\njust a twinge every now and then\nfor the wren who had built her nest\non a low branch overhanging the water\nand for the dead mouse,\nstill dressed in its light brown suit.\nBut my heart is always propped up\nin a field on its tripod,\nready for the next arrow.\nAfter I carried the mouse by the tail\nto a pile of leaves in the woods,\nI found myself standing at the bathroom sink\ngazing down affectionately at the soap,\nso patient and soluble,\nso at home in its pale green soap dish.\nI could feel myself falling again\nas I felt its turning in my wet hands\nand caught the scent of lavender and stone.", note: "Billy Collins · Curated by Priya" },
+
+  { title: "Good Bones", poet: "Maggie Smith", lines: "Life is short, though I keep this from my children.\nLife is short, and I've shortened mine\nin a thousand delicious, ill-advised ways,\na thousand deliciously ill-advised ways\nI'll keep from my children. The world is at least\nfifty percent terrible, and that's a conservative\nestimate, though I keep this from my children.\nFor every bird there is a stone thrown at a bird.\nFor every loved child, a child broken, bagged,\nsunk in a lake. Life is short and the world\nis at least half terrible, and for every kind\nstranger, there is one who would break you,\nthough I keep this from my children. I am trying\nto sell them the world. Any decent realtor,\nwalking you through a real shithole, chirps on\nabout good bones: This place could be beautiful,\nright? You could make this place beautiful.", note: "Maggie Smith · Curated by Priya" },
+
+  { title: "Be of Use", poet: "Marge Piercy", lines: "The people I love the best\njump into work head first\nwithout dallying in the shallows\nand swim off with sure strokes almost out of sight.\nThey seem to become natives of that element,\nthe black sleek heads of seals\nbouncing like half-submerged balls.\n\nI love people who harness themselves, an ox to a heavy cart,\nwho pull like water buffalo, with massive patience,\nwho strain in the mud and the muck to move things forward,\nwho do what has to be done, again and again.\n\nI want to be with people who submerge\nin the task, who go into the fields to harvest\nand work in a row and pass the bags along,\nwho are not parlor generals and field deserters\nbut move in a common rhythm\nwhen the food must come in or the fire be put out.\n\nThe work of the world is common as mud.\nBotched, it smears the hands, crumbles to dust.\nBut the thing worth doing well done\nhas a shape that satisfies, clean and evident.\nGreek amphoras for wine or oil,\nHopi vases that held corn, are put in museums\nbut you know they were made to be used.\nThe pitcher cries for water to carry\nand a person for work that is real.", note: "Marge Piercy · Curated by Priya" },
+
+  { title: "Sonku", poet: "Lucille Clifton", lines: "his heart, they said, was\nthree times the normal size.\nyes, i said, i know.", note: "Lucille Clifton · Curated by Priya" },
+
+  { title: "Today", poet: "Billy Collins", lines: "If ever there were a spring day so perfect,\nso uplifted by a warm intermittent breeze\n\nthat it made you want to throw\nopen all the windows in the house\n\nand unlatch the door to the canary's cage,\nindeed, rip the little door from its jamb,\n\na day when the cool brick paths\nand the garden bursting with peonies\n\nseemed so etched in sunlight\nthat you felt like taking\n\na hammer to the glass paperweight\non the living room end table,\n\nreleasing the inhabitants\nfrom their snow-covered cottage\n\nso they could walk out,\nholding hands and squinting\n\ninto this larger dome of blue and white,\nwell, today is just that kind of day.", note: "Billy Collins · Curated by Priya" },
+
+  { title: "My Species", poet: "Jane Hirshfield", lines: "even\na small purple artichoke\nboiled\nin its own bittered\nand darkening\nwaters\ngrows tender,\ngrows tender and sweet\n\npatience, I think,\nmy species\n\nkeep testing the spiny leaves\n\nthe spiny heart", note: "Jane Hirshfield · Curated by Priya" },
+
+  { title: "No Explosions", poet: "Naomi Shihab Nye", lines: "To enjoy\nfireworks\nyou would have\nto have lived\na different kind\nof life", note: "Naomi Shihab Nye · Curated by Priya" },
+
+  { title: "The Shortest and Sweetest of Songs", poet: "George MacDonald", lines: "Come / Home.", note: "George MacDonald · Curated by Priya" },
+
+  { title: "Shadow Race", poet: "Shel Silverstein", lines: "Every time I've raced my shadow\nWhen the sun was at my back,\nIt always ran ahead of me,\nAlways got the best of me.\nBut every time I've raced my shadow\nWhen my face was toward the sun,\nI won.", note: "Shel Silverstein · Curated by Priya" },
+
+  { title: "Perfect Song", poet: "Heather Christle", lines: "I remember walking through the morning\nafter a night of heavy snow and drink\nwith headphones on and they played\nme the most perfect song: no one\nwas awake and I was hungover\nyoung as clean as a piano\nI thought and at any moment\nsomeone might fall in love with me I was\nthat woven into the electric\ncold bright air and for weeks\nafter I went through the album\nin search of the song but could not\nfind it and later much later I saw\nthat what I had taken to be the song\nwas in fact the joyous concordance of\na moment that would not come again", note: "Heather Christle · Curated by Priya" },
+
+  { title: "I Know You Love Manhattan But You Should Look Up More Often", poet: "Ariel Francisco", lines: "That same sky that once delivered a bright\nyellow bird at your feet like the morning\npaper, a bundle of bloodied feathers\nthat would have smashed against your head\nif you'd been walking just a step faster.\nSo what if the sun hasn't come out to speak\nto you in days? Even under winter's\ntightest fist some light still slips through\nto you, and isn't that a miracle?", note: "Ariel Francisco · Curated by Priya" },
+
+  { title: "Joseph Heller", poet: "Kurt Vonnegut", lines: "True story, Word of Honor:\nJoseph Heller, an important and funny writer\nnow dead,\nand I were at a party given by a billionaire\non Shelter Island.\nI said, \"Joe, how does it make you feel\nto know that our host only yesterday\nmay have made more money\nthan your novel 'Catch-22'\nhas earned in its entire history?\"\nAnd Joe said, \"I've got something he can never have.\"\nAnd I said, \"What on earth could that be, Joe?\"\nAnd Joe said, \"The knowledge that I've got enough.\"\nNot bad! Rest in peace!", note: "Kurt Vonnegut · Curated by Priya" },
+
+  { title: "Our Real Work", poet: "Wendell Berry", lines: "It may be that when we no longer know what to do\nwe have come to our real work,\nand that when we no longer know which way to go\nwe have come to our real journey.\nThe mind that is not baffled is not employed.\nThe impeded stream is the one that sings.", note: "Wendell Berry · Curated by Priya" },
+
+  { title: "Poem Number Two on Bell's Theorem", poet: "June Jordan", lines: "There is no chance that we will fall apart\nThere is no chance\nThere are no parts.", note: "June Jordan · Curated by Priya" },
+
+  { title: "Storage", poet: "Mary Oliver", lines: "When I moved from one house to another\nthere were many things I had no room\nfor. What does one do? I rented a storage\nspace. And filled it. Years passed.\nOccasionally I went there and looked in,\nbut nothing happened, not a single\ntwinge of the heart.\n\nAs I grew older the things I cared\nabout grew fewer, but were more\nimportant. So one day I undid the lock\nand called the trash man. He took\neverything.\n\nI felt like the little donkey when\nhis burden is finally lifted. Things!\nBurn them, burn them! Make a beautiful\nfire! More room in your heart for love,\nfor the trees! For the birds who own\nnothing—the reason they can fly.", note: "Mary Oliver · Curated by Priya" },
+
+  { title: "Everything Is Waiting for You", poet: "David Whyte", lines: "Your great mistake is to act the drama\nas if you were alone. As if life\nwere a progressive and cunning crime\nwith no witness to the tiny hidden\ntransgressions. To feel abandoned is to deny\nthe intimacy of your surroundings. Surely,\neven you, at times, have felt the grand array;\nthe swelling presence, and the chorus, crowding\nout your solo voice. You must note\nthe way the soap dish enables you,\nor the window latch grants you freedom.\nAlertness is the hidden discipline of familiarity.\nThe stairs are your mentor of things\nto come, the doors have always been there\nto frighten you and invite you,\nand the tiny speaker in the phone\nis your dream-ladder to divinity.\n\nPut down the weight of your aloneness and ease into\nthe conversation. The kettle is singing\neven as it pours you a drink, the cooking pots\nhave left their arrogant aloofness and\nseen the good in you at last. All the birds\nand creatures of the world are unutterably\nthemselves. Everything is waiting for you.", note: "David Whyte · Curated by Priya" },
+
+  { title: "Instructions on Not Giving Up", poet: "Ada Limón", lines: "More than the fuchsia funnels breaking out\nof the crabapple tree, more than the neighbor's\nalmost obscene display of cherry limbs shoving\ntheir cotton candy-colored blossoms to the slate\nsky of Spring rains, it's the greening of the trees\nthat really gets to me. When all the shock of white\nand taffy, the world's baubles and trinkets, leave\nthe pavement strewn with the confetti of aftermath,\nthe leaves come. Patient, plodding, a green skin\ngrowing over whatever winter did to us, a return\nto the strange idea of continuous living despite\nthe mess of us, the hurt, the empty. Fine then,\nI'll take it, the tree seems to say, a new slick leaf\nunfurling like a fist to an open palm, I'll take it all.", note: "Ada Limón · Curated by Priya" },
+
+  { title: "Optimism", poet: "Jane Hirshfield", lines: "More and more I have come to admire resilience.\nNot the simple resistance of a pillow, whose foam\nreturns over and over to the same shape, but the sinuous\ntenacity of a tree: finding the light newly blocked on one side,\nit turns in another. A blind intelligence, true.\nBut out of such persistence arose turtles, rivers,\nmitochondria, figs—all this resinous, unretractable earth.", note: "Jane Hirshfield · Curated by Priya" },
+
+  { title: "Don't Hesitate", poet: "Mary Oliver", lines: "If you suddenly and unexpectedly feel joy, don't hesitate. Give in to it. There are plenty of lives and whole towns destroyed or about to be. We are not wise, and not very often kind. And much can never be redeemed. Still life has some possibility left. Perhaps this is its way of fighting back, that sometimes something happened better than all the riches or power in the world. It could be anything, but very likely you notice it in the instant when love begins. Anyway, that's often the case. Anyway, whatever it is, don't be afraid of its plenty. Joy is not made to be a crumb.", note: "Mary Oliver · Curated by Priya" },
+
+  { title: "Don't Go into the Library", poet: "Alberto Ríos", lines: "The library is dangerous—\nDon't go in. If you do\nYou know what will happen.\nIt's like a pet store or a bakery—\nEvery single time you'll come out of there\nHolding something in your arms.\nThose novels with their big eyes.\nAnd those no-nonsense, all muscle\nGreyhounds and Dobermans,\nAll non-fiction and business,\nCuddly when they're young,\nBut then the first page is turned.\nThe doughnut scent of it all, knowledge,\nThe aroma of coffee being made\nIn all those books, something for everyone,\nThe deli offerings of civilization itself.\nThe library is the book of books,\nIts concrete and wood and glass covers\nKeeping within them the very big,\nVery long story of everything.\nThe library is dangerous, full\nOf answers. If you go inside,\nYou may not come out\nThe same person who went in.", note: "Alberto Ríos · Curated by Priya" },
+
+  { title: "A Time to Talk", poet: "Robert Frost", lines: "When a friend calls to me from the road\nAnd slows his horse to a meaning walk,\nI don't stand still and look around\nOn all the hills I haven't hoed,\nAnd shout from where I am, What is it?\nNo, not as there is a time to talk.\nI thrust my hoe in the mellow ground,\nBlade-end up and five feet tall,\nAnd plod: I go up to the stone wall\nFor a friendly visit.", note: "Robert Frost · Curated by Priya" },
+
+  { title: "Meteor Shower", poet: "Clint Smith", lines: "I read somewhere that meteor showers\nare almost always named after\n\nthe constellations from which\nthey originate. It's funny, I think,\n\nhow even the universe is telling us\nthat we can never get too far\n\nfrom the place that created us.\nHow there is always a streak of our past\n\ntrailing closely behind us\nlike a smattering of obstinate memories.\n\nEven when we enter a new atmosphere,\nbecome subsumed in flames, turn to dust,\n\nlose ourselves in the wind, and scatter\nthe surface of all that rests beneath us,\n\nwe bring a part of where we are from\nto every place we go.", note: "Clint Smith · Curated by Priya" },
+
+  { title: "A Poem of Friendship", poet: "Nikki Giovanni", lines: "We are not lovers\nbecause of the love\nwe make\nbut the love\nwe have\n\nWe are not friends\nbecause of the laughs\nwe spend\nbut the tears\nwe save\n\nI don't want to be near you\nfor the thoughts we share\nbut the words we never have\nto speak\n\nI will never miss you\nbecause of what we do\nbut what we are\nTogether", note: "Nikki Giovanni · Curated by Priya" },
+
+  { title: "Someday I'll Love Ocean Vuong", poet: "Ocean Vuong", lines: "Ocean, don't be afraid.\nThe end of the road is so far ahead\nit is already behind us.\nDon't worry. Your father is only your father\nuntil one of you forgets. Like how the spine\nwon't remember its wings\nno matter how many times our knees\nkiss the pavement. Ocean,\nare you listening? The most beautiful part\nof your body is wherever\nyour mother's shadow falls.\nHere's the house with childhood\nwhittled down to a single red trip wire.\nDon't worry. Just call it horizon\n& you'll never reach it.\nHere's today. Jump. I promise it's not\na lifeboat. Here's the man\nwhose arms are wide enough to gather\nyour leaving. & here the moment,\njust after the lights go out, when you can still see\nthe faint torch between his legs.\nHow you use it again & again\nto find your own hands.\nYou asked for a second chance\n& are given a mouth to empty out of.\nDon't be afraid, the gunfire\nis only the sound of people\ntrying to live a little longer\n& failing. Ocean. Ocean —\nget up. The most beautiful part of your body\nis where it's headed. & remember,\nloneliness is still time spent\nwith the world. Here's\nthe room with everyone in it.\nYour dead friends passing\nthrough you like wind\nthrough a wind chime. Here's a desk\nwith the gimp leg & a brick\nto make it last. Yes, here's a room\nso warm & blood-close,\nI swear, you will wake —\n& mistake these walls\nfor skin.", note: "Ocean Vuong · Curated by Priya" },
+
+  { title: "Keeping Quiet", poet: "Pablo Neruda", lines: "Now we will count to twelve\nand we will all keep still\nfor once on the face of the earth,\nlet's not speak in any language;\nlet's stop for a second,\nand not move our arms so much.\n\nIt would be an exotic moment\nwithout rush, without engines;\nwe would all be together\nin a sudden strangeness.\n\nFishermen in the cold sea\nwould not harm whales\nand the man gathering salt\nwould not look at his hurt hands.\n\nThose who prepare green wars,\nwars with gas, wars with fire,\nvictories with no survivors,\nwould put on clean clothes\nand walk about with their brothers\nin the shade, doing nothing.\n\nWhat I want should not be confused\nwith total inactivity.\n\nLife is what it is about...\nIf we were not so single-minded\nabout keeping our lives moving,\nand for once could do nothing,\nperhaps a huge silence\nmight interrupt this sadness\nof never understanding ourselves\nand of threatening ourselves with death.\n\nNow I'll count up to twelve\nand you keep quiet and I will go.", note: "Pablo Neruda · Curated by Priya" },
+
+  { title: "Small Kindnesses", poet: "Danusha Laméris", lines: "I've been thinking about the way, when you walk\ndown a crowded aisle, people pull in their legs\nto let you by. Or how strangers still say \"bless you\"\nwhen someone sneezes, a leftover\nfrom the Bubonic plague. \"Don't die,\" we are saying.\nAnd sometimes, when you spill lemons\nfrom your grocery bag, someone else will help you\npick them up. Mostly, we don't want to harm each other.\nWe want to be handed our cup of coffee hot,\nand to say thank you to the person handing it. To smile\nat them and for them to smile back. For the waitress\nto call us honey when she sets down the bowl of clam chowder,\nand for the driver in the red pick-up truck to let us pass.\nWe have so little of each other, now. So far\nfrom tribe and fire. Only these brief moments of exchange.\nWhat if they are the true dwelling of the holy, these\nfleeting temples we make together when we say, \"Here,\nhave my seat,\" \"Go ahead — you first,\" \"I like your hat.\"", note: "Danusha Laméris · Curated by Priya" },
+
+  { title: "Paul Robeson", poet: "Gwendolyn Brooks", lines: "That time\nwe all heard it,\ncool and clear,\ncutting across the hot grit of the day.\nThe major Voice.\nThe adult Voice\nforgoing Rolling River,\nforgoing tearful tale of bale and barge\nand other symptoms of an old despond.\nWarning, in music-words\ndevout and large,\nthat we are each other's\nharvest:\nwe are each other's\nbusiness:\nwe are each other's\nmagnitude and bond.", note: "Gwendolyn Brooks · Curated by Priya" },
+
+  { title: "Kindness", poet: "Naomi Shihab Nye", lines: "Before you know what kindness really is\nyou must lose things,\nfeel the future dissolve in a moment\nlike salt in a weakened broth.\nWhat you held in your hand,\nwhat you counted and carefully saved,\nall this must go so you know\nhow desolate the landscape can be\nbetween the regions of kindness.\n\nBefore you learn the tender gravity of kindness\nyou must travel where the Indian in a white poncho\nlies dead by the side of the road.\nYou must see how this could be you,\nhow he too was someone\nwho journeyed through the night with plans\nand the simple breath that kept him alive.\n\nBefore you know kindness as the deepest thing inside,\nyou must know sorrow as the other deepest thing.\nYou must wake up with sorrow.\nYou must speak to it till your voice\ncatches the thread of all sorrows\nand you see the size of the cloth.\nThen it is only kindness that makes sense anymore,\nonly kindness that ties your shoes\nand sends you out into the day to gaze at bread,\nonly kindness that raises its head\nfrom the crowd of the world to say\nIt is I you have been looking for,\nand then goes with you everywhere\nlike a shadow or a friend.", note: "Naomi Shihab Nye · Curated by Priya" },
+
+  { title: "What You Missed That Day You Were Absent from Fourth Grade", poet: "Brad Aaron Modlin", lines: "Mrs. Nelson explained how to stand still and listen\nto the wind, how to find meaning in pumping gas,\n\nhow peeling potatoes can be a form of prayer. She took\nquestions on how not to feel lost in the dark\n\nAfter lunch she distributed worksheets\nthat covered ways to remember your grandfather's\n\nvoice. Then the class discussed falling asleep\nwithout feeling you had forgotten to do something else—\n\nsomething important—and how to believe\nthe house you wake in is your home. This prompted\n\nMrs. Nelson to draw a chalkboard diagram detailing\nhow to chant the Psalms during cigarette breaks,\n\nand how not to squirm for sound when your own thoughts\nare all you hear; also, that you have enough.\n\nThe English lesson was that I am\nis a complete sentence.\n\nAnd just before the afternoon bell, she made the math equation\nlook easy. The one that proves that hundreds of questions,\n\nand feeling cold, and all those nights spent looking\nfor whatever it was you lost, and one person\n\nadd up to something.", note: "Brad Aaron Modlin · Curated by Priya" },
+
+  { title: "Today, When I Could Do Nothing", poet: "Jane Hirshfield", lines: "Today, when I could do nothing,\nI saved an ant.\n\nIt must have come in with the morning paper,\nstill being delivered\nto those who shelter in place.\n\nA morning paper is still an essential service.\n\nI am not an essential service.\n\nI have coffee and books,\ntime,\na garden,\nsilence enough to fill cisterns.\n\nIt must have first walked\nthe morning paper, as if loosened ink\ntaking the shape of an ant.\n\nThen across the laptop computer — warm —\nthen onto the back of a cushion.\n\nSmall black ant, alone,\ncrossing a navy cushion,\nmoving steadily because that is what it could do.\n\nSet outside in the sun,\nit could not have found again its nest.\nWhat then did I save?\n\nIt did not move as if it was frightened,\neven while walking my hand,\nwhich moved it through swiftness and air.\n\nAnt, alone, without companions,\nwhose ant-heart I could not fathom—\nhow is your life, I wanted to ask.\n\nI lifted it, took it outside.\n\nThis first day when I could do nothing,\ncontribute nothing\nbeyond staying distant from my own kind,\nI did this.", note: "Jane Hirshfield · Curated by Priya" },
+
+  { title: "Imaginary Conversation", poet: "Linda Pastan", lines: "You tell me to live each day\nas if it were my last. This is in the kitchen\nwhere before coffee I complain\nof the day ahead—that obstacle race\nof minutes and hours,\ngrocery stores and doctors.\n\nBut why the last? I ask. Why not\nlive each day as if it were the first—\nall raw astonishment, Eve rubbing\nher eyes awake that first morning,\nthe sun coming up\nlike an ingénue in the east?\n\nYou grind the coffee\nwith the small roar of a mind\ntrying to clear itself. I set\nthe table, glance out the window\nwhere dew has baptized every\nliving surface.", note: "Linda Pastan · Curated by Priya" },
+
+  { title: "The Quiet World", poet: "Jeffrey McDaniel", lines: "In an effort to get people to look\ninto each other's eyes more,\nand also to appease the mutes,\nthe government has decided\nto allot each person exactly one hundred\nand sixty-seven words, per day.\n\nWhen the phone rings, I put it to my ear\nwithout saying hello. In the restaurant\nI point at chicken noodle soup.\nI am adjusting well to the new way.\n\nLate at night, I call my long distance lover,\nproudly say I only used fifty-nine today.\nI saved the rest for you.\nWhen she doesn't respond,\nI know she's used up all her words,\nso I slowly whisper I love you\nthirty-two and a third times.\nAfter that, we just sit on the line\nand listen to each other breathe.", note: "Jeffrey McDaniel · Curated by Priya" },
+
+  { title: "Poem Without an End", poet: "Yehuda Amichai (tr. Chana Bloch)", lines: "Inside the brand-new museum\nthere's an old synagogue.\nInside the synagogue\nis me.\nInside me\nmy heart.\nInside my heart\na museum.\nInside the museum\na synagogue,\ninside it\nme,\ninside me\nmy heart,\ninside my heart\na museum", note: "Yehuda Amichai · Curated by Priya" },
+
+  { title: "What I Didn't Know Before", poet: "Ada Limón", lines: "was how horses simply give birth to other\nhorses. Not a baby by any means, not\na creature of liminal spaces, but a four-legged\nbeast hellbent on walking, scrambling after\nthe mother. A horse gives way to another\nhorse and then suddenly there are two horses,\njust like that. That's how I loved you. You,\noff the long train from Red Bank carrying\na coffee as big as your arm, a bag with two\ncomputers swinging in it unwieldily at your\nside. I remember we broke into laughter\nwhen we saw each other. What was between\nus wasn't a fragile thing to be coddled, cooed\nover. It came out fully formed, ready to run.", note: "Ada Limón · Curated by Priya" },
+
+  { title: "There Are Mornings", poet: "Lisel Mueller", lines: "Even now, when the plot\ncalls for me to turn to stone,\nthe sun intervenes. Some mornings\nin summer, I step outside\nand the sky opens\nand pours itself into me\nas if I were a saint\nabout to die. But the plot\ncalls for me to live, be ordinary,\nsay nothing to anyone.\nInside the house,\nthe mirrors burn when I pass.", note: "Lisel Mueller · Curated by Priya" },
+
+  { title: "Quarantine", poet: "Eavan Boland", lines: "In the worst hour of the worst season of the worst year of a whole people\na man set out from the workhouse with his wife.\nHe was walking—they were both walking—north.\n\nShe was sick with famine fever and could not keep up.\nHe lifted her and put her on his back.\nHe walked like that west and west and north.\nUntil at nightfall under freezing stars they arrived.\n\nIn the morning they were both found dead.\nOf cold. Of hunger. Of the toxins of a whole history.\nBut her feet were held against his breastbone.\nThe last heat of his flesh was his last gift to her.\n\nLet no love poem ever come to this threshold.\nThere is no place here for the inexact\npraise of the easy graces and sensuality of the body.\nThere is only time for this merciless inventory:\n\nTheir death together in the winter of 1847.\nAlso what they suffered. How they lived.\nAnd what there is between a man and woman.\nAnd in which darkness it can best be proved.", note: "Eavan Boland · Curated by Priya" },
+
+  { title: "If to Say It Once", poet: "Gregory Orr", lines: "If to say it once\nAnd once only, then still\nTo say: Yes.\n\nAnd say it complete,\nSay it as if the word\nFilled the whole moment\nWith its absolute saying.\n\nLater for \"but,\"\nLater for \"if.\" Now\nOnly the single syllable\nThat is the beloved,\nThat is the world.", note: "Gregory Orr · Curated by Priya" },
+
+  { title: "How to Not Be a Perfectionist", poet: "Molly Brodak", lines: "People are vivid\nand small\nand don't live\nvery long—", note: "Molly Brodak · Curated by Priya" },
+
+  { title: "Little Prayer", poet: "Danez Smith", lines: "let ruin end here\nlet him find honey\nwhere there was once a slaughter\nlet him enter the lion's cage\n& find a field of lilacs\nlet this be the healing\n& if not\nlet it be", note: "Danez Smith · Curated by Priya" },
+
+  { title: "Options", poet: "Nayyirah Waheed", lines: "you do not have to be a fire\nfor\nevery mountain blocking you.\nyou could be a water\nand\nsoft river your way to freedom\ntoo.", note: "Nayyirah Waheed · Curated by Priya" },
+
+  { title: "Yes", poet: "William Stafford", lines: "It could happen any time, tornado,\nearthquake, Armageddon. It could happen.\nOr sunshine, love, salvation.\n\nIt could, you know. That's why we wake\nand look out — no guarantees\nin this life.\n\nBut some bonuses, like morning,\nlike right now, like noon,\nlike evening.", note: "William Stafford · Curated by Priya" },
+
+  { title: "To Be Alive", poet: "Gregory Orr", lines: "To be alive: not just the carcass\nBut the spark.\nThat's crudely put, but…\nIf we're not supposed to dance,\nWhy all this music?", note: "Gregory Orr · Curated by Priya" },
+
+  { title: "And the Days Are Not Full Enough", poet: "Ezra Pound", lines: "And the days are not full enough\nAnd the nights are not full enough\nAnd life slips by like a field mouse\n      Not shaking the grass", note: "Ezra Pound · Curated by Priya" },
+
+  { title: "Otherwise", poet: "Jane Kenyon", lines: "I got out of bed\non two strong legs.\nIt might have been\notherwise. I ate\ncereal, sweet\nmilk, ripe, flawless\npeach. It might\nhave been otherwise.\nI took the dog uphill\nto the birch wood.\nAll morning I did\nthe work I love.\n\nAt noon I lay down\nwith my mate. It might\nhave been otherwise.\nWe ate dinner together\nat a table with silver\ncandlesticks. It might\nhave been otherwise.\nI slept in a bed\nin a room with paintings\non the walls, and\nplanned another day\njust like this day.\nBut one day, I know,\nit will be otherwise.", note: "Jane Kenyon · Curated by Priya" },
+
+  { title: "The Orange", poet: "Wendy Cope", lines: "At lunchtime I bought a huge orange—\nThe size of it made us all laugh.\nI peeled it and shared it with Robert and Dave—\nThey got quarters and I had a half.\n\nAnd that orange, it made me so happy,\nAs ordinary things often do\nJust lately. The shopping. A walk in the park.\nThis is peace and contentment. It's new.\n\nThe rest of the day was quite easy.\nI did all the jobs on my list\nAnd enjoyed them and had some time over.\nI love you. I'm glad I exist.", note: "Wendy Cope · Curated by Priya" },
+
+  { title: "Keeping Things Whole", poet: "Mark Strand", lines: "In a field\nI am the absence\nof field.\nThis is\nalways the case.\nWherever I am\nI am what is missing.\n\nWhen I walk\nI part the air\nand always\nthe air moves in\nto fill the spaces\nwhere my body's been.\n\nWe all have reasons\nfor moving.\nI move\nto keep things whole.", note: "Mark Strand · Curated by Priya" },
+
+  { title: "Fresh", poet: "Naomi Shihab Nye", lines: "To move\ncleanly.\nNeeding to be\nnowhere else.\nWanting nothing\nfrom any store.\nTo lift something\nyou already had\nand set it down in\na new place.\nAwakened eye\nseeing freshly.\nWhat does that do to\nthe old blood moving through\nits channels?", note: "Naomi Shihab Nye · Curated by Priya" },
+
+  { title: "Foolishness? No, It's Not", poet: "Mary Oliver", lines: "Sometimes I spend all day trying to count\nthe leaves on a single tree. To do this I\nhave to climb branch by branch and\nwrite down the numbers in a little book.\nSo I suppose, from their point of view,\nit's reasonable that my friends say: what\nfoolishness! She's got her head in the clouds\nagain.\n\nBut it's not. Of course I have to give up,\nbut by then I am half crazy with the wonder\nof it—the abundance of the leaves, the\nquietness of the branches, the hopelessness\nof my effort. And I am in that delicious\nand important place, roaring with laughter,\nfull of earth-praise.", note: "Mary Oliver · Curated by Priya" },
+
+  { title: "Tree", poet: "Jane Hirshfield", lines: "It is foolish\nto let a young redwood\ngrow next to a house.\n\nEven in this\none lifetime,\nyou will have to choose.\n\nThat great calm being,\nthis clutter of soup pots and books—\n\nAlready the first branch-tips brush at the window.\nSoftly, calmly, immensity taps at your life.", note: "Jane Hirshfield · Curated by Priya" },
+
+  { title: "The Coming of Light", poet: "Mark Strand", lines: "Even this late it happens:\nthe coming of love, the coming of light.\nYou wake and the candles are lit as if by themselves,\nstars gather, dreams pour into your pillows,\nsending up warm bouquets of air.\nEven this late the bones of the body shine\nand tomorrow's dust flares into breath.", note: "Mark Strand · Curated by Priya" },
+
+  { title: "Of Being", poet: "Denise Levertov", lines: "I know this happiness\nis provisional:\n\nthe looming presences—\ngreat suffering, great fear—\n\nwithdraw only\ninto peripheral vision:\n\nbut ineluctable this shimmering\nof wind in the blue leaves:\n\nthis flood of stillness\nwidening the lake of sky:\n\nthis need to dance,\nthis need to kneel:\nthis mystery:", note: "Denise Levertov · Curated by Priya" },
+
+  { title: "High Treason", poet: "José Emilio Pacheco", lines: "I don't love my country. Her abstract glory\neludes me.\nBut (this may sound bad) I would give my life\nfor ten of her places, for certain people,\nports, pine forests, fortresses,\nfor a ruined city, gray and monstrous,\nfor several of her historical figures,\nfor mountains\n(and three or four rivers).", note: "José Emilio Pacheco · Curated by Priya" },
+
+  { title: "Karma Repair Kit: Items 1–4", poet: "Richard Brautigan", lines: "1.\nGet enough food to eat,\nand eat it.\n\n2.\nFind a place to sleep where it is quiet,\nand sleep there.\n\n3.\nReduce intellectual and emotional noise\nuntil you arrive at the silence of yourself,\nand listen to it.\n\n4.", note: "Richard Brautigan · Curated by Priya" },
+
+  { title: "A Prayer", poet: "Akhil Katyal", lines: "May no one die\na man made death.", note: "Akhil Katyal · Curated by Priya" },
+
+  { title: "Salute", poet: "A. R. Ammons", lines: "May happiness\npursue you,\n\ncatch you\noften, and,\n\nshould it\nlose you,\n\nbe waiting\nahead, making\n\na clearing\nfor you.", note: "A. R. Ammons · Curated by Priya" },
+
+  { title: "I Meant to Do My Work Today", poet: "Richard LeGallienne", lines: "I meant to do my work today —\nBut a brown bird sang in the apple tree,\nAnd a butterfly flitted across the field,\nAnd all the leaves were calling me.\n\nAnd the wind went sighing over the land\nTossing the grasses to and fro,\nAnd a rainbow held out its shining hand —\nSo what could I do but laugh and go?", note: "Richard LeGallienne · Curated by Priya" },
+
+  { title: "Atlas", poet: "U. A. Fanthorpe", lines: "There is a kind of love called maintenance,\nWhich stores the WD40 and knows when to use it;\n\nWhich checks the insurance, and doesn't forget\nThe milkman; which remembers to plant bulbs;\n\nWhich answers letters; which knows the way\nThe money goes; which deals with dentists\n\nAnd Road Fund Tax and meeting trains,\nAnd postcards to the lonely; which upholds\n\nThe permanently ricketty elaborate\nStructures of living; which is Atlas.\n\nAnd maintenance is the sensible side of love,\nWhich knows what time and weather are doing\nTo my brickwork; insulates my faulty wiring;\nLaughs at my dryrotten jokes; remembers\nMy need for gloss and grouting; which keeps\nMy suspect edifice upright in air,\nAs Atlas did the sky.", note: "U. A. Fanthorpe · Curated by Priya" },
+
+  { title: "Why Are Your Poems So Dark?", poet: "Linda Pastan", lines: "Isn't the moon dark too,\nmost of the time?\n\nAnd doesn't the white page\nseem unfinished\n\nwithout the dark stain\nof alphabets?\n\nWhen God demanded light,\nhe didn't banish darkness.\n\nInstead he invented\nebony and crows\n\nand that small mole\non your left cheekbone.\n\nOr did you mean to ask\n\"Why are you sad so often?\"\n\nAsk the moon.\nAsk what it has witnessed.", note: "Linda Pastan · Curated by Priya" },
+
+  { title: "Monet Refuses the Operation", poet: "Lisel Mueller", lines: "Doctor, you say there are no haloes\naround the streetlights in Paris\nand what I see is an aberration\ncaused by old age, an affliction.\nI tell you it has taken me all my life\nto arrive at the vision of gas lamps as angels,\nto soften and blur and finally banish\nthe edges you regret I don't see,\nto learn that the line I called the horizon\ndoes not exist and sky and water,\nso long apart, are the same state of being.\nFifty-four years before I could see\nRouen cathedral is built\nof parallel shafts of sun,\nand now you want to restore\nmy youthful errors: fixed\nnotions of top and bottom,\nthe illusion of three-dimensional space,\nwisteria separate\nfrom the bridge it covers.\nWhat can I say to convince you\nthe Houses of Parliament dissolve\nnight after night to become\nthe fluid dream of the Thames?\nI will not return to a universe\nof objects that don't know each other,\nas if islands were not the lost children\nof one great continent. The world\nis flux, and light becomes what it touches,\nbecomes water, lilies on water,\nabove and below water,\nbecomes lilac and mauve and yellow\nand white and cerulean lamps,\nsmall fists passing sunlight\nso quickly to one another\nthat it would take long, streaming hair\ninside my brush to catch it.\nTo paint the speed of light!\nOur weighted shapes, these verticals,\nburn to mix with air\nand change our bones, skin, clothes\nto gases. Doctor,\nif only you could see\nhow heaven pulls earth into its arms\nand how infinitely the heart expands\nto claim this world, blue vapor without end.", note: "Lisel Mueller · Curated by Priya" },
+
+  { title: "To Know the Dark", poet: "Wendell Berry", lines: "To go in the dark with a light is to know the light.\nTo know the dark, go dark. Go without sight,\nand find that the dark, too, blooms and sings,\nand is traveled by dark feet and dark wings.", note: "Wendell Berry · Curated by Priya" },
+
+  { title: "How to Do Absolutely Nothing", poet: "Barbara Kingsolver", lines: "Rent a house near the beach, or a cabin\nbut: Do not take your walking shoes.\nDon't take any clothes you'd wear\nanyplace anyone would see you.\nDon't take your rechargeables.\nTake Scrabble if you have to,\nbut not a dictionary and no\npencils for keeping score.\nDon't take a cookbook\nor anything to cook.\nA fishing pole, ok\nbut not the line,\nhook, sinker,\nleave it all.\nFind out\nwhat's\nleft.", note: "Barbara Kingsolver · Curated by Priya" },
+
+  { title: "From Blossoms", poet: "Li-Young Lee", lines: "From blossoms comes\nthis brown paper bag of peaches\nwe bought from the boy\nat the bend in the road where we turned toward\nsigns painted Peaches.\n\nFrom laden boughs, from hands,\nfrom sweet fellowship in the bins,\ncomes nectar at the roadside, succulent\npeaches we devour, dusty skin and all,\ncomes the familiar dust of summer, dust we eat.\n\nO, to take what we love inside,\nto carry within us an orchard, to eat\nnot only the skin, but the shade,\nnot only the sugar, but the days, to hold\nthe fruit in our hands, adore it, then bite into\nthe round jubilance of peach.\n\nThere are days we live\nas if death were nowhere\nin the background; from joy\nto joy to joy, from wing to wing,\nfrom blossom to blossom to\nimpossible blossom, to sweet impossible blossom.", note: "Li-Young Lee · Curated by Priya" },
+
+  { title: "The Museum", poet: "Richard Siken", lines: "Two lovers went to a museum and wandered the\nrooms. He saw a painting and stood in front of it\nfor too long. It was a few minutes before she\nrealized he had gotten stuck. He was stuck looking\nat a painting. She stood next to him, looking at his\nface and then the face in the painting. What do you\nsee? she asked. I don't know, he said. He didn't\nknow. She was disappointed, then bored. He was\nlooking at a face and she was looking at her watch.\nThis is where everything changed. There was now\na distance between them. He was looking at a face\nbut it might as well have been a cabbage or a\nsugar beet. Perhaps it was something about yellow\nnear pink. He didn't know how to say it. Years later\nhe still didn't know how to say it, and she was gone.", note: "Richard Siken · Curated by Priya" },
+
+  { title: "In Time", poet: "W. S. Merwin", lines: "The night the world was going to end\nwhen we heard those explosions not far away\nand the loudspeakers telling us\nabout the vast fires on the backwater\nconsuming undisclosed remnants\nand warning us over and over\nto stay indoors and make no signals\nyou stood at the open window\nthe light of one candle back in the room\nwe put on high boots to be ready\nfor wherever we might have to go\nand we got out the oysters and sat\nat the small table feeding them\nto each other first with the fork\nthen from our mouths to each other\nuntil there were none and we stood up\nand started to dance without music\nslowly we danced around and around\nin circles and after a while we hummed\nwhen the world was about to end\nall those years all those nights ago", note: "W. S. Merwin · Curated by Priya" },
+
+  { title: "Field Guide", poet: "Tony Hoagland", lines: "Once, in the cool blue middle of a lake,\nup to my neck in that most precious element of all,\n\nI found a pale-gray, curled-upwards pigeon feather\nfloating on the tension of the water\n\nat the very instant when a dragonfly,\nlike a blue-green iridescent bobby pin,\n\nhovered over it, then lit, and rested.\nThat's all.\n\nI mention this in the same way\nthat I fold the corner of a page\n\nin certain library books,\nso that the next reader will know\n\nwhere to look for the good parts.", note: "Tony Hoagland · Curated by Priya" },
+
+  { title: "All Things Pass", poet: "Lao-Tzu", lines: "All things pass\nA sunrise does not last all morning\nAll things pass\nA cloudburst does not last all day\nAll things pass\nNor a sunset all night\nAll things pass\nWhat always changes?\n\nEarth...sky...thunder...mountain...water...wind...fire...lake...\n\nThese change\nAnd if these do not last\n\nDo man's visions last?\nDo man's illusions?\n\nTake things as they come\n\nAll things pass", note: "Lao-Tzu · Curated by Priya" },
+
+  { title: "The Door", poet: "Miroslav Holub", lines: "Go and open the door.\nMaybe outside there's\na tree, or a wood,\na garden,\nor a magic city.\n\nGo and open the door.\nMaybe a dog's rummaging.\nMaybe you'll see a face,\nor an eye,\nor the picture\nof a picture.\n\nGo and open the door.\nIf there's a fog\nit will clear.\n\nGo and open the door.\nEven if there's only\nthe darkness ticking,\neven if there's only\nthe hollow wind,\neven if\nnothing\nis there,\ngo and open the door.\n\nAt least\nthere'll be\na draught.", note: "Miroslav Holub · Curated by Priya" },
+
+  { title: "The Old Poets of China", poet: "Mary Oliver", lines: "Wherever I am, the world comes after me.\nIt offers me its busyness. It does not believe\nthat I do not want it. Now I understand\nwhy the old poets of China went so far and high\ninto the mountains, then crept into the pale mist.", note: "Mary Oliver · Curated by Priya" },
+
+  { title: "I Have Been a Thousand Different Women", poet: "Emory Hall", lines: "make peace\nwith all the women\nyou once were.\n\nlay flowers\nat their feet.\n\noffer them incense\nand honey\nand forgiveness.\n\nhonor them\nand give them\nyour silence.\n\nlisten.\n\nbless them\nand let them be.\n\nfor they are the bones\nof the temple\nyou sit in now.\n\nfor they are\nthe rivers\nof wisdom\nleading you toward\nthe sea.", note: "Emory Hall · Curated by Priya" },
+
+  { title: "On Lightness", poet: "Heather Swan", lines: "Outside my window,\na wren alights\non a fiddlehead fern,\nand the plant is forced\nto bend its green spine.\nAs he rests there,\nthe air never leaves\nthe bird's body—\nthe way he floats\nthrough trees. And then\nhe takes to the sky again,\nand the fern sways\nupright, opening its arms,\nonce again, to the sun.\nIf only it could always\nbe like this:\nthe burden of one\nnever breaking another.", note: "Heather Swan · Curated by Priya" },
+
+  { title: "This Is What I Wanted to Sign Off With", poet: "Alden Nowlan", lines: "You know what I'm\nlike when I'm sick: I'd sooner\ncurse than cry. And people don't often\nknow what they're saying in the end.\nOr I could die in my sleep.\n\nSo I'll say it now. Here it is.\nDon't pay any attention\nif I don't get it right\nwhen it's for real. Blame that\non terror and pain\nor the stuff they're shooting\ninto my veins. This is what I wanted to\nsign off with. Bend\ncloser, listen, I love you.", note: "Alden Nowlan · Curated by Priya" },
+
+  { title: "The Song", poet: "Naomi Shihab Nye", lines: "From somewhere\na calm musical note arrives.\nYou balance it on your tongue,\na single ripe grape,\ntill your whole body glistens.\nIn the space between breaths\nyou apply it to any wound\nand the wound heals.\n\nSoon the nights will lengthen,\nyou will lean into the year\nhumming like a saw.\nYou will fill the lamps with kerosene,\nknowing somewhere a line breaks,\na city goes black,\npeople dig for candles in the bottom drawer.\nYou will be ready. You will use the song like a match.\nIt will fill your rooms\nopening rooms of its own\nso you sing, I did not know\nmy house was this large.", note: "Naomi Shihab Nye · Curated by Priya" },
+
+  { title: "Red Brocade", poet: "Naomi Shihab Nye", lines: "The Arabs used to say,\nWhen a stranger appears at your door,\nfeed him for three days\nbefore asking who he is,\nwhere he's come from,\nwhere he's headed.\nThat way, he'll have strength\nenough to answer.\nOr, by then you'll be\nsuch good friends\nyou don't care.\n\nLet's go back to that.\nRice? Pine nuts?\nHere, take the red brocade pillow.\nMy child will serve water\nto your horse.\n\nNo, I was not busy when you came!\nI was not preparing to be busy.\nThat's the armor everyone put on\nto pretend they had a purpose\nin the world.\n\nI refuse to be claimed.\nYour plate is waiting.\nWe will snip fresh mint\ninto your tea.", note: "Naomi Shihab Nye · Curated by Priya" },
+
+  { title: "Things to Think", poet: "Robert Bly", lines: "Think in ways you've never thought before.\nIf the phone rings, think of it as carrying a message\nLarger than anything you've ever heard,\nVaster than a hundred lines of Yeats.\n\nThink that someone may bring a bear to your door,\nMaybe wounded and deranged; or think that a moose\nHas risen out of the lake, and he's carrying on his antlers\nA child of your own whom you've never seen.\n\nWhen someone knocks on the door, think that he's about\nTo give you something large: tell you you're forgiven,\nOr that it's not necessary to work all the time, or that it's\nBeen decided that if you lie down no one will die.", note: "Robert Bly · Curated by Priya" },
+
+  { title: "I Sat in the Sun", poet: "Jane Hirshfield", lines: "I moved my chair into sun\nI sat in the sun\nthe way hunger is moved when called fasting.", note: "Jane Hirshfield · Curated by Priya" },
+
+  { title: "Hidden", poet: "Naomi Shihab Nye", lines: "If you place a fern\nunder a stone\nthe next day it will be\nnearly invisible\nas if the stone has\nswallowed it.\n\nIf you tuck the name of a loved one\nunder your tongue too long\nwithout speaking it\nit becomes blood\nsigh\nthe little sucked-in breath of air\nhiding everywhere\nbeneath your words.\n\nNo one sees\nthe fuel that feeds you.", note: "Naomi Shihab Nye · Curated by Priya" },
+
+  { title: "A Standing Ground", poet: "Wendell Berry", lines: "However just and anxious I have been,\nI will stop and step back\nfrom the crowd of those who may agree\nwith what I say, and be apart.\nThere is no earthly promise of life or peace\nbut where the roots branch and weave\ntheir patient silent passages in the dark;\nuprooted, I have been furious without an aim.\nI am not bound for any public place,\nbut for ground of my own\nwhere I have planted vines and orchard trees,\nand in the heat of the day climbed up\ninto the healing shadow of the woods.\nBetter than any argument is to rise at dawn\nand pick dew-wet red berries in a cup.", note: "Wendell Berry · Curated by Priya" },
+
+  { title: "The Sacred", poet: "Stephen Dunn", lines: "After the teacher asked if anyone had\na sacred place\nand the students fidgeted and shrank\n\nin their chairs, the most serious of them all\nsaid it was his car,\nbeing in it alone, his tape deck playing\n\nthings he'd chosen, and others knew the truth\nhad been spoken\nand began speaking about their rooms,\n\ntheir hiding places, but the car kept coming up,\nthe car in motion,\nmusic filling it, and sometimes one other person\n\nwho understood the bright altar of the dashboard\nand how far away\na car could take him from the need\n\nto speak, or to answer, the key in having a key\nand putting it in, and going.", note: "Stephen Dunn · Curated by Priya" },
+
+  { title: "Last Night as I Was Sleeping", poet: "Antonio Machado", lines: "Last night as I was sleeping,\nI dreamt—marvelous error!—\nthat a spring was breaking\nout in my heart.\nI said: Along which secret aqueduct,\nOh water, are you coming to me,\nwater of a new life\nthat I have never drunk?\n\nLast night as I was sleeping,\nI dreamt—marvelous error!—\nthat I had a beehive\nhere inside my heart.\nAnd the golden bees\nwere making white combs\nand sweet honey\nfrom my old failures.\n\nLast night as I was sleeping,\nI dreamt—marvelous error!—\nthat a fiery sun was giving\nlight inside my heart.\nIt was fiery because I felt\nwarmth as from a hearth,\nand sun because it gave light\nand brought tears to my eyes.\n\nLast night as I slept,\nI dreamt—marvelous error!—\nthat it was God I had\nhere inside my heart.", note: "Antonio Machado · Curated by Priya" },
+
+  { title: "Like You", poet: "Roque Dalton (tr. Jack Hirschman)", lines: "Like you I\nlove love, life, the sweet smell\nof things, the sky-blue\nlandscape of January days.\nAnd my blood boils up\nand I laugh through eyes\nthat have known the buds of tears.\nI believe the world is beautiful\nand that poetry, like bread, is for everyone.\nAnd that my veins don't end in me\nbut in the unanimous blood\nof those who struggle for life,\nlove,\nlittle things,\nlandscape and bread,\nthe poetry of everyone.", note: "Roque Dalton · Curated by Priya" },
+
+  { title: "The Undertaking", poet: "Louise Glück", lines: "The darkness lifts, imagine, in your lifetime.\nThere you are—cased in clean bark you drift\nthrough weaving rushes, fields flooded with cotton.\nYou are free. The river films with lilies,\nshrubs appear, shoots thicken into palm. And now\nall fear gives way: the light\nlooks after you, you feel the waves' goodwill\nas arms widen over the water; Love,\n\nthe key is turned. Extend yourself—\nit is the Nile, the sun is shining,\neverywhere you turn is luck.", note: "Louise Glück · Curated by Priya" },
+
+  { title: "There Is Nothing Quieter", poet: "Charles Simic", lines: "Than softly falling snow\nFussing over every flake\nAnd making sure\nIt won't wake someone.", note: "Charles Simic · Curated by Priya" },
+
+  { title: "When You Go Out to Walk the Dog", poet: "M. Soledad Caballero", lines: "You call me at 10:14 p.m. I think:\nHe has been kidnapped or shot or maybe\nit is aliens or wild dogs. Someone is dead\nor\nhe lost his shoe in a sinkhole. The dog\nis rabid, or maybe the dog is the dead\none.\nCome outside, you laugh. You are\nstanding on the lawn holding\na bag of shit and the dog leash. You say\nlook, look at the moon. And I do.", note: "M. Soledad Caballero · Curated by Priya" },
+
+  { title: "Final Curve", poet: "Langston Hughes", lines: "When you turn the corner\nAnd you run into yourself\nThen you know that you have turned\nAll the corners that are left", note: "Langston Hughes · Curated by Priya" },
+
+  { title: "There Is No Word for Goodbye", poet: "Mary TallMountain", lines: "Sokoya, I said, looking through\nthe net of wrinkles into\nwise black pools\nof her eyes.\n\nWhat do you say in Athabascan\nwhen you leave each other?\nWhat is the word\nfor goodbye?\n\nA shade of feeling rippled\nthe wind-tanned skin.\nAh, nothing, she said,\nwatching the river flash.\n\nShe looked at me close.\nWe just say, Tlaa. That means,\nSee you.\nWe never leave each other.\nWhen does your mouth\nsay goodbye to your heart?\n\nShe touched me light\nas a bluebell.\nYou forget when you leave us;\nyou're so small then.\nWe don't use that word.\n\nWe always think you're coming back,\nbut if you don't,\nwe'll see you some place else.\nYou understand.\nThere is no word for goodbye.", note: "Mary TallMountain · Curated by Priya" },
+
+  { title: "First Thought, Best Thought", poet: "Andrea Cohen", lines: "I'm three or four,\nhidden in the branches\n\nof the cherry tree.\nI don't ask: how\n\ndid I get here?\nI don't fear falling.\n\nThe job of the blossom\nis to bloom, to be\n\nbeautifully unschooled in ruin.", note: "Andrea Cohen · Curated by Priya" },
+
+  { title: "The Quiet Machine", poet: "Ada Limón", lines: "I'm learning so many different ways to be quiet. There's how I stand in the lawn, that's one way. There's also how I stand in the field across from the street, that's another way because I'm farther from people and therefore more likely to be alone. There's how I don't answer the phone, and how I sometimes like to lie down on the floor of the kitchen and pretend I'm not home when people knock. There's daytime silent when I stare and nighttime silent when I do things. There's shower silent and bath silent and California silent and Kentucky silent and car silent. And then there's the silence that comes back a million times bigger than me, sneaks into my bones and wails and wails and wails until I can't be quiet anymore. That's how this machine works.", note: "Ada Limón · Curated by Priya" },
+
+  { title: "You Took the Last Bus Home", poet: "Brian Bilston", lines: "you took\nthe last bus home\n\ni still don't know\nhow you got it through the door\n\nbut you're always doing amazing stuff\n\nlike the time\nwhen you caught that train", note: "Brian Bilston · Curated by Priya" },
+
+  { title: "In the Middle", poet: "Barbara Crooker", lines: "of a life that's as complicated as everyone else's,\nstruggling for balance, juggling time.\nThe mantle clock that was my grandfather's\nhas stopped at 9:20; we haven't had time\nto get it repaired. The brass pendulum is still,\nthe chimes don't ring. One day you look out the window,\ngreen summer, the next, and the leaves have already fallen,\nand a grey sky lowers the horizon. Our children almost grown,\nour parents gone, it happened so fast. Each day, we must learn\nagain how to love, between morning's quick coffee\nand evening's slow return. Steam from a pot of soup rises,\nmixing with the yeasty smell of baking bread. Our bodies\ntwine, and the big black dog pushes his great head between;\nhis tail is a metronome, 3/4 time. We'll never get there,\nTime is always ahead of us, running down the beach, urging\nus on faster, faster, but\nsometimes we take off our watches,\nsometimes we lie in the hammock, caught between the mesh\nof rope and the net of stars, suspended, tangled up\nin love, running out of time.", note: "Barbara Crooker · Curated by Priya" },
+
+  { title: "From Wildpeace", poet: "Yehuda Amichai", lines: "Let it come\nlike wildflowers,\nsuddenly, because the field\nmust have it: wildpeace.", note: "Yehuda Amichai · Curated by Priya" },
+
+  { title: "We Are of a Tribe", poet: "Alberto Ríos", lines: "We plant seeds in the ground\nAnd dreams in the sky,\n\nHoping that, someday, the roots of one\nWill meet the upstretched limbs of the other.\n\nIt has not happened yet.\nWe share the sky, all of us, the whole world:\n\nTogether, we are a tribe of eyes that look upward,\nEven as we stand on uncertain ground.\n\nThe earth beneath us moves, quiet and wild,\nIts boundaries shifting, its muscles wavering.\n\nThe dream of sky is indifferent to all this,\nImpervious to borders, fences, reservations.\n\nThe sky is our common home, the place we all live.\nThere we are in the world together.\n\nThe dream of sky requires no passport.\nBlue will not be fenced. Blue will not be a crime.\n\nLook up. Stay awhile. Let your breathing slow.\nKnow that you always have a home here.", note: "Alberto Ríos · Curated by Priya" },
+
+  { title: "In the Company of Women", poet: "January Gill O'Neil", lines: "Make me laugh over coffee,\nmake it a double, make it frothy\nso it seethes in our delight.\nMake my cup overflow\nwith your small happiness.\nI want to hoot and snort and cackle and chuckle.\nLet your laughter fill me like a bell.\nLet me listen to your ringing and singing\nas Billie Holiday croons above our heads.\nSorry, the blues are nowhere to be found.\nNot tonight. Not here.\nNo makeup. No tears.\nOnly contours. Only curves.\nEach sip takes back a pound,\neach dry-roasted swirl takes our soul.\nCan I have a refill, just one more?\nLet the bitterness sink to the bottom of our lives.\nLet us take this joy to go.", note: "January Gill O'Neil · Curated by Priya" },
+
+  { title: "Walking the Long Way Home", poet: "bell hooks", lines: "walking the long way home\nwalking ever so slow\ntalking to be\nwholly in this world of wonder\nstanding still\nwaiting\nstanding in the center\nof a long and winding\ndirt road\nleading uphill\nto a small house\nsurrounded by lilacs\nblack-eyed susans\nroses and honeysuckle vines\na bench at the bottom that\nbodies may rest\nbefore they climb", note: "bell hooks · Curated by Priya" },
+
+  { title: "For M", poet: "Mikko Harvey", lines: "I don't\nwant you\nto be\nnervous. Maybe\nthinking of\na walrus\nwould help.\nHave you\nseen the\nvideo of\nthe penguin\naccidentally stepping\non a\nsleeping walrus?\nIt thought\nit was\na rock.\nThe walrus\nwakes up\nlike what\nthe fuck\nand the\npenguin scurries\noff like\noh shit.\nSometimes it's\nfunny watching\na surprise\nhappen, and\nnot just\nfunny but\nkind of\namazing — like,\nyou never\nreally know\nwhat's what\nwhen it\ncomes to\nthis planet.\nPlease linger\nnear the\ndoor uncomfortably\ninstead of\njust leaving.\nPlease forget\nyour scarf\nin my\nlife and\ncome back\nlater for\nit.", note: "Mikko Harvey · Curated by Priya" }
+];
+
+let currentPoem = 0;
+
+function getDailyIndex() {
+  const today = new Date();
+  const seed = today.getFullYear() * 10000 + (today.getMonth()+1) * 100 + today.getDate();
+  return seed % POEMS.length;
+}
+
+function applyPoem(p, animate) {
+  const textEl = document.getElementById('potd-text');
+  if (animate) {
+    textEl.classList.add('fading');
+    setTimeout(() => {
+      setPoem(p);
+      textEl.classList.remove('fading');
+    }, 350);
+  } else {
+    setPoem(p);
+  }
+}
+
+function setPoem(p) {
+  document.getElementById('potd-title').textContent = p.title;
+  document.getElementById('potd-poet').textContent = p.poet;
+  document.getElementById('potd-note').textContent = p.note;
+  const textEl = document.getElementById('potd-text');
+  textEl.innerHTML = p.lines.split('\n').map(l => l === '' ? '<br>' : l).join('<br>');
+}
+
+function shufflePoem() {
+  let next;
+  do { next = Math.floor(Math.random() * POEMS.length); } while (next === currentPoem && POEMS.length > 1);
+  currentPoem = next;
+  applyPoem(POEMS[currentPoem], true);
+  const icon = document.querySelector('.shuffle-icon');
+  icon.style.transition = 'transform 0.5s ease';
+  icon.style.transform = 'rotate(360deg)';
+  setTimeout(() => { icon.style.transition = 'none'; icon.style.transform = 'rotate(0deg)'; }, 550);
+}
+
+// Init — show today's poem
+currentPoem = getDailyIndex();
+applyPoem(POEMS[currentPoem], false);
+</script>
+</body>
+</html>
