@@ -8,29 +8,34 @@
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=Cabinet+Grotesk:wght@300;400;500;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
 <style>
 :root {
-  --ink: #1a1a1a;
-  --cream: #faf8f3;
-  --warm-white: #fffef9;
+  --ink: #1a1015;
+  --cream: #faf8f5;
+  --warm-white: #fffcf9;
 
-  --terracotta: #c4603a;
-  --terracotta-mid: #e8845e;
-  --terracotta-pale: #fdeee7;
+  /* Coral — primary accent (electric, energetic) */
+  --terracotta: #ff5c3a;
+  --terracotta-mid: #ff8066;
+  --terracotta-pale: #fff0ec;
 
-  --sage: #4a7c59;
-  --sage-mid: #7aaa8a;
-  --sage-pale: #e8f2eb;
+  /* NY Blue — secondary accent (Knicks royal) */
+  --sage: #006BB6;
+  --sage-mid: #4d9fd6;
+  --sage-pale: #e6f2fc;
 
-  --gold: #c9922a;
-  --gold-pale: #fdf3e0;
+  /* Golden straw — tertiary warmth */
+  --gold: #d4a017;
+  --gold-pale: #fdf8e0;
 
-  --plum: #6b3f6b;
-  --plum-pale: #f2e8f2;
+  /* Mets navy — deep accent (poetry, serious moments) */
+  --plum: #002D72;
+  --plum-pale: #e6eaf5;
 
-  --sky: #2e7ab0;
-  --sky-pale: #e5f1fa;
+  /* Aubergine — dark backgrounds */
+  --sky: #2d1b35;
+  --sky-pale: #f0eaf5;
 
-  --muted: #6b6560;
-  --border: rgba(26,26,26,0.1);
+  --muted: #6b6065;
+  --border: rgba(26,16,21,0.1);
 
   --serif: 'Playfair Display', Georgia, serif;
   --display: 'Instrument Serif', Georgia, serif;
@@ -138,10 +143,11 @@ nav {
   font-weight: 500 !important;
   text-transform: uppercase !important;
   letter-spacing: 0.08em !important;
-  transition: background 0.2s !important;
+  transition: background 0.2s, opacity 0.3s, transform 0.3s !important;
 }
-.nav-cta:hover { background: #a84e2e !important; }
+.nav-cta:hover { background: #e04020 !important; }
 .nav-cta::after { display: none !important; }
+.nav-cta.hidden { opacity: 0; pointer-events: none; transform: translateY(-4px); }
 
 /* ── HERO ── */
 .hero {
@@ -286,7 +292,7 @@ nav {
 
 /* ── MARQUEE STRIP ── */
 .marquee-strip {
-  background: var(--ink);
+  background: var(--sky);
   padding: 0.85rem 0;
   overflow: hidden;
   white-space: nowrap;
@@ -475,7 +481,7 @@ nav {
 /* ── PERSONAL / BROOKLYN ── */
 #personal {
   padding: 7rem 3rem;
-  background: var(--ink);
+  background: var(--sky);
   color: var(--cream);
   position: relative; overflow: hidden;
 }
@@ -680,15 +686,15 @@ nav {
 
 /* ── POETRY CURATOR ── */
 #poetry {
-  padding: 7rem 3rem;
+  padding: 4rem 3rem;
   background: var(--cream);
 }
 .poetry-top {
-  display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; margin-bottom: 4rem;
+  display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: start; margin-bottom: 2.5rem;
 }
 .poetry-right {}
 #poetry .eyebrow { color: var(--plum); }
-.poetry-body { font-size: 0.95rem; color: var(--muted); line-height: 1.9; margin-bottom: 1.5rem; }
+.poetry-body { font-size: 0.9rem; color: var(--muted); line-height: 1.8; margin-bottom: 1rem; }
 .ig-follow-card {
   background: linear-gradient(135deg, var(--plum) 0%, #3a1a4a 100%);
   border-radius: 20px; padding: 2rem; color: #fff;
@@ -713,10 +719,10 @@ nav {
 
 /* Poem of the Day widget */
 .potd-wrapper {
-  background: var(--ink);
+  background: var(--sky);
   border-radius: 28px;
   overflow: hidden;
-  box-shadow: 0 32px 80px rgba(26,26,26,0.18);
+  box-shadow: 0 32px 80px rgba(45,27,53,0.25);
   position: relative;
 }
 .potd-header {
@@ -735,9 +741,9 @@ nav {
 }
 
 .potd-body {
-  padding: 2.5rem 2.5rem 2rem;
+  padding: 1.75rem 2rem 1.5rem;
   position: relative; overflow: hidden;
-  min-height: 280px;
+  min-height: 220px;
 }
 .potd-body::before {
   content: '\201C';
@@ -829,7 +835,7 @@ nav {
 
 /* ── FOOTER ── */
 footer {
-  background: var(--ink); color: rgba(255,255,255,0.4);
+  background: var(--sky); color: rgba(255,255,255,0.4);
   padding: 2rem 3rem;
   display: flex; justify-content: space-between; align-items: center;
   font-size: 0.78rem; flex-wrap: wrap; gap: 0.75rem;
@@ -839,19 +845,116 @@ footer {
 .footer-links a { color: rgba(255,255,255,0.4); text-decoration: none; transition: color 0.2s; }
 .footer-links a:hover { color: var(--terracotta-mid); }
 
-/* RESPONSIVE */
+/* ── MOBILE NAV ── */
+.nav-hamburger {
+  display: none;
+  flex-direction: column; gap: 5px;
+  background: none; border: none; cursor: pointer;
+  padding: 4px; z-index: 300;
+}
+.nav-hamburger span {
+  display: block; width: 22px; height: 2px;
+  background: var(--ink); border-radius: 2px;
+  transition: transform 0.3s, opacity 0.3s;
+}
+.nav-hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.nav-hamburger.open span:nth-child(2) { opacity: 0; }
+.nav-hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+.nav-drawer {
+  display: none;
+  position: fixed; top: 0; left: 0; right: 0; bottom: 0;
+  background: var(--cream);
+  z-index: 250;
+  flex-direction: column;
+  align-items: center; justify-content: center;
+  gap: 0.5rem;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+.nav-drawer.open { opacity: 1; }
+.nav-drawer a {
+  font-family: var(--serif);
+  font-size: 2rem; font-weight: 400;
+  color: var(--ink); text-decoration: none;
+  padding: 0.5rem 1rem;
+  transition: color 0.2s;
+}
+.nav-drawer a:hover { color: var(--terracotta); }
+.nav-drawer .drawer-cta {
+  margin-top: 1rem;
+  display: inline-block;
+  padding: 0.85rem 2.5rem; border-radius: 100px;
+  background: var(--terracotta); color: #fff !important;
+  font-family: var(--sans) !important;
+  font-size: 0.85rem !important; font-weight: 500 !important;
+  letter-spacing: 0.08em; text-transform: uppercase;
+}
+
+/* ── RESPONSIVE ── */
 @media (max-width: 960px) {
+  /* Nav — show hamburger, keep CTA visible initially, hide nav links */
   nav { padding: 1rem 1.5rem; }
-  .nav-links li:not(:last-child) { display: none; }
-  .hero, #about, .personal-grid, #poetry, .contact-grid, .ig-layout { grid-template-columns: 1fr; gap: 2.5rem; }
-  .hero { min-height: auto; padding: 6rem 1.5rem 3rem; }
+  .nav-links { display: none; }
+  .nav-hamburger { display: flex; }
+  .nav-drawer { display: flex; }
+  /* CTA stays visible on mobile too, hides on scroll via JS */
+
+  /* Hide cursor on touch */
+  .cursor, .cursor-ring { display: none; }
+  body { cursor: auto; }
+
+  /* Hero */
+  .hero { grid-template-columns: 1fr; min-height: auto; padding: 6rem 1.5rem 3rem; gap: 2rem; }
   .hero-right { display: none; }
-  #professional, #personal, #instagram, #poetry, #contact { padding: 4rem 1.5rem; }
-  #about { padding: 4rem 1.5rem; }
-  .services-bento { grid-template-columns: 1fr 1fr; }
+  .hero h1 { font-size: clamp(2.5rem, 8vw, 4rem); }
+
+  /* Sections */
+  #about { grid-template-columns: 1fr; padding: 4rem 1.5rem; gap: 2.5rem; }
+  #professional { padding: 4rem 1.5rem; }
+  #personal { padding: 4rem 1.5rem; }
+  #instagram { padding: 4rem 0 4rem 1.5rem; }
+  .ig-layout-top { grid-template-columns: 1fr; padding-right: 1.5rem; margin-bottom: 2rem; gap: 1rem; }
+  .ig-layout-top > div:last-child { display: none; }
+  #poetry { padding: 3rem 1.5rem; }
+  .poetry-top { grid-template-columns: 1fr; gap: 1.5rem; margin-bottom: 1.5rem; }
+  #contact { padding: 4rem 1.5rem; }
+  .contact-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+
+  /* About sticky card */
+  .about-right { position: static; }
+
+  /* Services bento */
+  .services-bento { grid-template-columns: 1fr; }
   .bc-1, .bc-2, .bc-3, .bc-4, .bc-5 { grid-column: auto; grid-row: auto; }
-  .ig-mosaic { grid-template-rows: repeat(2, 150px); }
-  .ig-tile-large { grid-column: 1 / 3; grid-row: 1; }
+
+  /* Personal grid */
+  .personal-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+
+  /* IG scroll strip */
+  .ig-card { flex: 0 0 220px; }
+
+  /* Poem widget */
+  .potd-body { padding: 1.5rem; }
+  .potd-poem-text { font-size: 0.95rem; }
+
+  /* Timeline */
+  .timeline-item { grid-template-columns: 70px 24px 1fr; gap: 0 1rem; }
+
+  /* Footer */
+  footer { flex-direction: column; text-align: center; gap: 0.5rem; }
+}
+
+@media (max-width: 480px) {
+  .hero h1 { font-size: 2.4rem; }
+  .hero-pills { gap: 0.4rem; }
+  .pill { font-size: 0.72rem; padding: 0.35rem 0.75rem; }
+  .section-title { font-size: 1.85rem; }
+  .ig-card { flex: 0 0 180px; }
+  .services-bento { grid-template-columns: 1fr; }
+  .stat-strip { grid-template-columns: 1fr; }
+  .personal-right-stack { gap: 1rem; }
+  footer .footer-links { flex-wrap: wrap; justify-content: center; gap: 1rem; }
 }
 </style>
 </head>
@@ -872,7 +975,20 @@ footer {
     <li><a href="#poetry">Poetry</a></li>
     <li><a href="#contact" class="nav-cta">Let's Connect</a></li>
   </ul>
+  <button class="nav-hamburger" id="hamburger" aria-label="Open menu">
+    <span></span><span></span><span></span>
+  </button>
 </nav>
+
+<!-- MOBILE DRAWER -->
+<div class="nav-drawer" id="nav-drawer">
+  <a href="#about" class="drawer-link">About</a>
+  <a href="#professional" class="drawer-link">Work</a>
+  <a href="#personal" class="drawer-link">Brooklyn</a>
+  <a href="#instagram" class="drawer-link">Instagram</a>
+  <a href="#poetry" class="drawer-link">Poetry</a>
+  <a href="#contact" class="drawer-cta">Let's Connect</a>
+</div>
 
 <!-- ── HERO ── -->
 <section class="hero" id="home">
@@ -897,7 +1013,7 @@ footer {
       writing poetry, and chasing the city's most <strong>delightfully niche programs</strong>.
     </p>
     <div class="hero-pills reveal reveal-delay-3">
-      <span class="pill pill-terra">VP of Strategy · NCII</span>
+      <span class="pill pill-terra">Higher Ed Consultant</span>
       <span class="pill pill-sage">Brooklyn Museum Docent</span>
       <span class="pill pill-gold">Botanic Garden Guide</span>
       <span class="pill pill-plum">Poetry Curator</span>
@@ -914,7 +1030,7 @@ footer {
     <div class="persona-card" style="position:relative;z-index:2;">
       <div class="persona-initials">PC</div>
       <div class="persona-name">Priyadarshini Chaplot</div>
-      <div class="persona-title">MBA · UC Berkeley · New York City</div>
+      <div class="persona-title">Independent Consultant · MBA · Brooklyn, NY</div>
       <div class="persona-tags">
         <span class="persona-tag" style="background:var(--terracotta-pale);color:var(--terracotta);">Higher Education</span>
         <span class="persona-tag" style="background:var(--sage-pale);color:var(--sage);">Researcher</span>
@@ -978,7 +1094,7 @@ footer {
     <div class="cred-card">
       <div class="cred-header">
         <div class="cred-header-name">Priyadarshini Chaplot, MBA</div>
-        <div class="cred-header-role">Vice President of Strategy · National Center for Inquiry & Improvement</div>
+        <div class="cred-header-role">Higher Education Consultant & Strategist · Open to Engagements</div>
       </div>
       <div class="cred-body">
         <div class="cred-section">
@@ -988,7 +1104,7 @@ footer {
         </div>
         <div class="cred-section">
           <div class="cred-label">Professional Roles</div>
-          <div class="cred-item"><span class="cred-dot dot-sage"></span>VP of Strategy, NCII (2013–present)</div>
+          <div class="cred-item"><span class="cred-dot dot-sage"></span>Strategic Advisor, NCII — ongoing consulting relationship since 2013</div>
           <div class="cred-item"><span class="cred-dot dot-sage"></span>Director of Professional Development, RP Group — CA Community Colleges</div>
           <div class="cred-item"><span class="cred-dot dot-sage"></span>Institutional Researcher & Instructor, Mt. San Antonio College</div>
         </div>
@@ -1009,7 +1125,7 @@ footer {
   <div class="section-intro reveal">
     <span class="eyebrow">Professional</span>
     <h2 class="section-title">How Priya can<br>support your institution</h2>
-    <p>With two decades of hands-on research, strategy, and practitioner development, Priya brings a distinctive blend of analytical rigor and human-centered thinking to every engagement.</p>
+    <p>Priya works as an independent consultant and strategist in higher education — available for engagements of all kinds. With two decades of hands-on research, practitioner development, and systems-level thinking, she brings analytical rigor and human-centered design to every project. She maintains an ongoing advisory relationship with NCII while remaining open to new partnerships, collaborations, and speaking opportunities.</p>
   </div>
 
   <div class="services-bento reveal reveal-delay-1">
@@ -1050,9 +1166,9 @@ footer {
       <div class="t-date">2013 –<br>Present</div>
       <div class="t-line-col"><div class="t-dot"></div><div class="t-line"></div></div>
       <div class="t-content">
-        <div class="t-role">Vice President of Strategy</div>
+        <div class="t-role">Strategic Advisor & Senior Consultant</div>
         <span class="t-org">National Center for Inquiry & Improvement (NCII)</span>
-        <p class="t-desc">Leading strategy for a national consultancy serving 500+ colleges in 45 states. Focuses on guided pathways, student financial stability, and practitioner-focused resource development. Develops and delivers direct-to-college customized support and multi-college initiatives. Co-author of the Student Financial Stability Resource Series.</p>
+        <p class="t-desc">An ongoing advisory and consulting relationship with a national organization serving 500+ colleges in 45 states. Contributes strategic direction across guided pathways, student financial stability, and practitioner resource development — while maintaining an independent practice open to broader engagements.</p>
       </div>
     </div>
     <div class="timeline-item">
@@ -1284,11 +1400,6 @@ footer {
 
   </div>
 
-  <!-- Site builder note -->
-  <p style="margin-top:1.5rem;font-size:0.78rem;color:var(--muted);font-style:italic;text-align:center;">
-    <strong>For Priya (site management):</strong> Poems are stored in the <code style="font-style:normal;background:rgba(0,0,0,0.06);padding:0.1rem 0.4rem;border-radius:4px;">POEMS</code> list in the page script — simply add, remove, or edit entries to update the collection. No coding skills required beyond copy-and-paste.
-  </p>
-
 </section>
 
 <!-- ── CONTACT ── -->
@@ -1373,6 +1484,45 @@ footer {
 </footer>
 
 <script>
+// ── NAV CTA — hide on scroll down, show on scroll up ──
+const navCta = document.querySelector('.nav-cta');
+let lastScroll = 0;
+window.addEventListener('scroll', () => {
+  const current = window.scrollY;
+  if (current > 120) {
+    navCta.classList.add('hidden');
+  } else {
+    navCta.classList.remove('hidden');
+  }
+  lastScroll = current;
+}, { passive: true });
+
+// ── MOBILE NAV ──
+const hamburger = document.getElementById('hamburger');
+const drawer = document.getElementById('nav-drawer');
+const drawerLinks = drawer.querySelectorAll('a');
+
+function openDrawer() {
+  drawer.style.display = 'flex';
+  requestAnimationFrame(() => drawer.classList.add('open'));
+  hamburger.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeDrawer() {
+  drawer.classList.remove('open');
+  hamburger.classList.remove('open');
+  document.body.style.overflow = '';
+  setTimeout(() => { drawer.style.display = 'none'; }, 300);
+}
+
+hamburger.addEventListener('click', () => {
+  drawer.classList.contains('open') ? closeDrawer() : openDrawer();
+});
+
+drawerLinks.forEach(link => {
+  link.addEventListener('click', closeDrawer);
+});
+
 // Custom cursor
 const cursor = document.getElementById('cursor');
 const ring = document.getElementById('cursorRing');
