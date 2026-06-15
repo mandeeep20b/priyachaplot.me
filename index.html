@@ -576,10 +576,15 @@ nav {
 
 /* ── INSTAGRAM ── */
 #instagram {
-  padding: 7rem 3rem;
+  padding: 7rem 0 7rem 3rem; /* no right padding — scroll strip bleeds to edge */
   background: var(--warm-white);
+  overflow: hidden;
 }
-.ig-layout { display: grid; grid-template-columns: 340px 1fr; gap: 4rem; align-items: start; }
+.ig-inner { padding-right: 3rem; margin-bottom: 3rem; }
+.ig-layout-top {
+  display: grid; grid-template-columns: 340px 1fr; gap: 4rem;
+  align-items: end; padding-right: 3rem; margin-bottom: 3rem;
+}
 .ig-intro {}
 .ig-handle {
   display: inline-flex; align-items: center; gap: 0.6rem;
@@ -592,59 +597,86 @@ nav {
 .ig-handle:hover { background: var(--plum); color: #fff; transform: translateY(-2px); }
 .ig-handle-icon { width: 18px; height: 18px; }
 
-.ig-mosaic {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: 200px 200px;
-  gap: 0.75rem;
+/* Scroll strip */
+.ig-scroll-strip {
+  display: flex;
+  gap: 1rem;
+  overflow-x: auto;
+  overflow-y: visible;
+  padding-bottom: 1.5rem;
+  padding-right: 3rem;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  cursor: grab;
 }
-.ig-tile {
-  border-radius: 16px;
-  overflow: hidden; position: relative;
-  background: var(--border);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  text-decoration: none;
-  display: block;
-}
-.ig-tile:hover { transform: scale(1.03); box-shadow: 0 12px 40px rgba(0,0,0,0.15); z-index: 2; }
-.ig-tile-large { grid-column: 1 / 3; grid-row: 1 / 3; border-radius: 20px; }
+.ig-scroll-strip:active { cursor: grabbing; }
+.ig-scroll-strip::-webkit-scrollbar { height: 4px; }
+.ig-scroll-strip::-webkit-scrollbar-track { background: var(--border); border-radius: 2px; }
+.ig-scroll-strip::-webkit-scrollbar-thumb { background: var(--plum); border-radius: 2px; }
 
-/* Illustrated placeholder tiles with color + text */
-.ig-tile-inner {
+/* Individual portrait card */
+.ig-card {
+  flex: 0 0 260px;
+  scroll-snap-align: start;
+  border-radius: 20px;
+  overflow: hidden;
+  background: #fff;
+  border: 1.5px solid var(--border);
+  text-decoration: none;
+  display: flex; flex-direction: column;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+.ig-card:hover { transform: translateY(-6px); box-shadow: 0 20px 48px rgba(0,0,0,0.12); }
+
+.ig-card-image {
+  width: 100%;
+  aspect-ratio: 4 / 5; /* Instagram portrait ratio */
+  overflow: hidden;
+  position: relative;
+  background: var(--border);
+  flex-shrink: 0;
+}
+.ig-card-image img {
   width: 100%; height: 100%;
-  display: flex; align-items: flex-end;
-  position: relative; overflow: hidden;
-  padding: 1.25rem;
+  object-fit: cover;
+  object-position: center top; /* favour top of portrait images */
+  transition: transform 0.4s ease;
 }
-.ig-bg { position: absolute; inset: 0; }
-.ig-caption {
-  position: relative; z-index: 2;
-  font-family: var(--display); font-style: italic;
-  color: rgba(255,255,255,0.92); font-size: 0.88rem;
-  line-height: 1.4; text-shadow: 0 1px 8px rgba(0,0,0,0.4);
-}
-.ig-caption-large { font-size: 1.15rem; }
-.ig-label {
-  position: absolute; top: 1rem; right: 1rem; z-index: 3;
-  font-size: 0.62rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
-  background: rgba(255,255,255,0.22); color: #fff; backdrop-filter: blur(4px);
+.ig-card:hover .ig-card-image img { transform: scale(1.04); }
+
+.ig-card-label {
+  position: absolute; top: 0.75rem; left: 0.75rem;
+  font-size: 0.6rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase;
+  background: rgba(255,255,255,0.88); color: var(--ink);
+  backdrop-filter: blur(4px);
   padding: 0.25rem 0.6rem; border-radius: 100px;
 }
-.ig-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.55) 0%, transparent 60%); }
 
-/* pattern backgrounds for tiles */
+.ig-card-caption {
+  padding: 1rem 1.1rem 1.25rem;
+  font-size: 0.8rem; color: var(--ink-mid);
+  line-height: 1.6; flex: 1;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.ig-scroll-hint {
+  display: flex; align-items: center; gap: 0.5rem;
+  font-size: 0.72rem; color: var(--muted); font-style: italic;
+  padding-right: 3rem; margin-top: 0.75rem;
+}
+.ig-scroll-hint::before {
+  content: ''; display: block; width: 2rem; height: 1px; background: var(--muted);
+}
+
+/* pattern backgrounds kept for fallback if images fail */
 .pat-1 { background: linear-gradient(135deg, var(--sage) 0%, #2e5e40 100%); }
 .pat-2 { background: linear-gradient(135deg, var(--terracotta) 0%, var(--plum) 100%); }
 .pat-3 { background: linear-gradient(135deg, var(--gold) 0%, #e8845e 100%); }
 .pat-4 { background: linear-gradient(135deg, var(--sky) 0%, var(--plum) 100%); }
 .pat-5 { background: linear-gradient(135deg, #3d3d3d 0%, #1a1a1a 100%); }
-
-.ig-note {
-  margin-top: 1.5rem; font-size: 0.8rem; color: var(--muted); line-height: 1.7;
-  font-style: italic;
-  padding: 1rem 1.25rem; background: var(--sky-pale);
-  border-radius: 12px; border-left: 3px solid var(--sky);
-}
 
 /* ── POETRY CURATOR ── */
 #poetry {
@@ -838,7 +870,7 @@ footer {
     <li><a href="#personal">Brooklyn</a></li>
     <li><a href="#instagram">Instagram</a></li>
     <li><a href="#poetry">Poetry</a></li>
-    <li><a href="https://www.linkedin.com/in/onomatopriya" target="_blank" class="nav-cta">Let's Connect</a></li>
+    <li><a href="#contact" class="nav-cta">Let's Connect</a></li>
   </ul>
 </nav>
 
@@ -1133,11 +1165,12 @@ footer {
 
 <!-- ── INSTAGRAM ── -->
 <section id="instagram">
-  <div class="ig-layout">
-    <div class="reveal">
+
+  <div class="ig-layout-top reveal">
+    <div class="ig-intro">
       <span class="eyebrow" style="color:var(--plum);">Instagram</span>
       <h2 class="section-title">Follow the<br>journey</h2>
-      <p style="font-size:0.95rem;color:var(--muted);line-height:1.85;margin-top:1rem;margin-bottom:1.75rem;">Priya's Instagram, <em>@onomatopriya</em>, is where professional curiosity meets personal wonder — poems from the garden, observations from the museum floor, and the occasional Rat Academy dispatch.</p>
+      <p style="font-size:0.95rem;color:var(--muted);line-height:1.85;margin-top:1rem;margin-bottom:1.25rem;">Priya's Instagram, <em>@onomatopriya</em>, is where professional curiosity meets personal wonder — poems from the garden, observations from the museum floor, and the occasional Rat Academy dispatch.</p>
       <a href="https://www.instagram.com/onomatopriya/" target="_blank" class="ig-handle">
         <svg class="ig-handle-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75">
           <rect x="2" y="2" width="20" height="20" rx="5"/>
@@ -1147,73 +1180,66 @@ footer {
         @onomatopriya
       </a>
     </div>
-
-    <div class="reveal reveal-delay-2">
-      <div class="ig-mosaic">
-
-        <!-- Large tile — photo1 -->
-        <a href="https://www.instagram.com/onomatopriya/" target="_blank" class="ig-tile ig-tile-large">
-          <div class="ig-tile-inner">
-            <img src="photo1.jpg" alt="The city is alive and aglow" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
-            <div class="ig-overlay"></div>
-            <div class="ig-label">NYC</div>
-            <div class="ig-caption ig-caption-large">THE CITY IS ALIVE AND AGLOW!! ✨</div>
-          </div>
-        </a>
-
-        <!-- Small tile — photo2 -->
-        <a href="https://www.instagram.com/onomatopriya/" target="_blank" class="ig-tile">
-          <div class="ig-tile-inner">
-            <img src="photo2.jpg" alt="Everything is coming up roses" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
-            <div class="ig-overlay"></div>
-            <div class="ig-label">Garden</div>
-            <div class="ig-caption">everything is coming up… ROSES!</div>
-          </div>
-        </a>
-
-        <!-- Small tile — photo3 -->
-        <a href="https://www.instagram.com/onomatopriya/" target="_blank" class="ig-tile">
-          <div class="ig-tile-inner">
-            <img src="photo3.jpg" alt="Elmo, these streets ain't Sesame" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
-            <div class="ig-overlay"></div>
-            <div class="ig-label">Brooklyn</div>
-            <div class="ig-caption">elmo, "these streets ain't sesame!" 💙🧡</div>
-          </div>
-        </a>
-
-        <!-- Small tile — photo4 -->
-        <a href="https://www.instagram.com/onomatopriya/" target="_blank" class="ig-tile">
-          <div class="ig-tile-inner">
-            <img src="photo4.jpg" alt="Nuyorican Poets Cafe in Brooklyn" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
-            <div class="ig-overlay"></div>
-            <div class="ig-label">Culture</div>
-            <div class="ig-caption">NYC's hottest club: the unofficial Nuyorican Poets Cafe in Brooklyn</div>
-          </div>
-        </a>
-
-        <!-- Small tile — photo5 -->
-        <a href="https://www.instagram.com/onomatopriya/" target="_blank" class="ig-tile">
-          <div class="ig-tile-inner">
-            <img src="photo5.jpg" alt="Spurs and Knicks NBA Finals" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
-            <div class="ig-overlay"></div>
-            <div class="ig-label">Basketball</div>
-            <div class="ig-caption">two decades of Spurs love meets a dozen years of NYC 🖤🩶💙🧡</div>
-          </div>
-        </a>
-
-        <!-- Small tile — photo6 -->
-        <a href="https://www.instagram.com/onomatopriya/" target="_blank" class="ig-tile">
-          <div class="ig-tile-inner">
-            <img src="photo6.jpg" alt="A bouquet in mint condition" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;">
-            <div class="ig-overlay"></div>
-            <div class="ig-label">Nature</div>
-            <div class="ig-caption">a bouquet in MINT condition 🍃</div>
-          </div>
-        </a>
-
-      </div>
+    <div style="display:flex;align-items:flex-end;justify-content:flex-end;padding-bottom:0.5rem;">
+      <p style="font-size:0.85rem;color:var(--muted);line-height:1.75;max-width:340px;text-align:right;font-style:italic;">"A living record of what catches my eye — poetry, petals, and the city in all its strangeness."</p>
     </div>
   </div>
+
+  <!-- Scrollable portrait strip -->
+  <div class="ig-scroll-strip reveal" id="ig-strip">
+
+    <a href="https://www.instagram.com/onomatopriya/" target="_blank" class="ig-card">
+      <div class="ig-card-image">
+        <img src="photo1.jpg" alt="The city is alive and aglow">
+        <div class="ig-card-label">NYC</div>
+      </div>
+      <div class="ig-card-caption">THE CITY IS ALIVE AND AGLOW!! ✨</div>
+    </a>
+
+    <a href="https://www.instagram.com/onomatopriya/" target="_blank" class="ig-card">
+      <div class="ig-card-image">
+        <img src="photo2.jpg" alt="Everything is coming up roses">
+        <div class="ig-card-label">Garden</div>
+      </div>
+      <div class="ig-card-caption">everything is coming up… ROSES! 🌹</div>
+    </a>
+
+    <a href="https://www.instagram.com/onomatopriya/" target="_blank" class="ig-card">
+      <div class="ig-card-image">
+        <img src="photo3.jpg" alt="Elmo, these streets ain't Sesame">
+        <div class="ig-card-label">Brooklyn</div>
+      </div>
+      <div class="ig-card-caption">elmo, "these streets ain't sesame!" 💙🧡</div>
+    </a>
+
+    <a href="https://www.instagram.com/onomatopriya/" target="_blank" class="ig-card">
+      <div class="ig-card-image">
+        <img src="photo4.jpg" alt="Nuyorican Poets Cafe in Brooklyn">
+        <div class="ig-card-label">Culture</div>
+      </div>
+      <div class="ig-card-caption">new york's hottest club is the unofficial nuyorican poets cafe in brooklyn. this place has everything.</div>
+    </a>
+
+    <a href="https://www.instagram.com/onomatopriya/" target="_blank" class="ig-card">
+      <div class="ig-card-image">
+        <img src="photo5.jpg" alt="Spurs and Knicks NBA Finals">
+        <div class="ig-card-label">Basketball</div>
+      </div>
+      <div class="ig-card-caption">almost two decades of loving the spurs meets a dozen years of rooting for the home team. here's to great basketball & great stories 🖤🩶💙🧡</div>
+    </a>
+
+    <a href="https://www.instagram.com/onomatopriya/" target="_blank" class="ig-card">
+      <div class="ig-card-image">
+        <img src="photo6.jpg" alt="A bouquet in mint condition">
+        <div class="ig-card-label">Nature</div>
+      </div>
+      <div class="ig-card-caption">a bouquet in MINT condition 🍃</div>
+    </a>
+
+  </div>
+
+  <div class="ig-scroll-hint reveal">Scroll to see more · tap any photo to visit @onomatopriya</div>
+
 </section>
 
 <!-- ── POETRY CURATOR ── -->
@@ -1228,14 +1254,6 @@ footer {
       <p class="poetry-body">Below, a poem Priya loves — drawn at random from her curated collection. Every poem here earned its place.</p>
     </div>
     <div class="reveal reveal-delay-2">
-      <div class="ig-follow-card" style="margin-bottom:1.5rem;">
-        <div class="ig-follow-avatar">PC</div>
-        <div>
-          <div class="ig-follow-handle">@onomatopriya</div>
-          <div class="ig-follow-sub">Poetry curation · Nature · Brooklyn Life</div>
-        </div>
-        <a href="https://www.instagram.com/onomatopriya/" target="_blank" class="ig-follow-btn">Follow</a>
-      </div>
       <p style="font-size:0.8rem;color:var(--muted);line-height:1.7;font-style:italic;padding:1rem 1.25rem;background:var(--plum-pale);border-radius:12px;border-left:3px solid var(--plum);">The handle <em>onomatopriya</em> is itself a small poem — a word that sounds like what it is. Her name, made lyrical.</p>
     </div>
   </div>
@@ -1387,6 +1405,25 @@ const pills = document.querySelectorAll('.nyc-tag');
 pills.forEach(p => {
   p.addEventListener('mouseenter', () => { p.style.transition = 'all 0.2s'; });
 });
+
+// ── INSTAGRAM STRIP — drag to scroll ──
+const strip = document.getElementById('ig-strip');
+if (strip) {
+  let isDown = false, startX, scrollLeft;
+  strip.addEventListener('mousedown', e => {
+    isDown = true; strip.classList.add('active');
+    startX = e.pageX - strip.offsetLeft;
+    scrollLeft = strip.scrollLeft;
+  });
+  strip.addEventListener('mouseleave', () => { isDown = false; });
+  strip.addEventListener('mouseup', () => { isDown = false; });
+  strip.addEventListener('mousemove', e => {
+    if (!isDown) return;
+    e.preventDefault();
+    const x = e.pageX - strip.offsetLeft;
+    strip.scrollLeft = scrollLeft - (x - startX) * 1.5;
+  });
+}
 
 // ── CONTACT FORM — Formspree handler ──
 const contactForm = document.getElementById('contact-form');
