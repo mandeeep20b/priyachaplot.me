@@ -152,16 +152,76 @@ nav {
 /* ── HERO ── */
 .hero {
   min-height: 100vh;
-  padding: 8rem 2.5rem 4rem;
+  padding: 8rem 3rem 4rem;
   display: grid;
-  grid-template-columns: 1fr 320px 340px;
-  gap: 2rem;
+  grid-template-columns: 1fr 360px;
+  gap: 3rem;
   align-items: center;
   position: relative;
   overflow: hidden;
 }
 
-.hero-text { max-width: none; width: 100%; }
+/* Film strip background */
+.hero-filmstrip {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 5% 0;
+  pointer-events: none;
+  z-index: 0;
+}
+.film-row {
+  display: flex;
+  align-items: center;
+  opacity: 0.19;
+}
+.film-row-inner {
+  display: flex;
+  align-items: center;
+  animation: filmScroll linear infinite;
+  will-change: transform;
+}
+.film-row:nth-child(1) .film-row-inner { animation-duration: 90s; }
+.film-row:nth-child(2) .film-row-inner { animation-duration: 72s; animation-direction: reverse; }
+.film-row:nth-child(3) .film-row-inner { animation-duration: 110s; }
+@keyframes filmScroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+.film-frame {
+  flex-shrink: 0;
+  border-radius: 10px;
+  overflow: hidden;
+  border: 3px solid #fff;
+  cursor: pointer;
+  pointer-events: all;
+  transition: opacity 0.2s, transform 0.2s;
+}
+.film-frame:hover { opacity: 0.85 !important; transform: scale(1.04); }
+.film-frame img {
+  display: block;
+  width: 100%; height: 100%;
+  object-fit: cover;
+}
+
+/* Edge fade overlay */
+.hero-fade {
+  position: absolute; inset: 0; z-index: 1;
+  background: linear-gradient(
+    to right,
+    var(--cream) 0%,
+    rgba(250,248,245,0.55) 18%,
+    rgba(250,248,245,0.1) 38%,
+    rgba(250,248,245,0.1) 62%,
+    rgba(250,248,245,0.55) 82%,
+    var(--cream) 100%
+  );
+  pointer-events: none;
+}
+
+.hero-text { position: relative; z-index: 2; max-width: none; width: 100%; }
 
 .hero-eyebrow {
   display: inline-flex; align-items: center; gap: 0.6rem;
@@ -193,22 +253,12 @@ nav {
   font-size: 1.05rem; color: var(--muted); line-height: 1.8; max-width: 500px; margin-bottom: 2.5rem;
 }
 .hero-tagline strong { color: var(--ink); font-weight: 500; }
-
 .hero-pills { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-bottom: 2.5rem; justify-content: flex-start; }
-
 .hero-ctas { display: flex; gap: 1rem; flex-wrap: wrap; justify-content: flex-start; }
-
-/* Stack center column */
-.hero-stack-col {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-}
 
 /* Persona card right column */
 .hero-right {
+  position: relative; z-index: 2;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -1053,16 +1103,9 @@ footer {
   body { cursor: auto; }
 
   .hero { grid-template-columns: 1fr; min-height: auto; padding: 5.5rem 1.25rem 3rem; gap: 1.5rem; }
-  .hero-stack-col { display: none; }
   .hero-right { display: none; }
   .hero h1 { font-size: clamp(2.1rem, 9vw, 3.5rem); line-height: 1.1; }
   .hero-tagline { font-size: 0.9rem; }
-
-  @media (max-width: 1200px) and (min-width: 961px) {
-    .hero { grid-template-columns: 1fr 280px; }
-    .hero-stack-col { display: none; }
-    .hero-right { display: flex; }
-  }
   .hero-pills { gap: 0.35rem; }
 
   #about { grid-template-columns: 1fr; padding: 3.5rem 1.25rem; gap: 2rem; }
@@ -1147,6 +1190,18 @@ footer {
 
 <!-- ── HERO ── -->
 <section class="hero" id="home">
+
+  <!-- Film strip background -->
+  <div class="hero-filmstrip" id="filmstrip">
+    <div class="film-row"><div class="film-row-inner" id="frow1"></div></div>
+    <div class="film-row"><div class="film-row-inner" id="frow2"></div></div>
+    <div class="film-row"><div class="film-row-inner" id="frow3"></div></div>
+  </div>
+
+  <!-- Edge fade -->
+  <div class="hero-fade"></div>
+
+  <!-- Blobs behind everything -->
   <div class="blob blob-1"></div>
   <div class="blob blob-2"></div>
   <div class="blob blob-3"></div>
@@ -1172,56 +1227,13 @@ footer {
       <span class="pill pill-sage">Brooklyn Museum Docent</span>
       <span class="pill pill-gold">Botanic Garden Guide</span>
       <span class="pill pill-plum">Poetry Curator</span>
-      <span class="pill pill-sky">Jane's Walk Leader</span>
     </div>
     <div class="hero-ctas reveal reveal-delay-4">
       <a href="https://www.linkedin.com/in/onomatopriya" target="_blank" class="btn-fill">Professional Work</a>
     </div>
   </div>
 
-  <!-- CENTER COLUMN: Photo stack -->
-  <div class="hero-stack-col reveal">
-    <div class="photo-stack-wrap" id="photoStack">
-      <div class="photo-frame pf-1"
-           data-img="stack1.jpg"
-           data-title="MCing at Brooklyn Conservatory of Music"
-           data-sub="Indian Classical Programming · BKCM">
-        <img src="stack1.jpg" alt="MCing BKCM event">
-        <div class="frame-label">BKCM · Indian Classical</div>
-      </div>
-      <div class="photo-frame pf-2"
-           data-img="stack2.jpg"
-           data-title="Speaking at the AIR Conference"
-           data-sub="Higher Education Research · National Conference">
-        <img src="stack2.jpg" alt="Speaking at AIR Conference">
-        <div class="frame-label">AIR Conference · Speaker</div>
-      </div>
-      <div class="photo-frame pf-3"
-           data-img="stack3.jpg"
-           data-title="Birding Tour at the Brooklyn Museum"
-           data-sub="Brooklyn Museum · Docent & Guide">
-        <img src="stack3.jpg" alt="Birding at the Museum Tour">
-        <div class="frame-label">Brooklyn Museum · Birding Tour</div>
-      </div>
-      <div class="photo-frame pf-4"
-           data-img="stack4.jpg"
-           data-title="Jane's Walk Tour 2026"
-           data-sub="Eastern Parkway · MAS NYC · Annual Walk">
-        <img src="stack4.jpg" alt="Janes Walk Tour 2026">
-        <div class="frame-label">Jane's Walk · 2026</div>
-      </div>
-      <div class="photo-frame pf-5"
-           data-img="stack5.jpg"
-           data-title="Brooklyn Botanic Garden Tour"
-           data-sub="Volunteer Guide · Brooklyn Botanic Garden">
-        <img src="stack5.jpg" alt="Brooklyn Botanic Garden Tour">
-        <div class="frame-label">Brooklyn Botanic Garden</div>
-      </div>
-    </div>
-    <div class="stack-hint">hover to browse · click to open</div>
-  </div>
-
-  <!-- RIGHT COLUMN: Persona card -->
+  <!-- Persona card -->
   <div class="hero-right reveal reveal-delay-2">
     <div style="position:relative;width:100%;">
       <div style="position:absolute;width:100%;height:100%;border-radius:24px;background:var(--terracotta-pale);border:1.5px solid var(--terracotta);transform:rotate(3deg) translate(8px,8px);opacity:0.45;top:0;left:0;"></div>
@@ -1715,9 +1727,65 @@ footer {
 </footer>
 
 <script>
-// ── PHOTO STACK ──
-const photoStack = document.getElementById('photoStack');
-const stackLightbox = document.getElementById('stackLightbox');
+// ── FILM STRIP ──
+const PHOTOS = [
+  { src: 'stack1.jpg', title: 'MCing at Brooklyn Conservatory of Music', sub: 'Indian Classical Programming · BKCM' },
+  { src: 'stack2.jpg', title: 'Speaking at the AIR Conference',           sub: 'Higher Education Research · National Conference' },
+  { src: 'stack3.jpg', title: 'Birding Tour at the Brooklyn Museum',      sub: 'Brooklyn Museum · Docent & Guide' },
+  { src: 'stack4.jpg', title: "Jane's Walk Tour 2026",                    sub: 'Eastern Parkway · MAS NYC · Annual Walk' },
+  { src: 'stack5.jpg', title: 'Brooklyn Botanic Garden Tour',             sub: 'Volunteer Guide · Brooklyn Botanic Garden' },
+];
+
+// Irregular gaps — min ~2 frame widths, max ~4 frame widths, randomized per row
+// Frame widths: row0=173px, row1=147px, row2=160px
+const gapSets = [
+  [380, 520, 350, 680, 410, 600, 360, 700, 440, 550],
+  [310, 480, 620, 330, 580, 290, 650, 370, 500, 340],
+  [420, 560, 300, 690, 380, 510, 640, 320, 470, 590],
+];
+
+// Frame heights per row
+const rowHeights = [130, 110, 120];
+
+let stripPaused = false;
+let currentLbIndex = 0;
+
+function buildRow(containerId, rowIndex) {
+  const container = document.getElementById(containerId);
+  if (!container) return;
+  const h = rowHeights[rowIndex];
+  const gaps = gapSets[rowIndex];
+  // Build two copies for seamless loop
+  [0, 1].forEach(() => {
+    PHOTOS.forEach((p, pi) => {
+      // Add spacer before frame
+      const spacer = document.createElement('div');
+      spacer.style.flexShrink = '0';
+      spacer.style.width = gaps[pi % gaps.length] + 'px';
+      container.appendChild(spacer);
+
+      const frame = document.createElement('div');
+      frame.className = 'film-frame';
+      frame.style.width = Math.round(h * 4 / 3) + 'px';
+      frame.style.height = h + 'px';
+      frame.dataset.index = pi;
+      const img = document.createElement('img');
+      img.src = p.src;
+      img.alt = p.title;
+      img.loading = 'lazy';
+      frame.appendChild(img);
+      frame.addEventListener('click', () => openFilmLightbox(pi));
+      container.appendChild(frame);
+    });
+  });
+}
+
+buildRow('frow1', 0);
+buildRow('frow2', 1);
+buildRow('frow3', 2);
+
+// Lightbox
+const filmLightbox = document.getElementById('stackLightbox');
 const lbClose = document.getElementById('lbClose');
 const lbImg = document.getElementById('lbImg');
 const lbFrameLabel = document.getElementById('lbFrameLabel');
@@ -1725,103 +1793,43 @@ const lbTitle = document.getElementById('lbTitle');
 const lbSub = document.getElementById('lbSub');
 const lbPrev = document.getElementById('lbPrev');
 const lbNext = document.getElementById('lbNext');
-const photoFrames = Array.from(document.querySelectorAll('.photo-frame'));
-let currentLbIndex = 0;
-let isFanned = false;
+const filmRows = document.querySelectorAll('.film-row-inner');
 
-// Resting transforms for each frame
-const restTransforms = [
-  'rotate(-3deg) translate(-20px, 10px)',
-  'rotate(2deg) translate(10px, 5px)',
-  'rotate(-1deg) translate(-5px, 0px)',
-  'rotate(5deg) translate(18px, 8px)',
-  'rotate(-6deg) translate(-15px, 12px)'
-];
-
-// Fanned transforms — tighter spread to stay within center column
-const fannedTransforms = [
-  'rotate(-4deg) translate(-155px, 22px)',
-  'rotate(-2deg) translate(-78px, 10px)',
-  'rotate(0deg) translate(0px, 0px)',
-  'rotate(2deg) translate(78px, 10px)',
-  'rotate(4deg) translate(155px, 22px)'
-];
-
-function fanOut() {
-  if (isFanned) return;
-  isFanned = true;
-  photoFrames.forEach((f, i) => {
-    f.style.transform = fannedTransforms[i];
-    f.style.boxShadow = '0 8px 24px rgba(0,0,0,0.13)';
-  });
+function pauseStrip() {
+  filmRows.forEach(r => r.style.animationPlayState = 'paused');
+}
+function resumeStrip() {
+  filmRows.forEach(r => r.style.animationPlayState = 'running');
 }
 
-function collapse() {
-  isFanned = false;
-  photoFrames.forEach((f, i) => {
-    f.style.transform = restTransforms[i];
-    f.style.boxShadow = '';
-    f.style.zIndex = '';
-  });
-}
-
-if (photoStack) {
-  photoStack.addEventListener('mouseenter', fanOut);
-  photoStack.addEventListener('mouseleave', collapse);
-
-  photoFrames.forEach((frame, i) => {
-    frame.addEventListener('mouseenter', () => {
-      if (!isFanned) return;
-      frame.style.transform = `${fannedTransforms[i]} translateY(-20px) scale(1.1)`;
-      frame.style.boxShadow = '0 24px 56px rgba(0,0,0,0.22)';
-      frame.style.zIndex = '10';
-    });
-    frame.addEventListener('mouseleave', () => {
-      if (!isFanned) return;
-      frame.style.transform = fannedTransforms[i];
-      frame.style.boxShadow = '0 8px 24px rgba(0,0,0,0.13)';
-      frame.style.zIndex = '';
-    });
-    frame.addEventListener('click', () => openLightbox(i));
-  });
-}
-
-function openLightbox(index) {
+function openFilmLightbox(index) {
   currentLbIndex = index;
-  const frame = photoFrames[index];
-  lbImg.src = frame.dataset.img;
-  lbImg.alt = frame.querySelector('img').alt;
-  lbFrameLabel.textContent = frame.querySelector('.frame-label').textContent;
-  lbTitle.textContent = frame.dataset.title;
-  lbSub.textContent = frame.dataset.sub;
-  stackLightbox.classList.add('open');
+  const p = PHOTOS[index];
+  lbImg.src = p.src;
+  lbImg.alt = p.title;
+  lbFrameLabel.textContent = '';
+  lbTitle.textContent = p.title;
+  lbSub.textContent = p.sub;
+  filmLightbox.classList.add('open');
   document.body.style.overflow = 'hidden';
+  pauseStrip();
 }
 
-function closeLightbox() {
-  stackLightbox.classList.remove('open');
+function closeFilmLightbox() {
+  filmLightbox.classList.remove('open');
   document.body.style.overflow = '';
+  resumeStrip();
 }
 
-if (lbClose) lbClose.addEventListener('click', closeLightbox);
-if (stackLightbox) {
-  stackLightbox.addEventListener('click', e => {
-    if (e.target === stackLightbox) closeLightbox();
-  });
-}
-if (lbPrev) lbPrev.addEventListener('click', () => {
-  currentLbIndex = (currentLbIndex - 1 + photoFrames.length) % photoFrames.length;
-  openLightbox(currentLbIndex);
-});
-if (lbNext) lbNext.addEventListener('click', () => {
-  currentLbIndex = (currentLbIndex + 1) % photoFrames.length;
-  openLightbox(currentLbIndex);
-});
+if (lbClose) lbClose.addEventListener('click', closeFilmLightbox);
+if (filmLightbox) filmLightbox.addEventListener('click', e => { if (e.target === filmLightbox) closeFilmLightbox(); });
+if (lbPrev) lbPrev.addEventListener('click', () => { currentLbIndex = (currentLbIndex - 1 + PHOTOS.length) % PHOTOS.length; openFilmLightbox(currentLbIndex); });
+if (lbNext) lbNext.addEventListener('click', () => { currentLbIndex = (currentLbIndex + 1) % PHOTOS.length; openFilmLightbox(currentLbIndex); });
 document.addEventListener('keydown', e => {
-  if (!stackLightbox.classList.contains('open')) return;
-  if (e.key === 'Escape') closeLightbox();
-  if (e.key === 'ArrowLeft') lbPrev.click();
-  if (e.key === 'ArrowRight') lbNext.click();
+  if (!filmLightbox || !filmLightbox.classList.contains('open')) return;
+  if (e.key === 'Escape') closeFilmLightbox();
+  if (e.key === 'ArrowLeft') lbPrev && lbPrev.click();
+  if (e.key === 'ArrowRight') lbNext && lbNext.click();
 });
 
 // ── MOBILE NAV ──
