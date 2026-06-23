@@ -152,10 +152,10 @@ nav {
 /* ── HERO ── */
 .hero {
   min-height: 100vh;
-  padding: 8rem 3rem 4rem;
+  padding: 8rem 2.5rem 4rem;
   display: grid;
-  grid-template-columns: 1fr 420px;
-  gap: 1.5rem;
+  grid-template-columns: 1fr 320px 340px;
+  gap: 2rem;
   align-items: center;
   position: relative;
   overflow: hidden;
@@ -198,18 +198,69 @@ nav {
 
 .hero-ctas { display: flex; gap: 1rem; flex-wrap: wrap; justify-content: flex-start; }
 
-/* Stack right column */
+/* Stack center column */
+.hero-stack-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+/* Persona card right column */
 .hero-right {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   width: 100%;
-  gap: 0;
 }
 
-/* Persona card */
-.persona-card {
+.photo-stack-wrap {
+  position: relative;
+  width: 280px; height: 300px;
+  display: flex; align-items: center; justify-content: center;
+}
+
+.stack-hint {
+  font-size: 0.68rem; color: var(--muted); letter-spacing: 0.1em;
+  text-transform: uppercase; white-space: nowrap; opacity: 0.6;
+  margin-top: 0.5rem; text-align: center;
+}
+
+.photo-frame {
+  position: absolute;
+  width: 200px;
+  background: #fff;
+  border: 0.5px solid rgba(0,0,0,0.14);
+  border-radius: 12px;
+  padding: 8px 8px 36px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.10), 0 0 0 0.5px rgba(0,0,0,0.05);
+  cursor: pointer;
+  transition: transform 0.4s cubic-bezier(0.34,1.4,0.64,1),
+              box-shadow 0.3s ease;
+  transform-origin: bottom center;
+  will-change: transform;
+}
+
+.photo-frame img {
+  width: 100%; aspect-ratio: 4/3;
+  object-fit: cover; object-position: center top;
+  display: block; border-radius: 6px;
+}
+
+.photo-frame .frame-label {
+  position: absolute; bottom: 8px; left: 8px; right: 8px;
+  font-size: 0.62rem; color: #888; text-align: center;
+  font-family: var(--sans); white-space: nowrap;
+  overflow: hidden; text-overflow: ellipsis;
+}
+
+.pf-1 { z-index: 5; transform: rotate(-3deg) translate(-15px, 8px); }
+.pf-2 { z-index: 4; transform: rotate(2deg) translate(8px, 4px); }
+.pf-3 { z-index: 3; transform: rotate(-1deg) translate(-3px, 0px); }
+.pf-4 { z-index: 2; transform: rotate(4deg) translate(14px, 6px); }
+.pf-5 { z-index: 1; transform: rotate(-5deg) translate(-10px, 10px); }
   width: 100%;
   background: var(--warm-white);
   border: 1.5px solid rgba(26,26,26,0.12);
@@ -307,47 +358,6 @@ nav {
   margin-top: 0.5rem; text-align: center;
 }
 
-.photo-frame {
-  position: absolute;
-  width: 260px;
-  background: #fff;
-  border: 0.5px solid rgba(0,0,0,0.14);
-  border-radius: 12px;
-  padding: 10px 10px 40px;
-  box-shadow: 0 4px 16px rgba(0,0,0,0.10), 0 0 0 0.5px rgba(0,0,0,0.05);
-  cursor: pointer;
-  transition: transform 0.4s cubic-bezier(0.34,1.4,0.64,1),
-              box-shadow 0.3s ease;
-  transform-origin: bottom center;
-  will-change: transform;
-}
-
-.photo-frame img {
-  width: 100%; aspect-ratio: 4/3;
-  object-fit: cover; object-position: center top;
-  display: block; border-radius: 6px;
-}
-
-.photo-frame .frame-label {
-  position: absolute; bottom: 10px; left: 10px; right: 10px;
-  font-size: 0.65rem; color: #888; text-align: center;
-  font-family: var(--sans); white-space: nowrap;
-  overflow: hidden; text-overflow: ellipsis;
-}
-
-.pf-1 { z-index: 5; transform: rotate(-3deg) translate(-20px, 10px); }
-.pf-2 { z-index: 4; transform: rotate(2deg) translate(10px, 5px); }
-.pf-3 { z-index: 3; transform: rotate(-1deg) translate(-5px, 0px); }
-.pf-4 { z-index: 2; transform: rotate(5deg) translate(18px, 8px); }
-.pf-5 { z-index: 1; transform: rotate(-6deg) translate(-15px, 12px); }
-
-/* Fanned state — set by JS, hover handled in JS too to avoid glitch */
-.photo-stack-wrap.fanned .pf-1 { transform: rotate(-4deg) translate(-210px, 28px); z-index: 5; }
-.photo-stack-wrap.fanned .pf-2 { transform: rotate(-2deg) translate(-105px, 12px); z-index: 4; }
-.photo-stack-wrap.fanned .pf-3 { transform: rotate(0deg) translate(0px, 0px); z-index: 3; }
-.photo-stack-wrap.fanned .pf-4 { transform: rotate(2deg) translate(105px, 12px); z-index: 2; }
-.photo-stack-wrap.fanned .pf-5 { transform: rotate(4deg) translate(210px, 28px); z-index: 1; }
-
 /* Lightbox */
 .stack-lightbox {
   display: none;
@@ -400,11 +410,37 @@ nav {
   transition: background 0.2s, color 0.2s;
 }
 .lb-nav-btn:hover { background: rgba(255,255,255,0.12); color: #fff; }
+
+/* Persona card */
+.persona-card {
+  width: 100%;
+  background: var(--warm-white);
+  border: 1.5px solid rgba(26,26,26,0.12);
+  border-radius: 24px;
+  padding: 1.75rem;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.08);
+  animation: cardFloat 6s ease-in-out infinite;
+}
+@keyframes cardFloat {
+  0%, 100% { transform: translateY(0) rotate(-0.5deg); }
+  50% { transform: translateY(-8px) rotate(0.5deg); }
+}
+.persona-initials {
+  width: 56px; height: 56px; border-radius: 50%;
+  background: linear-gradient(135deg, var(--terracotta), var(--plum));
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--serif); font-size: 1.2rem; color: #fff; font-weight: 700;
+  margin-bottom: 1rem;
+}
+.persona-name { font-family: var(--serif); font-size: 1.15rem; font-weight: 700; margin-bottom: 0.2rem; }
+.persona-title { font-size: 0.75rem; color: var(--muted); margin-bottom: 1.25rem; line-height: 1.5; }
+.persona-tags { display: flex; flex-wrap: wrap; gap: 0.35rem; margin-bottom: 1.25rem; }
+.persona-tag { font-size: 0.65rem; font-weight: 500; padding: 0.25rem 0.65rem; border-radius: 100px; }
 .persona-divider { height: 1px; background: var(--border); margin: 1.25rem 0; }
-.persona-stat-row { display: flex; gap: 1.25rem; }
-.persona-stat { text-align: center; }
-.persona-stat-n { font-family: var(--serif); font-size: 1.6rem; font-weight: 700; color: var(--terracotta); line-height: 1; }
-.persona-stat-l { font-size: 0.68rem; color: var(--muted); margin-top: 0.2rem; }
+.persona-stat-row { display: flex; gap: 1rem; }
+.persona-stat { text-align: center; flex: 1; }
+.persona-stat-n { font-family: var(--serif); font-size: 1.5rem; font-weight: 700; color: var(--terracotta); line-height: 1; }
+.persona-stat-l { font-size: 0.62rem; color: var(--muted); margin-top: 0.2rem; line-height: 1.35; }
 
 /* ── MARQUEE STRIP ── */
 .marquee-strip {
@@ -1017,9 +1053,16 @@ footer {
   body { cursor: auto; }
 
   .hero { grid-template-columns: 1fr; min-height: auto; padding: 5.5rem 1.25rem 3rem; gap: 1.5rem; }
+  .hero-stack-col { display: none; }
   .hero-right { display: none; }
   .hero h1 { font-size: clamp(2.1rem, 9vw, 3.5rem); line-height: 1.1; }
   .hero-tagline { font-size: 0.9rem; }
+
+  @media (max-width: 1200px) and (min-width: 961px) {
+    .hero { grid-template-columns: 1fr 280px; }
+    .hero-stack-col { display: none; }
+    .hero-right { display: flex; }
+  }
   .hero-pills { gap: 0.35rem; }
 
   #about { grid-template-columns: 1fr; padding: 3.5rem 1.25rem; gap: 2rem; }
@@ -1136,7 +1179,8 @@ footer {
     </div>
   </div>
 
-  <div class="hero-right">
+  <!-- CENTER COLUMN: Photo stack -->
+  <div class="hero-stack-col reveal">
     <div class="photo-stack-wrap" id="photoStack">
       <div class="photo-frame pf-1"
            data-img="stack1.jpg"
@@ -1175,9 +1219,11 @@ footer {
       </div>
     </div>
     <div class="stack-hint">hover to browse · click to open</div>
+  </div>
 
-    <!-- Restored floating persona card -->
-    <div style="position:relative;width:100%;max-width:380px;margin-top:1.5rem;">
+  <!-- RIGHT COLUMN: Persona card -->
+  <div class="hero-right reveal reveal-delay-2">
+    <div style="position:relative;width:100%;">
       <div style="position:absolute;width:100%;height:100%;border-radius:24px;background:var(--terracotta-pale);border:1.5px solid var(--terracotta);transform:rotate(3deg) translate(8px,8px);opacity:0.45;top:0;left:0;"></div>
       <div style="position:absolute;width:100%;height:100%;border-radius:24px;background:var(--sage-pale);border:1.5px solid var(--sage);transform:rotate(-2deg) translate(-6px,10px);opacity:0.35;top:0;left:0;"></div>
       <div class="persona-card" style="position:relative;z-index:2;">
@@ -1692,13 +1738,13 @@ const restTransforms = [
   'rotate(-6deg) translate(-15px, 12px)'
 ];
 
-// Fanned transforms for each frame
+// Fanned transforms — tighter spread to stay within center column
 const fannedTransforms = [
-  'rotate(-4deg) translate(-210px, 28px)',
-  'rotate(-2deg) translate(-105px, 12px)',
+  'rotate(-4deg) translate(-155px, 22px)',
+  'rotate(-2deg) translate(-78px, 10px)',
   'rotate(0deg) translate(0px, 0px)',
-  'rotate(2deg) translate(105px, 12px)',
-  'rotate(4deg) translate(210px, 28px)'
+  'rotate(2deg) translate(78px, 10px)',
+  'rotate(4deg) translate(155px, 22px)'
 ];
 
 function fanOut() {
