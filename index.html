@@ -154,8 +154,8 @@ nav {
   min-height: 100vh;
   padding: 8rem 3rem 4rem;
   display: grid;
-  grid-template-columns: 1fr 480px;
-  gap: 3rem;
+  grid-template-columns: 1fr 420px;
+  gap: 1.5rem;
   align-items: center;
   position: relative;
   overflow: hidden;
@@ -205,7 +205,39 @@ nav {
   align-items: center;
   justify-content: center;
   width: 100%;
+  gap: 0;
 }
+
+/* Persona card */
+.persona-card {
+  width: 100%;
+  background: var(--warm-white);
+  border: 1.5px solid rgba(26,26,26,0.12);
+  border-radius: 24px;
+  padding: 1.75rem;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.08);
+  animation: cardFloat 6s ease-in-out infinite;
+}
+@keyframes cardFloat {
+  0%, 100% { transform: translateY(0) rotate(-0.5deg); }
+  50% { transform: translateY(-8px) rotate(0.5deg); }
+}
+.persona-initials {
+  width: 56px; height: 56px; border-radius: 50%;
+  background: linear-gradient(135deg, var(--terracotta), var(--plum));
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--serif); font-size: 1.2rem; color: #fff; font-weight: 700;
+  margin-bottom: 1rem;
+}
+.persona-name { font-family: var(--serif); font-size: 1.2rem; font-weight: 700; margin-bottom: 0.2rem; }
+.persona-title { font-size: 0.75rem; color: var(--muted); margin-bottom: 1.25rem; }
+.persona-tags { display: flex; flex-wrap: wrap; gap: 0.35rem; margin-bottom: 1.25rem; }
+.persona-tag { font-size: 0.65rem; font-weight: 500; padding: 0.25rem 0.65rem; border-radius: 100px; }
+.persona-divider { height: 1px; background: var(--border); margin-bottom: 1.25rem; }
+.persona-stat-row { display: flex; gap: 1rem; }
+.persona-stat { text-align: center; flex: 1; }
+.persona-stat-n { font-family: var(--serif); font-size: 1.5rem; font-weight: 700; color: var(--terracotta); line-height: 1; }
+.persona-stat-l { font-size: 0.62rem; color: var(--muted); margin-top: 0.2rem; line-height: 1.35; }
 
 /* Floating blob backgrounds */
 .blob {
@@ -265,26 +297,26 @@ nav {
 
 .photo-stack-wrap {
   position: relative;
-  width: 380px; height: 340px;
+  width: 420px; height: 320px;
   display: flex; align-items: center; justify-content: center;
 }
 
 .stack-hint {
-  position: absolute; bottom: -1.75rem; left: 50%; transform: translateX(-50%);
   font-size: 0.68rem; color: var(--muted); letter-spacing: 0.1em;
   text-transform: uppercase; white-space: nowrap; opacity: 0.6;
+  margin-top: 0.5rem; text-align: center;
 }
 
 .photo-frame {
   position: absolute;
-  width: 220px;
+  width: 260px;
   background: #fff;
   border: 0.5px solid rgba(0,0,0,0.14);
   border-radius: 12px;
   padding: 10px 10px 40px;
   box-shadow: 0 4px 16px rgba(0,0,0,0.10), 0 0 0 0.5px rgba(0,0,0,0.05);
   cursor: pointer;
-  transition: transform 0.38s cubic-bezier(0.34,1.56,0.64,1),
+  transition: transform 0.4s cubic-bezier(0.34,1.4,0.64,1),
               box-shadow 0.3s ease;
   transform-origin: bottom center;
   will-change: transform;
@@ -309,17 +341,12 @@ nav {
 .pf-4 { z-index: 2; transform: rotate(5deg) translate(18px, 8px); }
 .pf-5 { z-index: 1; transform: rotate(-6deg) translate(-15px, 12px); }
 
-.photo-stack-wrap.fanned .pf-1 { transform: rotate(-3deg) translate(-190px, 30px) scale(1.06); z-index: 5; }
-.photo-stack-wrap.fanned .pf-2 { transform: rotate(-1deg) translate(-95px, 12px) scale(1.03); z-index: 4; }
-.photo-stack-wrap.fanned .pf-3 { transform: rotate(0deg) translate(0px, 0px) scale(1.0); z-index: 3; }
-.photo-stack-wrap.fanned .pf-4 { transform: rotate(1deg) translate(95px, 12px) scale(1.03); z-index: 2; }
-.photo-stack-wrap.fanned .pf-5 { transform: rotate(3deg) translate(190px, 30px) scale(1.06); z-index: 1; }
-
-.photo-stack-wrap.fanned .photo-frame:hover {
-  z-index: 10 !important;
-  transform: translateY(-22px) scale(1.13) !important;
-  box-shadow: 0 24px 56px rgba(0,0,0,0.22) !important;
-}
+/* Fanned state — set by JS, hover handled in JS too to avoid glitch */
+.photo-stack-wrap.fanned .pf-1 { transform: rotate(-4deg) translate(-210px, 28px); z-index: 5; }
+.photo-stack-wrap.fanned .pf-2 { transform: rotate(-2deg) translate(-105px, 12px); z-index: 4; }
+.photo-stack-wrap.fanned .pf-3 { transform: rotate(0deg) translate(0px, 0px); z-index: 3; }
+.photo-stack-wrap.fanned .pf-4 { transform: rotate(2deg) translate(105px, 12px); z-index: 2; }
+.photo-stack-wrap.fanned .pf-5 { transform: rotate(4deg) translate(210px, 28px); z-index: 1; }
 
 /* Lightbox */
 .stack-lightbox {
@@ -1148,6 +1175,29 @@ footer {
       </div>
     </div>
     <div class="stack-hint">hover to browse · click to open</div>
+
+    <!-- Restored floating persona card -->
+    <div style="position:relative;width:100%;max-width:380px;margin-top:1.5rem;">
+      <div style="position:absolute;width:100%;height:100%;border-radius:24px;background:var(--terracotta-pale);border:1.5px solid var(--terracotta);transform:rotate(3deg) translate(8px,8px);opacity:0.45;top:0;left:0;"></div>
+      <div style="position:absolute;width:100%;height:100%;border-radius:24px;background:var(--sage-pale);border:1.5px solid var(--sage);transform:rotate(-2deg) translate(-6px,10px);opacity:0.35;top:0;left:0;"></div>
+      <div class="persona-card" style="position:relative;z-index:2;">
+        <div class="persona-initials">PC</div>
+        <div class="persona-name">Priyadarshini Chaplot</div>
+        <div class="persona-title">Independent Consultant · MBA · Brooklyn, NY</div>
+        <div class="persona-tags">
+          <span class="persona-tag" style="background:var(--terracotta-pale);color:var(--terracotta);">Higher Education</span>
+          <span class="persona-tag" style="background:var(--sage-pale);color:var(--sage);">Researcher</span>
+          <span class="persona-tag" style="background:var(--plum-pale);color:var(--plum);">Poetry Curator</span>
+          <span class="persona-tag" style="background:var(--gold-pale);color:var(--gold);">Guide</span>
+        </div>
+        <div class="persona-divider"></div>
+        <div class="persona-stat-row">
+          <div class="persona-stat"><div class="persona-stat-n">20+</div><div class="persona-stat-l">Years in Higher Ed</div></div>
+          <div class="persona-stat"><div class="persona-stat-n">500+</div><div class="persona-stat-l">Colleges Served</div></div>
+          <div class="persona-stat"><div class="persona-stat-n">45</div><div class="persona-stat-l">States Reached</div></div>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -1631,12 +1681,61 @@ const lbPrev = document.getElementById('lbPrev');
 const lbNext = document.getElementById('lbNext');
 const photoFrames = Array.from(document.querySelectorAll('.photo-frame'));
 let currentLbIndex = 0;
+let isFanned = false;
+
+// Resting transforms for each frame
+const restTransforms = [
+  'rotate(-3deg) translate(-20px, 10px)',
+  'rotate(2deg) translate(10px, 5px)',
+  'rotate(-1deg) translate(-5px, 0px)',
+  'rotate(5deg) translate(18px, 8px)',
+  'rotate(-6deg) translate(-15px, 12px)'
+];
+
+// Fanned transforms for each frame
+const fannedTransforms = [
+  'rotate(-4deg) translate(-210px, 28px)',
+  'rotate(-2deg) translate(-105px, 12px)',
+  'rotate(0deg) translate(0px, 0px)',
+  'rotate(2deg) translate(105px, 12px)',
+  'rotate(4deg) translate(210px, 28px)'
+];
+
+function fanOut() {
+  if (isFanned) return;
+  isFanned = true;
+  photoFrames.forEach((f, i) => {
+    f.style.transform = fannedTransforms[i];
+    f.style.boxShadow = '0 8px 24px rgba(0,0,0,0.13)';
+  });
+}
+
+function collapse() {
+  isFanned = false;
+  photoFrames.forEach((f, i) => {
+    f.style.transform = restTransforms[i];
+    f.style.boxShadow = '';
+    f.style.zIndex = '';
+  });
+}
 
 if (photoStack) {
-  photoStack.addEventListener('mouseenter', () => photoStack.classList.add('fanned'));
-  photoStack.addEventListener('mouseleave', () => photoStack.classList.remove('fanned'));
+  photoStack.addEventListener('mouseenter', fanOut);
+  photoStack.addEventListener('mouseleave', collapse);
 
   photoFrames.forEach((frame, i) => {
+    frame.addEventListener('mouseenter', () => {
+      if (!isFanned) return;
+      frame.style.transform = `${fannedTransforms[i]} translateY(-20px) scale(1.1)`;
+      frame.style.boxShadow = '0 24px 56px rgba(0,0,0,0.22)';
+      frame.style.zIndex = '10';
+    });
+    frame.addEventListener('mouseleave', () => {
+      if (!isFanned) return;
+      frame.style.transform = fannedTransforms[i];
+      frame.style.boxShadow = '0 8px 24px rgba(0,0,0,0.13)';
+      frame.style.zIndex = '';
+    });
     frame.addEventListener('click', () => openLightbox(i));
   });
 }
