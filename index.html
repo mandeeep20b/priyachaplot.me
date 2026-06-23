@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <link rel="icon" href="favicon.ico" type="image/x-icon">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Priyadarshini Chaplot — Researcher · Guide · Poetry Curator</title>
+<link rel="icon" type="image/x-icon" href="favicon.ico">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=Cabinet+Grotesk:wght@300;400;500;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
 <style>
@@ -161,23 +161,7 @@ nav {
   overflow: hidden;
 }
 
-/* Floating blob backgrounds */
-.blob {
-  position: absolute;
-  border-radius: 60% 40% 70% 30% / 50% 60% 40% 70%;
-  filter: blur(60px);
-  opacity: 0.35;
-  pointer-events: none;
-  animation: blobFloat 12s ease-in-out infinite alternate;
-}
-.blob-1 { width: 500px; height: 400px; background: var(--terracotta-pale); top: -80px; right: -100px; animation-duration: 14s; }
-.blob-2 { width: 350px; height: 300px; background: var(--sage-pale); bottom: 0; left: -80px; animation-duration: 10s; animation-delay: -5s; }
-.blob-3 { width: 250px; height: 250px; background: var(--gold-pale); top: 40%; left: 40%; animation-duration: 18s; animation-delay: -3s; }
-
-@keyframes blobFloat {
-  0% { transform: translate(0,0) scale(1); }
-  100% { transform: translate(30px, 20px) scale(1.08); }
-}
+.hero-text { max-width: none; width: 100%; }
 
 .hero-eyebrow {
   display: inline-flex; align-items: center; gap: 0.6rem;
@@ -209,6 +193,39 @@ nav {
   font-size: 1.05rem; color: var(--muted); line-height: 1.8; max-width: 500px; margin-bottom: 2.5rem;
 }
 .hero-tagline strong { color: var(--ink); font-weight: 500; }
+
+.hero-pills { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-bottom: 2.5rem; justify-content: flex-start; }
+
+.hero-ctas { display: flex; gap: 1rem; flex-wrap: wrap; justify-content: flex-start; }
+
+/* Stack right column */
+.hero-right {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+/* Floating blob backgrounds */
+.blob {
+  position: absolute;
+  border-radius: 60% 40% 70% 30% / 50% 60% 40% 70%;
+  filter: blur(60px);
+  opacity: 0.35;
+  pointer-events: none;
+  animation: blobFloat 12s ease-in-out infinite alternate;
+}
+.blob-1 { width: 500px; height: 400px; background: var(--terracotta-pale); top: -80px; right: -100px; animation-duration: 14s; }
+.blob-2 { width: 350px; height: 300px; background: var(--sage-pale); bottom: 0; left: -80px; animation-duration: 10s; animation-delay: -5s; }
+.blob-3 { width: 250px; height: 250px; background: var(--gold-pale); top: 40%; left: 40%; animation-duration: 18s; animation-delay: -3s; }
+
+@keyframes blobFloat {
+  0% { transform: translate(0,0) scale(1); }
+  100% { transform: translate(30px, 20px) scale(1.08); }
+}
+
+.hero-eyebrow-dot { width: 6px; height: 6px; background: var(--sage); border-radius: 50%; animation: pulse 2s ease-in-out infinite; }
 
 .hero-pills { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-bottom: 2.5rem; }
 .pill {
@@ -243,47 +260,119 @@ nav {
 }
 .btn-outline:hover { border-color: var(--sage); color: var(--sage); transform: translateY(-2px); }
 
-/* HERO RIGHT — Kinetic card */
+/* HERO RIGHT — Photo stack */
 .hero-right { position: relative; display: flex; align-items: center; justify-content: center; }
 
-.persona-card {
-  width: 100%; max-width: 420px;
-  background: var(--warm-white);
-  border: 1.5px solid rgba(26,26,26,0.12);
-  border-radius: 24px;
-  padding: 2rem;
-  box-shadow: 0 20px 60px rgba(0,0,0,0.08);
+.photo-stack-wrap {
   position: relative;
-  z-index: 2;
-  animation: cardFloat 6s ease-in-out infinite;
-}
-@keyframes cardFloat {
-  0%, 100% { transform: translateY(0) rotate(-0.5deg); }
-  50% { transform: translateY(-10px) rotate(0.5deg); }
-}
-.persona-card-back {
-  position: absolute; inset: 0;
-  border-radius: 24px;
-  z-index: 1;
-}
-.pcb-1 { background: var(--terracotta-pale); transform: rotate(3deg) translate(10px, 10px); border: 1.5px solid var(--terracotta); opacity: 0.5; }
-.pcb-2 { background: var(--sage-pale); transform: rotate(-2.5deg) translate(-8px, 14px); border: 1.5px solid var(--sage); opacity: 0.4; }
-
-.persona-initials {
-  width: 64px; height: 64px; border-radius: 50%;
-  background: linear-gradient(135deg, var(--terracotta), var(--plum));
+  width: 380px; height: 340px;
   display: flex; align-items: center; justify-content: center;
-  font-family: var(--serif); font-size: 1.4rem; color: #fff; font-weight: 700;
-  margin-bottom: 1.25rem;
 }
-.persona-name {
-  font-family: var(--serif); font-size: 1.35rem; font-weight: 700; margin-bottom: 0.2rem;
+
+.stack-hint {
+  position: absolute; bottom: -1.75rem; left: 50%; transform: translateX(-50%);
+  font-size: 0.68rem; color: var(--muted); letter-spacing: 0.1em;
+  text-transform: uppercase; white-space: nowrap; opacity: 0.6;
 }
-.persona-title { font-size: 0.8rem; color: var(--muted); margin-bottom: 1.5rem; }
-.persona-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 1.5rem; }
-.persona-tag {
-  font-size: 0.68rem; font-weight: 500; padding: 0.3rem 0.7rem; border-radius: 100px;
+
+.photo-frame {
+  position: absolute;
+  width: 220px;
+  background: #fff;
+  border: 0.5px solid rgba(0,0,0,0.14);
+  border-radius: 12px;
+  padding: 10px 10px 40px;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.10), 0 0 0 0.5px rgba(0,0,0,0.05);
+  cursor: pointer;
+  transition: transform 0.38s cubic-bezier(0.34,1.56,0.64,1),
+              box-shadow 0.3s ease;
+  transform-origin: bottom center;
+  will-change: transform;
 }
+
+.photo-frame img {
+  width: 100%; aspect-ratio: 4/3;
+  object-fit: cover; object-position: center top;
+  display: block; border-radius: 6px;
+}
+
+.photo-frame .frame-label {
+  position: absolute; bottom: 10px; left: 10px; right: 10px;
+  font-size: 0.65rem; color: #888; text-align: center;
+  font-family: var(--sans); white-space: nowrap;
+  overflow: hidden; text-overflow: ellipsis;
+}
+
+.pf-1 { z-index: 5; transform: rotate(-3deg) translate(-20px, 10px); }
+.pf-2 { z-index: 4; transform: rotate(2deg) translate(10px, 5px); }
+.pf-3 { z-index: 3; transform: rotate(-1deg) translate(-5px, 0px); }
+.pf-4 { z-index: 2; transform: rotate(5deg) translate(18px, 8px); }
+.pf-5 { z-index: 1; transform: rotate(-6deg) translate(-15px, 12px); }
+
+.photo-stack-wrap.fanned .pf-1 { transform: rotate(-3deg) translate(-190px, 30px) scale(1.06); z-index: 5; }
+.photo-stack-wrap.fanned .pf-2 { transform: rotate(-1deg) translate(-95px, 12px) scale(1.03); z-index: 4; }
+.photo-stack-wrap.fanned .pf-3 { transform: rotate(0deg) translate(0px, 0px) scale(1.0); z-index: 3; }
+.photo-stack-wrap.fanned .pf-4 { transform: rotate(1deg) translate(95px, 12px) scale(1.03); z-index: 2; }
+.photo-stack-wrap.fanned .pf-5 { transform: rotate(3deg) translate(190px, 30px) scale(1.06); z-index: 1; }
+
+.photo-stack-wrap.fanned .photo-frame:hover {
+  z-index: 10 !important;
+  transform: translateY(-22px) scale(1.13) !important;
+  box-shadow: 0 24px 56px rgba(0,0,0,0.22) !important;
+}
+
+/* Lightbox */
+.stack-lightbox {
+  display: none;
+  position: fixed; inset: 0; z-index: 9999;
+  background: rgba(26,16,21,0.9);
+  align-items: center; justify-content: center;
+  flex-direction: column; gap: 1.25rem;
+}
+.stack-lightbox.open { display: flex; }
+.lb-frame {
+  background: #fff;
+  padding: 12px 12px 48px;
+  border-radius: 16px;
+  position: relative;
+  box-shadow: 0 32px 80px rgba(0,0,0,0.45);
+  transform: rotate(-0.75deg);
+  max-width: 90vw;
+}
+.lb-frame img {
+  display: block; width: 420px; max-width: 85vw;
+  aspect-ratio: 4/3; object-fit: cover;
+  border-radius: 8px;
+}
+.lb-frame-label {
+  position: absolute; bottom: 12px; left: 12px; right: 12px;
+  font-size: 0.72rem; color: #777; text-align: center;
+  font-family: var(--sans);
+}
+.lb-meta { text-align: center; }
+.lb-title { font-family: var(--serif); font-size: 1.15rem; color: #fff; font-weight: 400; margin-bottom: 0.2rem; }
+.lb-sub { font-size: 0.75rem; color: rgba(255,255,255,0.45); letter-spacing: 0.06em; text-transform: uppercase; }
+.lb-close {
+  position: absolute; top: 1.5rem; right: 1.5rem;
+  width: 36px; height: 36px; border-radius: 50%;
+  background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.2);
+  color: #fff; font-size: 1rem; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--sans);
+}
+.lb-close:hover { background: rgba(255,255,255,0.2); }
+.lb-nav {
+  display: flex; gap: 0.75rem;
+}
+.lb-nav-btn {
+  padding: 0.45rem 1.1rem; border-radius: 100px;
+  border: 1px solid rgba(255,255,255,0.2);
+  background: transparent; color: rgba(255,255,255,0.6);
+  font-family: var(--sans); font-size: 0.75rem;
+  font-weight: 500; cursor: pointer; letter-spacing: 0.06em;
+  transition: background 0.2s, color 0.2s;
+}
+.lb-nav-btn:hover { background: rgba(255,255,255,0.12); color: #fff; }
 .persona-divider { height: 1px; background: var(--border); margin: 1.25rem 0; }
 .persona-stat-row { display: flex; gap: 1.25rem; }
 .persona-stat { text-align: center; }
@@ -1021,27 +1110,63 @@ footer {
   </div>
 
   <div class="hero-right">
-    <div class="persona-card-back pcb-1" style="position:absolute;width:380px;height:460px;top:30px;left:30px;border-radius:24px;background:var(--terracotta-pale);border:1.5px solid var(--terracotta);transform:rotate(3deg);opacity:.5;"></div>
-    <div class="persona-card-back pcb-2" style="position:absolute;width:380px;height:460px;top:14px;left:14px;border-radius:24px;background:var(--sage-pale);border:1.5px solid var(--sage);transform:rotate(-2deg);opacity:.4;"></div>
-    <div class="persona-card" style="position:relative;z-index:2;">
-      <div class="persona-initials">PC</div>
-      <div class="persona-name">Priyadarshini Chaplot</div>
-      <div class="persona-title">Independent Consultant · MBA · Brooklyn, NY</div>
-      <div class="persona-tags">
-        <span class="persona-tag" style="background:var(--terracotta-pale);color:var(--terracotta);">Higher Education</span>
-        <span class="persona-tag" style="background:var(--sage-pale);color:var(--sage);">Researcher</span>
-        <span class="persona-tag" style="background:var(--plum-pale);color:var(--plum);">Poetry Curator</span>
-        <span class="persona-tag" style="background:var(--gold-pale);color:var(--gold);">Guide</span>
+    <div class="photo-stack-wrap" id="photoStack">
+      <div class="photo-frame pf-1"
+           data-img="stack1.jpg"
+           data-title="MCing at Brooklyn Conservatory of Music"
+           data-sub="Indian Classical Programming · BKCM">
+        <img src="stack1.jpg" alt="MCing BKCM event">
+        <div class="frame-label">BKCM · Indian Classical</div>
       </div>
-      <div class="persona-divider"></div>
-      <div class="persona-stat-row">
-        <div class="persona-stat"><div class="persona-stat-n">20+</div><div class="persona-stat-l">Years in Higher Ed</div></div>
-        <div class="persona-stat"><div class="persona-stat-n">500+</div><div class="persona-stat-l">Colleges Served</div></div>
-        <div class="persona-stat"><div class="persona-stat-n">45</div><div class="persona-stat-l">States Reached</div></div>
+      <div class="photo-frame pf-2"
+           data-img="stack2.jpg"
+           data-title="Speaking at the AIR Conference"
+           data-sub="Higher Education Research · National Conference">
+        <img src="stack2.jpg" alt="Speaking at AIR Conference">
+        <div class="frame-label">AIR Conference · Speaker</div>
+      </div>
+      <div class="photo-frame pf-3"
+           data-img="stack3.jpg"
+           data-title="Birding Tour at the Brooklyn Museum"
+           data-sub="Brooklyn Museum · Docent & Guide">
+        <img src="stack3.jpg" alt="Birding at the Museum Tour">
+        <div class="frame-label">Brooklyn Museum · Birding Tour</div>
+      </div>
+      <div class="photo-frame pf-4"
+           data-img="stack4.jpg"
+           data-title="Jane's Walk Tour 2026"
+           data-sub="Eastern Parkway · MAS NYC · Annual Walk">
+        <img src="stack4.jpg" alt="Janes Walk Tour 2026">
+        <div class="frame-label">Jane's Walk · 2026</div>
+      </div>
+      <div class="photo-frame pf-5"
+           data-img="stack5.jpg"
+           data-title="Brooklyn Botanic Garden Tour"
+           data-sub="Volunteer Guide · Brooklyn Botanic Garden">
+        <img src="stack5.jpg" alt="Brooklyn Botanic Garden Tour">
+        <div class="frame-label">Brooklyn Botanic Garden</div>
       </div>
     </div>
+    <div class="stack-hint">hover to browse · click to open</div>
   </div>
 </section>
+
+<!-- LIGHTBOX — lives outside section so it can go full screen -->
+<div class="stack-lightbox" id="stackLightbox">
+  <button class="lb-close" id="lbClose">✕</button>
+  <div class="lb-frame">
+    <img id="lbImg" src="" alt="">
+    <div class="lb-frame-label" id="lbFrameLabel"></div>
+  </div>
+  <div class="lb-meta">
+    <div class="lb-title" id="lbTitle"></div>
+    <div class="lb-sub" id="lbSub"></div>
+  </div>
+  <div class="lb-nav">
+    <button class="lb-nav-btn" id="lbPrev">← Prev</button>
+    <button class="lb-nav-btn" id="lbNext">Next →</button>
+  </div>
+</div>
 
 <!-- MARQUEE STRIP -->
 <div class="marquee-strip">
@@ -1234,7 +1359,7 @@ footer {
           <div class="interest-icon" style="background:linear-gradient(135deg,#b5451b,#002D72);color:#fff;font-size:0.6rem;font-weight:700;letter-spacing:0.05em;text-transform:uppercase;width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">BKCM</div>
           <div>
             <div class="interest-title">Indian Classical Programming · <a href="https://www.bkcm.org" target="_blank" style="color:var(--terracotta);text-decoration:none;border-bottom:1px solid var(--terracotta);">Brooklyn Conservatory of Music</a></div>
-            <p class="interest-body">Priya works closely with BKCM helping manage and shape their Indian Classical music programming — intimate concerts, workshops, and celebrations of Diwali, Holi, and other cultural milestones throughout the year. A natural extension of her Brooklyn roots, her South Asian heritage, and her son's four-year journey as a piano student at the school.</p>
+            <p class="interest-body">Priya serves in a contract role with BKCM helping project manage and shape their Indian Classical music programming — intimate concerts, workshops, and celebrations of Diwali, Holi, and other cultural milestones throughout the year. A natural extension of her Brooklyn roots, her South Asian heritage, and her son's four-year journey as a piano student at the school.</p>
           </div>
         </div>
       </div>
@@ -1494,6 +1619,66 @@ footer {
 </footer>
 
 <script>
+// ── PHOTO STACK ──
+const photoStack = document.getElementById('photoStack');
+const stackLightbox = document.getElementById('stackLightbox');
+const lbClose = document.getElementById('lbClose');
+const lbImg = document.getElementById('lbImg');
+const lbFrameLabel = document.getElementById('lbFrameLabel');
+const lbTitle = document.getElementById('lbTitle');
+const lbSub = document.getElementById('lbSub');
+const lbPrev = document.getElementById('lbPrev');
+const lbNext = document.getElementById('lbNext');
+const photoFrames = Array.from(document.querySelectorAll('.photo-frame'));
+let currentLbIndex = 0;
+
+if (photoStack) {
+  photoStack.addEventListener('mouseenter', () => photoStack.classList.add('fanned'));
+  photoStack.addEventListener('mouseleave', () => photoStack.classList.remove('fanned'));
+
+  photoFrames.forEach((frame, i) => {
+    frame.addEventListener('click', () => openLightbox(i));
+  });
+}
+
+function openLightbox(index) {
+  currentLbIndex = index;
+  const frame = photoFrames[index];
+  lbImg.src = frame.dataset.img;
+  lbImg.alt = frame.querySelector('img').alt;
+  lbFrameLabel.textContent = frame.querySelector('.frame-label').textContent;
+  lbTitle.textContent = frame.dataset.title;
+  lbSub.textContent = frame.dataset.sub;
+  stackLightbox.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeLightbox() {
+  stackLightbox.classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+if (lbClose) lbClose.addEventListener('click', closeLightbox);
+if (stackLightbox) {
+  stackLightbox.addEventListener('click', e => {
+    if (e.target === stackLightbox) closeLightbox();
+  });
+}
+if (lbPrev) lbPrev.addEventListener('click', () => {
+  currentLbIndex = (currentLbIndex - 1 + photoFrames.length) % photoFrames.length;
+  openLightbox(currentLbIndex);
+});
+if (lbNext) lbNext.addEventListener('click', () => {
+  currentLbIndex = (currentLbIndex + 1) % photoFrames.length;
+  openLightbox(currentLbIndex);
+});
+document.addEventListener('keydown', e => {
+  if (!stackLightbox.classList.contains('open')) return;
+  if (e.key === 'Escape') closeLightbox();
+  if (e.key === 'ArrowLeft') lbPrev.click();
+  if (e.key === 'ArrowRight') lbNext.click();
+});
+
 // ── MOBILE NAV ──
 const hamburger = document.getElementById('hamburger');
 const drawer = document.getElementById('nav-drawer');
