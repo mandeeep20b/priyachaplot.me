@@ -181,19 +181,8 @@ nav {
 .film-row-inner {
   display: flex;
   align-items: center;
-  animation: filmScroll linear infinite;
   will-change: transform;
-}
-.film-row:nth-child(1) .film-row-inner { animation-name: filmScroll; animation-duration: 90s; }
-.film-row:nth-child(2) .film-row-inner { animation-name: filmScrollReverse; animation-duration: 72s; }
-.film-row:nth-child(3) .film-row-inner { animation-name: filmScroll; animation-duration: 110s; animation-delay: -20s; }
-@keyframes filmScroll {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
-}
-@keyframes filmScrollReverse {
-  0% { transform: translateX(-50%); }
-  100% { transform: translateX(0); }
+  /* animation removed — JS requestAnimationFrame drives movement for reliable click detection */
 }
 .film-frame {
   flex-shrink: 0;
@@ -202,10 +191,15 @@ nav {
   border: 3px solid #fff;
   cursor: pointer;
   pointer-events: all;
-  transition: opacity 0.2s, transform 0.2s;
+  transition: transform 0.25s ease;
 }
 .film-frame:hover { transform: scale(1.05); }
-.film-row:has(.film-frame:hover) { opacity: 0.75 !important; transition: opacity 0.3s ease; }
+.film-row {
+  display: flex;
+  align-items: center;
+  opacity: 0.19;
+  transition: opacity 0.3s ease;
+}
 .film-frame img {
   display: block;
   width: 100%; height: 100%;
@@ -1743,53 +1737,123 @@ const PHOTOS = [
   { src: 'stack5.jpg', title: 'Brooklyn Botanic Garden Tour',             sub: 'Volunteer Guide · Brooklyn Botanic Garden' },
 ];
 
-// Irregular gaps — min ~2 frame widths, max ~4 frame widths, randomized per row
-// Frame widths: row0=173px, row1=147px, row2=160px
+// Irregular gaps — min ~2 frame widths, max ~4 frame widths
 const gapSets = [
   [380, 520, 350, 680, 410, 600, 360, 700, 440, 550],
   [310, 480, 620, 330, 580, 290, 650, 370, 500, 340],
   [420, 560, 300, 690, 380, 510, 640, 320, 470, 590],
 ];
 
-// Frame heights per row
 const rowHeights = [130, 110, 120];
+
+// Speed in px/second — negative = right to left, positive = left to right
+// Speed 2 setting from slider ≈ slow drift
+const rowSpeeds = [-38, 48, -32];
 
 let stripPaused = false;
 let currentLbIndex = 0;
+
+// Track offsets per row
+const rowOffsets = [0, 0, 0];
+const rowInners = [];
+const rowTotalWidths = [0, 0, 0];
 
 function buildRow(containerId, rowIndex) {
   const container = document.getElementById(containerId);
   if (!container) return;
   const h = rowHeights[rowIndex];
   const gaps = gapSets[rowIndex];
-  // Build two copies for seamless loop
+  let totalW = 0;
+
+  // Build two identical copies for seamless looping
   [0, 1].forEach(() => {
     PHOTOS.forEach((p, pi) => {
-      // Add spacer before frame
+      const gap = gaps[pi % gaps.length];
       const spacer = document.createElement('div');
-      spacer.style.flexShrink = '0';
-      spacer.style.width = gaps[pi % gaps.length] + 'px';
+      spacer.style.cssText = `flex-shrink:0;width:${gap}px;height:${h}px;`;
       container.appendChild(spacer);
+      totalW += gap;
 
+      const fw = Math.round(h * 4 / 3);
       const frame = document.createElement('div');
       frame.className = 'film-frame';
-      frame.style.width = Math.round(h * 4 / 3) + 'px';
-      frame.style.height = h + 'px';
+      frame.style.cssText = `width:${fw}px;height:${h}px;`;
       frame.dataset.index = pi;
+
       const img = document.createElement('img');
       img.src = p.src;
       img.alt = p.title;
       img.loading = 'lazy';
       frame.appendChild(img);
+
+      // Hover — brighten entire row
+      frame.addEventListener('mouseenter', () => {
+        container.parentElement.style.opacity = '0.78';
+      });
+      frame.addEventListener('mouseleave', () => {
+        container.parentElement.style.opacity = '0.19';
+      });
+
       frame.addEventListener('click', () => openFilmLightbox(pi));
       container.appendChild(frame);
+      totalW += fw;
     });
   });
+
+  // Half width = one complete set — used for loop reset
+  rowTotalWidths[rowIndex] = totalW / 2;
+  rowInners[rowIndex] = container;
 }
 
 buildRow('frow1', 0);
 buildRow('frow2', 1);
 buildRow('frow3', 2);
+
+// Stagger starting offsets so rows look different on load
+rowOffsets[0] = 0;
+rowOffsets[1] = rowTotalWidths[1] * 0.4;
+rowOffsets[2] = rowTotalWidths[2] * 0.7;
+
+// Apply initial positions
+rowInners.forEach((r, i) => {
+  if (r) r.style.transform = `translateX(${-rowOffsets[i]}px)`;
+});
+
+let lastTime = null;
+
+function animateStrip(timestamp) {
+  if (!lastTime) lastTime = timestamp;
+  const delta = (timestamp - lastTime) / 1000; // seconds
+  lastTime = timestamp;
+
+  if (!stripPaused) {
+    rowOffsets.forEach((offset, i) => {
+      if (!rowInners[i]) return;
+      const halfW = rowTotalWidths[i];
+      if (!halfW) return;
+
+      let newOffset = offset + rowSpeeds[i] * delta;
+
+      // Loop: when we've scrolled one full set width, reset seamlessly
+      if (rowSpeeds[i] < 0) {
+        // Moving left — reset when offset exceeds half width
+        if (newOffset >= halfW) newOffset -= halfW;
+        if (newOffset < 0) newOffset += halfW;
+      } else {
+        // Moving right — reset when offset goes below 0
+        if (newOffset <= 0) newOffset += halfW;
+        if (newOffset >= halfW) newOffset -= halfW;
+      }
+
+      rowOffsets[i] = newOffset;
+      rowInners[i].style.transform = `translateX(${-newOffset}px)`;
+    });
+  }
+
+  requestAnimationFrame(animateStrip);
+}
+
+requestAnimationFrame(animateStrip);
 
 // Lightbox
 const filmLightbox = document.getElementById('stackLightbox');
@@ -1800,14 +1864,9 @@ const lbTitle = document.getElementById('lbTitle');
 const lbSub = document.getElementById('lbSub');
 const lbPrev = document.getElementById('lbPrev');
 const lbNext = document.getElementById('lbNext');
-const filmRows = document.querySelectorAll('.film-row-inner');
 
-function pauseStrip() {
-  filmRows.forEach(r => r.style.animationPlayState = 'paused');
-}
-function resumeStrip() {
-  filmRows.forEach(r => r.style.animationPlayState = 'running');
-}
+function pauseStrip() { stripPaused = true; }
+function resumeStrip() { stripPaused = false; }
 
 function openFilmLightbox(index) {
   currentLbIndex = index;
